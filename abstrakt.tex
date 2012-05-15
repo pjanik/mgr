@@ -1,0 +1,32 @@
+\begin{abstract}
+
+Celem niniejszej pracy było stworzenie wydajnej symulacji dynamiki płynów oraz przewodnictwa
+cieplnego działającej w środowisku przeglądarki internetowej. Aplikacja ma charakter edukacyjny, a
+jej głównym zadaniem jest wspieranie użytkownika w dogłębnym zrozumieniu procesu transferu energii,
+w tym zjawisk takich jak przewodnictwo cieplne, konwekcja czy różnorodne przepływy gazów i cieczy.
+Projekt został zrealizowany przy współpracy \mbox{z The Concord Consortium}, amerykańską organizacją
+\mbox{non-profit} zajmującą się wspieraniem edukacji poprzez technologię.
+
+Implementacja symulatora w przeglądarce internetowej była niezwykle istotna ze względu na jego
+edukacyjne zastosowanie -- kluczowym wymaganiem była dostępność dla jak najszerszego grona
+użytkowników, przenośność, wieloplatformowość oraz możliwość łatwego osadzania w wirtualnych
+podręcznikach szkolnych nowej generacji.
+Z drugiej strony, o jakości symulacji fizycznej w dużej mierze decyduje jej wydajność czyli
+efektywne wykorzystanie zasobów. Do niedawna stało to w sprzeczności z implementacją w języku
+\emph{JavaScript} oraz wykonywaniem w środowisku przeglądarki internetowej.
+
+Realizacja tych pozornie wykluczających się wymagań została osiągnięta dzięki implementacji
+uwzględniającej budowę i ograniczenia silników \emph{JavaScript} w nowoczesnych przeglądarkach oraz
+dzięki przeniesieniu większości obliczeń na procesor karty graficznej wykorzystując technologię
+\emph{WebGL}. Jest to podejście nowatorskie, gdyż dopiero wraz z niedawnym rozpowszechnieniem się
+standardu \emph{HTML5} zasoby kart graficznych stały się dostępne dla aplikacji internetowych w tak
+szerokim zakresie.
+
+W pracy zostały przedstawione najważniejsze, nowoczesne techniki umożliwiające tworzenie wydajnych,
+równoległych aplikacji działających w przeglądarce internetowej z wykorzystaniem języka
+\emph{JavaScript} oraz technologii \emph{WebGL}. Szczegółowo zostały również opracowanie rezultaty
+oraz korzyści płynące ze zrównoleglenia symulacji fizycznej. W efekcie powstał wydajny symulator,
+który dzięki swojej dostępności oraz jakości może mieć niezwykle szeroki wpływ na edukację i
+zrozumienie fizyki przez użytkowników na różnych etapach procesu kształcenia.
+
+\end{abstract}
