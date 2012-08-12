@@ -134,26 +134,25 @@ współczesnych urządzeń ([TODO: wspomnieć o rozdziale z testami]).
 
 Niezwykle ważną kwestią jest organizacja danych w teksturze. Jest sporo
 możliwości ponieważ tekstura z zasady nie jest wierną kopią dwuwymiarowej
-tablicy JavaScript, a obiektem przystosowanym do przechowywania obrazów. Stąd
-posiada na przykład kanały kolorów. Programista ma jednak możliwość
-konfiguracji, stąd można rozważyć kilka potencjalnych sposób na organizację
-danych.
+tablicy JavaScript, a obiektem przystosowanym do przechowywania obrazów (posiada
+na przykład kanały kolorów). Dlatego też można rozważyć kilka potencjalnych
+sposobów na rozmieszczenie danych.
 
 \begin{itemize}
 
-\item Schemat 1. -- tekstury jednokanałowe (format ALPHA lub LUMINANCE), jedna
+\item Schemat 1 -- tekstury jednokanałowe (format ALPHA lub LUMINANCE), jedna
 tekstura odpowiada jednej tablicy JavaScript. Dalej nazywany schematem
 \textbf{A1} na potrzeby niniejszego opracowania.
 
-\item Schemat 2. -- tekstury czterokanałowe (format RGBA), dane tylko w jednym
+\item Schemat 2 -- tekstury czterokanałowe (format RGBA), dane tylko w jednym
 kanale, jedna tekstura odpowiada jednej tablicy JavaScript. Dalej nazywany
 schematem \textbf{RGBA1} na potrzeby niniejszego opracowania.
 
-\item Schemat 3. -- tekstury czterokanałowe (format RGBA) dane w każdym z
+\item Schemat 3 -- tekstury czterokanałowe (format RGBA), dane w każdym z
 kanałów, jedna tekstura odpowiada czterem tablicom JavaScript. Dalej nazywany
 schematem \textbf{RGBA4} na potrzeby niniejszego opracowania.
 
-\item Schemat 4. -- tekstury czterokanałowe (format RGBA), dane w każdym z
+\item Schemat 4 -- tekstury czterokanałowe (format RGBA), dane w każdym z
 kanałów, jedna tekstura odpowiada jednej tablicy JavaScript, rozmiar tekstury
 zredukowany czterokrotnie, gdyż każdy kanał odpowiada jednej ćwiartce tablicy.
 Dalej nazywany schematem \textbf{RGBA1/4} na potrzeby niniejszego opracowania.
@@ -176,9 +175,14 @@ schemat A1. Umożliwia on przeniesienie danych z tablic w relacji 1:1 do tekstur
 Do tego, każdy odczyt czy zapis do tekstury dotyczy tylko jednego kanału.
 Niestety, na większości urządzeń nie ma możliwości dołączenia tekstury typu
 ALPHA lub LUMINANCE do własnego obiektu bufora ramki (ang. FrameBuffer Object)
--- czyli renderowania do takiej tekstury. Wyklucza to możliwość użycia tego
-rozwiązania mimo oczywistych zalet. Być może w przyszłości rozwój specyfikacji
-WebGL na to pozwoli.
+-- czyli renderowania do takiej tekstury \footnote{Testy zostały przeprowadzone
+na systemie Linux (Ubuntu 12.04) i przeglądarce Google Chrome w wersji 22, która
+korzysta z natywnego sterownika OpenGL. Natomiast na tej samej konfiguracji
+sprzętowej, ale działającej pod kontrolą systemu Windows nie udałoby się
+uruchomić aplikacji. Podobnie w przypadku równie popularnego systemu
+operacyjnego OS X.}. Wyklucza to możliwość użycia tego rozwiązania mimo
+oczywistych zalet. Być może w przyszłości rozwój specyfikacji WebGL na to
+pozwoli.
 
 Warto tutaj nadmienić, że specyfikacja WebGL (\cite{WebGLSpec}) nie gwarantuje,
 iż jakikolwiek z formatów tekstur zmiennoprzecinkowych będzie zaakceptowany jako
@@ -263,5 +267,5 @@ rezultaty pod względem wydajności. Symulacja okazała się być wolniejsza oko
 34\% od symulacji korzystającej ze schematu RGBA4.
 
 Dlatego też, ostatecznie w Energy2D zastosowano schemat RGBA4. Zapewnia on
-stosunkowo dobrą wydajność oraz wsparcie przez większość dostępnych obecnie
-urządzeń.
+najlepszy kompromis pomiędzy dobrą wydajnością oraz wsparciem przez większość
+dostępnych obecnie urządzeń.
