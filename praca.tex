@@ -7,6 +7,11 @@
 % dodatkowe pakiety
 \usepackage{enumerate}
 \usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.96,.96,.96}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
 \lstloadlanguages{TeX}
 
 \lstset{
@@ -30,6 +35,36 @@
            {Ż}{{\.Z}}1
 }
 
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=4,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
 %---------------------------------------------------------------------------
 
 \author{Piotr Janik}
@@ -76,7 +111,8 @@
 	\section{Motywacja}
 	\section{Cel pracy}
 	\section{Organizacja dokumentu}
-	
+
+\include{rozdzial1}	
 	
 \chapter{Symulacja dynamiki płynów i przewodnictwa cieplnego jako wartościowe narzędzie edukacyjne}
 	\section{Zastosowanie oraz wpływ na edukację}
@@ -116,12 +152,12 @@
 		\subsection{Niskopoziomowe przenoszenie obliczeń na procesor karty graficznej}		
 
 \chapter{Implementacja symulatora w środowisku przeglądarki internetowej}
-	\section{Architektura}
-		\subsection{Wzorzec Model-View-Controller}
-		\subsection{Zgodność ze środowiskiem Node.js oraz przeglądarką internetową}
-		\subsection{Przegląd najistotniejszych jednostek symulatora}
+	\section{Architektura - wzorzec Model-View-Controller}
+	\section{Zgodność ze środowiskiem Node.js oraz przeglądarką internetową}
+	\section{Przegląd najistotniejszych jednostek symulatora}
 	\section{Optymalizacje pod kątem współczesnych interpreterów JavaScript}
-	\section{Sposób zrównoleglenia silników fizycznych}
+
+\include{rozdzial2}
 	
 \chapter{Ocena systemu}
 	\section{Realizacja kluczowych wymagań}
