@@ -51,7 +51,6 @@
 
 %\bibliographystyle{abbrv}
 \linespread{1.3}
-\renewcommand{\labelitemi}{--}
 
 %------------------------------------------------------------------------------
 
