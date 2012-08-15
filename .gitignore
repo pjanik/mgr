@@ -1,0 +1,12 @@
+/tmp
+*.pdf
+*.aux
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.bbl
+*.blg
+*.log
+*.sublime-project
+*.sublime-workspace
