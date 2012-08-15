@@ -133,7 +133,7 @@ to możliwe:
 
 Pierwszy warunek spełniają wszystkie algorytmy, jako że obliczenia są wykonywane
 na prostokątnych siatkach symulacyjnych. Można je reprezentować w pamięci karty
-graficznej pod postacią dwuwymiarowych tekstur. Temat organizacji danych w
+graficznej przy użyciu dwuwymiarowych tekstur. Temat organizacji danych w
 pamięci GPU oraz związane z tym problemy porusza sekcja \ref{sec:orgDanychWGPU}.
 
 Drugi warunek nie został spełniony przez wszystkie zastosowane algorytmy.
@@ -208,24 +208,46 @@ Uproszczony schemat relaksacji metodą \ow{Jacobiego} na GPU prezentuje algorytm
 \end{algorithmic}
 \end{algorithm}
 
+\begin{figure}[!p]
+\centering
+
+\includegraphics[width=.45\textwidth]{img/linSolvCPU5}
+\caption{Symulacja przy użyciu metody Gaussa-Seidela na CPU, 
+5 kroków relaksacji}
+\label{fig:linSolvCPU5}
+
+\includegraphics[width=.45\textwidth]{img/linSolvGPU5}
+\caption{Symulacja przy użyciu metody Jacobiego na GPU, 
+5 kroków relaksacji}
+\label{fig:linSolvGPU5}
+
+\includegraphics[width=.45\textwidth]{img/linSolvGPU10}
+\caption{Symulacja przy użyciu metody Jacobiego na GPU, 
+10 kroków relaksacji}
+\label{fig:linSolvGPU10}
+
+\end{figure}
+
 Oczywiście zmiana algorytmu rozwiązywania równań liniowych niesie ze sobą pewne
 konsekwencje. Inna jest konwergencja tych dwóch algorytmów. Metoda \ow{Gaussa-
 Seidela} jest szybciej zbieżna niż metoda \ow{Jacobiego}. Efekty symulacji dla
 różnej konfiguracji algorytmów rozwiązywania układów równań liniowych prezentują
-rysunki \ref{fig:rel1}, \ref{fig:rel2} oraz \ref{fig:rel3}. 
+rysunki \ref{fig:linSolvCPU5}, \ref{fig:linSolvGPU5} oraz \ref{fig:linSolvGPU10}. 
 
-
-
-Dlatego też w przypadku implementacji równoległej należy wykonać więcej kroków
-relaksacji. Wartość ta została ustalona empirycznie, tak aby wyniki symulacji
-przy użyciu tych dwóch algorytmów były jak najbardziej do siebie zbliżone. Jest
-to niezbędne, jako, że wersja równoległa aplikacji \en ma być w pełni zgodnym i
-kompatybilnym rozszerzeniem wersji podstawowej napisanej w języku
-\ow{JavaScript}. W praktyce okazało się, że niezbędne jest zwiększenie kroków
-relaksacji z pięciu do dziesięciu. Oczywiście wiąże się to ze spowolnieniem
-symulacji, jednak w żadnym wypadku nie neguje opłacalności przeniesienia
-obliczeń na kartę graficzną -- relaksacja na GPU jest wciąż dużo szybszych niż
-na CPU mimo konieczności wykonania dwukrotnie większej liczby kroków.
+Na ww. rysunkach można zaobserwować wyraźne różnice w rezultatach symulacji.
+Oczekiwanym wynikiem było powstane wiru Kármána dla większej przeszkody. W
+przypadku implementacji równoległej metody \ow{Jacobiego} widać, iż porządany
+efekt symulacji zostaje utracony. Dlatego też należy wykonać więcej kroków
+relaksacji. Okazało się, że wartością wystarczającą jest dziesięć. Wartość ta
+została ustalona empirycznie, tak aby wyniki symulacji odpowiadały
+oczekiwaniom oraz i były jak najbardziej zbliżone do rezelutatów sekwencyjnych
+silików fizycznych. Jest to niezbędne, ponieważ wersja równoległa aplikacji
+\en powinna być w pełni zgodnym i kompatybilnym rozszerzeniem wersji
+podstawowej (sekwencyjnej, napisanej bez użycia technologii \ow{WebGL}).
+Oczywiście wiąże się to ze spowolnieniem symulacji, jednak w żadnym wypadku
+nie neguje opłacalności przeniesienia obliczeń na kartę graficzną --
+relaksacja na GPU jest wciąż dużo szybszych niż na CPU mimo konieczności
+wykonania dwukrotnie większej liczby kroków.
 
 Istnieją również implementacje algorytmu \ow{Gaussa-Seidela} na maszyny
 równoległe. Nie są to dokładne kopie wersji sekwencyjnej, lecz imitują
@@ -233,10 +255,11 @@ obliczanie nowych wartości komórek na podstawie wartości z kroku relaksacji
 poprzedniego i aktualnego. Doskonałe opracowanie zagadnień algorytmów
 rozwiązujących układy równań liniowych na CPU oraz GPU, które okazało się
 niezwykle przydatne podczas implementacji równoległych algorytmów dla \en,
-zostało przygotowane przez G. Amadora oraz A. Gomesa \cite{LinSolvers}. Niestety
-niskopoziomowa implementacja algorytmu \ow{Gaussa-Seidela} na GPU wymaga
-wykonania dwóch cyklów renderowania dla jednego kroku relaksacji -- powoduje to
-narzut czasowy, który w efekcie niweczy zysk z szybszej konwergencji algorytmu.
+zostało przygotowane przez G. Amadora oraz A. Gomesa \cite{LinSolvers}.
+Niestety niskopoziomowa implementacja algorytmu \ow{Gaussa-Seidela} na GPU
+wymaga wykonania dwóch procesów renderowania do tekstury dla jednego kroku
+relaksacji -- powoduje to narzut czasowy, który w efekcie niweczy zysk z
+szybszej konwergencji algorytmu.
 
 \subsection{Podstawowy zarys implementacji}
 
