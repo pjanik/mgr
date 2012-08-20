@@ -506,7 +506,7 @@ obrazuje diagram \ref{fig:rgba4Tex}.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=.9\textwidth]{img/rgba4Tex}
+\includegraphics[width=.65\textwidth]{img/rgba4Tex}
 \caption{Schemat organizacji danych z czterech macierzy w jednej teksturze}
 \label{fig:rgba4Tex}
 \end{figure}
@@ -524,17 +524,17 @@ temperaturze lub kanały zawierające komponenty wektorów prędkości). Mimo ni
 końca optymalnego ułożenia kanałów, schemat RGBA4 okazał się wydajniejszy około
 54\% od RGBA1.
 
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.65\textwidth]{img/rgba14Tex}
+\caption{Schemat organizacji danych macierzy NxN w teksturze (N/2)x(N/2)}
+\label{fig:rgba14Tex}
+\end{figure}
+
 Ciekawą organizacją danych może wydawać się również pomysł przedstawiony w
 schemacie RGBA1/4. Pozwala przechowywać tablicę JavaScript o wymiarach \ow{NxN}
 w teksturze o wymiarach \ow{(N/2)x(N/2)}. Pomysł ten obrazuje diagram
 \ref{fig:rgba14Tex}.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=.9\textwidth]{img/rgba14Tex}
-\caption{Schemat organizacji danych macierzy NxN w teksturze (N/2)x(N/2)}
-\label{fig:rgba14Tex}
-\end{figure}
 
 Taki układ danych teoretycznie posiada sporo zalet jak w przypadku użycia
 tekstur jednokanałowych. Jednak znacznie zmniejsza on czytelność kodu i
