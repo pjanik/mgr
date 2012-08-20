@@ -1,4 +1,4 @@
-\documentclass[pdflatex,11pt]{aghdpl}
+\documentclass[pdflatex,12pt]{aghdpl}
 % \documentclass{aghdpl}               % przy kompilacji programem latex
 % \documentclass[pdflatex,en]{aghdpl}  % praca w języku angielskim
 \usepackage[polish]{babel}
@@ -170,7 +170,7 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 }
 
 \usepackage{hyperref}
-\hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black, pdftex}
+\hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
 
 \newcommand{\ow}[1]{\emph{\mbox{#1}}}
 \newcommand{\en}{\emph{\mbox{Energy2D }}}
@@ -182,13 +182,13 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 \titlePL{Wydajna symulacja dynamiki płynów i~przewodnictwa cieplnego w~środowisku przeglądarki internetowej}
 \titleEN{Efficient Simulation of Fluid Dynamics and Heat Transfer in~the~Web~Browser Environment}
 
-\shorttitlePL{Wydajna symulacja dynamiki płynów i przewodnictwa cieplnego w przeglądarce internetowej} % skrócona wersja tytułu jeśli jest bardzo długi
+\shorttitlePL{Wydajna symulacja dynamiki płynów i~przewodnictwa cieplnego w~środowisku przeglądarki internetowej} % skrócona wersja tytułu jeśli jest bardzo długi
 \shorttitleEN{Efficient Simulation of Fluid Dynamics and Heat Transfer in the Web Browser Environment}
 
 \thesistypePL{Praca magisterska}
 \thesistypeEN{Master of Science Thesis}
 
-\supervisorPL{prof. dr hab. inż. Witold Dzwinel}
+\supervisorPL{\mbox{prof. dr hab. inż. Witold Dzwinel}}
 \supervisorEN{Witold Dzwinel, Prof.}
 
 \date{2012}
@@ -243,14 +243,14 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 	\section{Przegląd najistotniejszych jednostek symulatora}
 
 \include{rozdzial2}
-	
+
 \chapter{Ocena systemu}
+\label{cha:ocena}
 	\section{Realizacja kluczowych wymagań}
 	\section{Ocena dostępności aplikacji dla potencjalnych użytkowników}
 		\subsection{Wpływ posiadanej konfiguracji sprzętowej i oprogramowania na symulator}
 	\section{Modelowanie wybranych zjawisk fizycznych jako testy jakościowe symulatora}
 	\section{Testy wydajnościowe}
-		\subsection{Porównanie wydajności z symulatorem Energy2D opartym o platformę Java}
 		\subsection{Zysk wydajności wynikający z przeniesienia obliczeń na GPU}
 	\section{Wpływ optymalizacji i równoległości na jakość symulacji}
 	\section{Podsumowanie oceny}

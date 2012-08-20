@@ -11,8 +11,8 @@ procesorze karty graficznej. Informacje te mogą być szczególnie użyteczne pr
 próbach podobnych optymalizacji innych aplikacji.
 
 Dzięki przeniesieniu obliczeń fizycznych na GPU uzyskano istotny wzrost
-wydajności. Dokładna analiza zysków ze zrównoleglenia symulacji jest tematyką
-kolejnego rozdziału [TODO: podać dokładny rozdział].
+wydajności. Dokładna analiza zysków ze zrównoleglenia symulacji jest przedstawiona
+w rozdziale \ref{cha:ocena}.
 
 \section{Typowe metody przenoszenia obliczeń na GPU, a przeglądarka internetowa}
 
@@ -49,6 +49,24 @@ na procesorze karty graficznej. Programista w swoisty sposób ,,oszukuje'' kart�
 graficzną, przeprowadzając renderowanie prostej geometrii wyłącznie w celu
 uruchomienia własnych programów jednostek cieniujących, które wykonują
 obliczenia często nie mające nic wspólnego z generowaniem obrazu.
+
+W przypadku technologii \ow{WebGL}, która posłużyła do zaimplementowania
+silników fizycznych \en, diagram potoku renderowania prezentuje rysunek
+\ref{fig:WebGLPipeline}. Zielonym kolorem zostały oznaczone procesy, które są
+programowalne. Są to dwa rodzaje programów jednostek cieniujących --
+wierzchołków oraz fragmentów. Nie ma możliwości bezpośredniego sterowania
+pozostałymi procesami. Odbywają się one automatycznie, ewentualnie możliwa jest
+konfiguracja pewnych parametrów. Dlatego też cały algorytm przeznaczony do
+zrównoleglenia musi zostać zapisany wyłącznie przy użyciu programów wierzchołków
+oraz fragmentów. Ponadto dane powinny się znajdować w pamięci karty graficznej,
+najczęściej w postaci dwuwymiarowych tekstur.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\textwidth]{img/WebGLPipeline}
+\caption{Diagram potoku renderowania \ow{WebGL} / \ow{OpenGL 3.x}}
+\label{fig:WebGLPipeline}
+\end{figure}
 
 Takie podejście jednak jest wymagające i obarczone pewnymi problemami. Łatwo
 popełnić błędy, wymagana jest też przynajmniej podstawowa wiedza o programowaniu
@@ -131,6 +149,14 @@ to możliwe:
 
 \end{itemize}
 
+Jeżeli kryteria te są spełnione, powinna istnieć możliwość zaimplementowania
+algorytmu w sposób równoległy. Oczywiście zmienia się strona techniczna, użyte
+rozwiązania, język programowania oraz techniki, jednak sama koncepcja
+algorytmu i główne kroki powinny pozostać bez większych zmian. Problem pojawia
+się wtedy, gdy któryś z algorytmów nie spełnia jednego z tych kryteriów. W
+takim przypadku konieczne są gruntowne modyfikacje lub rezygnacja z
+implementacji takiego algorytmu.
+
 Pierwszy warunek spełniają wszystkie algorytmy, jako że obliczenia są wykonywane
 na prostokątnych siatkach symulacyjnych. Można je reprezentować w pamięci karty
 graficznej przy użyciu dwuwymiarowych tekstur. Temat organizacji danych w
@@ -189,11 +215,11 @@ Uproszczony schemat tej relaksacji prezentuje algorytm \ref{alg:JacobiCPU}.
 \end{algorithmic}
 \end{algorithm}
 
-Taki algorytm można już przetworzyć na wersję równoległą. Jedyną różnicą jest
-zamiana macierzy $x$ oraz $temp$ na tekstury. Również, w celach wydajnościowych
-zawartość tekstur nie jest przepisywana tylko tekstury są zamieniane.
-Uproszczony schemat relaksacji metodą \ow{Jacobiego} na GPU prezentuje algorytm
-\ref{alg:JacobiGPU}.
+Taki algorytm można już przetworzyć na wersję równoległą. Macierze $x$ oraz
+$temp$  zostają zamienione na odpowiednie tekstury. Również, w celach
+wydajnościowych zawartość tekstur nie jest przepisywana tylko zamieniane są
+ich referencje. Uproszczony schemat relaksacji metodą \ow{Jacobiego} na GPU
+prezentuje algorytm \ref{alg:JacobiGPU}.
 
 \begin{algorithm}[H]
   \caption{Relaksacja metodą Jacobiego na GPU}
@@ -228,26 +254,27 @@ Uproszczony schemat relaksacji metodą \ow{Jacobiego} na GPU prezentuje algorytm
 
 \end{figure}
 
-Oczywiście zmiana algorytmu rozwiązywania równań liniowych niesie ze sobą pewne
-konsekwencje. Inna jest konwergencja tych dwóch algorytmów. Metoda \ow{Gaussa-
-Seidela} jest szybciej zbieżna niż metoda \ow{Jacobiego}. Efekty symulacji dla
-różnej konfiguracji algorytmów rozwiązywania układów równań liniowych prezentują
-rysunki \ref{fig:linSolvCPU5}, \ref{fig:linSolvGPU5} oraz \ref{fig:linSolvGPU10}. 
+Oczywiście zmiana algorytmu rozwiązywania równań liniowych niesie ze sobą
+pewne konsekwencje. Inna jest konwergencja tych dwóch algorytmów. Metoda \ow
+{Gaussa-Seidela} jest szybciej zbieżna niż metoda \ow{Jacobiego}. Efekty
+symulacji dla różnej konfiguracji algorytmów rozwiązywania układów równań
+liniowych prezentują rysunki \ref{fig:linSolvCPU5}, \ref{fig:linSolvGPU5} oraz
+\ref{fig:linSolvGPU10}.
 
-Na ww. rysunkach można zaobserwować wyraźne różnice w rezultatach symulacji.
-Oczekiwanym wynikiem było powstane wiru Kármána dla większej przeszkody. W
-przypadku implementacji równoległej metody \ow{Jacobiego} widać, iż porządany
-efekt symulacji zostaje utracony. Dlatego też należy wykonać więcej kroków
-relaksacji. Okazało się, że wartością wystarczającą jest dziesięć. Wartość ta
-została ustalona empirycznie, tak aby wyniki symulacji odpowiadały
-oczekiwaniom oraz i były jak najbardziej zbliżone do rezelutatów sekwencyjnych
-silików fizycznych. Jest to niezbędne, ponieważ wersja równoległa aplikacji
-\en powinna być w pełni zgodnym i kompatybilnym rozszerzeniem wersji
-podstawowej (sekwencyjnej, napisanej bez użycia technologii \ow{WebGL}).
-Oczywiście wiąże się to ze spowolnieniem symulacji, jednak w żadnym wypadku
-nie neguje opłacalności przeniesienia obliczeń na kartę graficzną --
-relaksacja na GPU jest wciąż dużo szybszych niż na CPU mimo konieczności
-wykonania dwukrotnie większej liczby kroków.
+Na ww. rysunkach można zaobserwować wyraźne różnice w rezultatach symulacji. W
+przypadku przedstawionej symulacji oczekiwanym wynikiem było powstane wiru
+Kármána dla większej przeszkody. Przy implementacji równoległej metody
+\ow{Jacobiego} widać, iż porządany efekt symulacji zostaje utracony. Dlatego
+też należy wykonać więcej kroków relaksacji. Okazało się, że wartością
+wystarczającą jest dziesięć. Wartość ta została ustalona empirycznie, tak aby
+wyniki symulacji odpowiadały oczekiwaniom oraz były jak najbardziej zbliżone
+do rezelutatów sekwencyjnych silików fizycznych. Jest to niezbędne, ponieważ
+wersja równoległa aplikacji \en powinna być w pełni zgodnym i kompatybilnym
+rozszerzeniem wersji podstawowej (sekwencyjnej, napisanej bez użycia
+technologii \ow{WebGL}). Oczywiście wiąże się to ze spowolnieniem symulacji,
+jednak w żadnym wypadku nie neguje opłacalności przeniesienia obliczeń na
+kartę graficzną -- relaksacja na GPU jest wciąż dużo szybszych niż na CPU mimo
+konieczności wykonania dwukrotnie większej liczby kroków.
 
 Istnieją również implementacje algorytmu \ow{Gaussa-Seidela} na maszyny
 równoległe. Nie są to dokładne kopie wersji sekwencyjnej, lecz imitują
@@ -299,15 +326,21 @@ współrzędnych, które mieszczą się w obszarze renderowania.
 
 \end{itemize}
 
-Niewątpliwie kluczowe zadanie definiuje podpunkt pierwszy. To właściwa
-implementacja algorytmów w programach wierzchołków i fragmentów decyduje o
-poprawności oraz wydajności całej aplikacji. Bardzo często w przypadku obliczeń
-ogólnego zastosowania na GPU, a także w przypadku symulatora \ow{Energy2D},
-większość pracy przypada na programy fragmentów. Program wierzchołków zwykle
-sprowadza się do skopiowania wejściowych współrzędnych wierzchołka i tekstury.
-Nie ma potrzeby jakiejkolwiek modyfikacji geometrii renderowanej płaszczyzny.
-Dlatego też większość programów wierzchołków w symulatorze Energy2D odpowiada
-poniższej implementacji:
+Poszczególne podpunkty w szerszym zakresie przybliżają sekcje od \ref{sec:progWierzFrag} do
+\ref{sec:wykonNaGPU}.
+
+\subsection{Programy wierzchołków oraz fragmentów}
+\label{sec:progWierzFrag}
+
+Właściwa implementacja algorytmów w programach wierzchołków i fragmentów
+decyduje o poprawności oraz wydajności całej aplikacji. Bardzo często w
+przypadku obliczeń ogólnego zastosowania na GPU, a także w przypadku
+symulatora \ow{Energy2D}, większość pracy przypada na programy fragmentów.
+Program wierzchołków zwykle sprowadza się do skopiowania wejściowych
+współrzędnych wierzchołka i tekstury. Nie ma potrzeby jakiejkolwiek
+modyfikacji geometrii renderowanej płaszczyzny. Dlatego też większość
+programów wierzchołków w symulatorze Energy2D odpowiada poniższej
+implementacji:
 
 \begin{lstlisting}[language=GLSL, caption=Typowa implementacja programu
 wierzchołków w symulatorze \ow{Energy2D} (język GLSL)]
@@ -333,9 +366,9 @@ fragmentów zawierał wektor o nazwie \ow{grid} równy (1.0 / N, 1.0 / N), gdzie
 NxN to wymiary siatki symulacyjnej. Dodając lub odejmując odpowiedni jego
 komponent można uzyskać dokładną wartość komórki sąsiedniej. Warto też pamiętać
 o fakcie, iż pierwsza kolumna tekseli nie ma współrzędnej X równej 0.0, lecz 0.5
-/ N. To samo dotyczy pierwszego rzędu i współrzędnej Y równej 0.5 / N. Błędne
+/ N. To samo dotyczy pierwszego rzędu współrzędnej Y równej 0.5 / N. Błędne
 założenie, iż te kolumny mają współrzędne 0.0 prowadzi do problemów przy
-wymuszaniu warunków brzegowych podczas symulacji.Ostatecznie, typowy szkielet
+wymuszaniu warunków brzegowych podczas symulacji. Ostatecznie, typowy szkielet
 programów fragmentów wygląda następująco:
 
 \begin{lstlisting}[language=GLSL, caption=Szkielet implementacji programu
@@ -346,6 +379,7 @@ varying vec2 coord;
 
 vec4 F(vec4 data) {
   // Funkcja wykonująca właściwe obliczenia dla danego kroku symulacji.
+  // ...
 }
 
 void main() {
@@ -358,6 +392,14 @@ void main() {
   gl_FragColor = data;
 }
 \end{lstlisting}
+
+Oczywiście program, który wymuszał warunki brzegowe posiadał odwrotny warunek
+w liniach 13 oraz 14. Implementacja funkcji $F$ nie jest przytoczona, gdyż nie
+da się wyróżnić jakiegoś ogólnego jej schematu czy wzoru. Można powiedzieć, że
+przenosząc dany krok algorytmu do języka GLSL, funkcja $F$ stanowi
+implementację ,,wewnętrznych'' instrukcji zagnieżdżonych pętli iterujących po
+wszystkich komórkach symulacji.
+
 
 \subsection{Organizacja danych w pamięci karty graficznej}
 \label{sec:orgDanychWGPU}
@@ -439,8 +481,7 @@ if (!gl.getExtension('OES_texture_float')) {
 gl.bindTexture(gl.TEXTURE_2D, texture);
 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 128, 128, 0, gl.RGBA, gl.FLOAT, null);
 gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, 
-	texture, 0);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
 if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
 	throw new Error("Dana tekstura nie jest wspierana jako cel renderowania.");
 }
@@ -508,3 +549,81 @@ Dlatego też, ostatecznie w \ow{Energy2D} zastosowano schemat RGBA4. Zapewnia on
 najlepszy kompromis pomiędzy dobrą wydajnością oraz wsparciem przez większość
 dostępnych obecnie urządzeń.
 
+\subsection{Geometria}
+
+Podczas wykonywania obliczeń ogólnego przeznaczenia przy pomocy bezpośredniego
+programowania jednostek cieniujących karty graficznej, niezbędne jest
+stworzenie obiektu (a właściwie jego geometrii), który będzie renderowany. W
+teorii może być to dowolna bryła. Jednak najczęściej pożądane jest, aby
+program fragmentów wykonał się dla każdej komórki siatki symulacyjnej, którą
+stanowi piksel tekstury. Można to osiągnąć renderując płaszczyznę, która
+pokrywa całą dostępną przestrzeń renderowania.
+
+Również w przypadku \en również wykorzystywany jest rendering takiej
+płaszczyzny. Do przechowywania jej własności wykorzystane zostały bufory
+wierzchołków (ang. vertex buffers) oraz indeksów (ang. index buffers)
+znajdujące się w pamięci karty graficznej. Dzięki temu, podczas wielokrotnego
+renderowania tej samej płaszczyzny, nie jest konieczne nieustanne przesyłanie
+atrybutów wierzchołków do pamięci GPU.
+
+W finalnej implementacji \en zostały przygotowane klasy pomocnicze
+zarządzające geometrią oraz buforami. Jednak najprostszy sposób na stworzenie
+płaszczyzny pokrywającej cały obszar renderowania oraz umieszczenie jej
+atrybutów w pamięci karty graficznej zaprezentowany jest poniżej:
+
+\begin{lstlisting}[language=JavaScript, caption=Definicja geometrii
+płaszczyzny pokrywającej cały obszar renderowania]
+var gl           = getWebGLContext(),
+    vertexBuffer = gl.createBuffer(),
+    indexBuffer  = gl.createBuffer(),
+    vertexData,
+    indexData;
+
+// Współrzędne wierzchołków.
+vertexData = new Float32Array([
+    -1, -1, 
+     1, -1,
+    -1,  1,
+     1,  1
+]);
+// Transfer do bufora wierzchołków.
+gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
+// Indeksy trojkątów płaszczyzny.
+indexData = new Uint16Array([
+    0, 1, 2,
+    2, 1, 3
+]);
+// Transfer do bufora indeksów.
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indexData, gl.STATIC_DRAW);
+\end{lstlisting}
+
+\subsection{Wykonywanie kroków algorytmów na GPU}
+\label{sec:wykonNaGPU}
+
+Dysponując skompilowanymi programami wierzchołków oraz fragmentów, danymi
+symulacji zapisanymi w teksturach dwuwymiarowych oraz niezbędną geometrią,
+można przejść do faktycznej realizacji kroków algorytmów
+zapisanych w programach jednostek cieniujących.
+
+W przypadku technologii WebGL narzuca się schemat związany z techniką
+renderowania do tekstury przy użyciu obiektu bufora ramki (ang. \emph{Frame
+Buffer Object}). Związanie takiego obiektu z wybraną teksturą, a następnie
+uaktywnienie przed właściwym renderowaniem, powoduje iż karta graficzna
+automatycznie kopiuje zawartość bufora ramki do tekstury po zakończonym
+renderowaniu.
+
+Technika ta ma jednak kilka ograniczeń. Tekstura związana z obiektem bufora
+ramki (czyli przeznaczona do zapisu) nie może być używana jednocześnie do
+odczytu wartości. W związku z tym zawsze trzeba używać minimalnie jednej
+tekstury tymczasowej. Następnie należy kopiować jej zawartość do tekstury
+docelowej lub podmienić referencje. Oczywiście modyfikacja wyłącznie
+referencji  jest znacznie efektywniejsza przez co i częściej stosowana.
+Całościowo taki schemat nazywany jest ,,ping-pong rendering''.
+
+Implementacja w języku \ow{JavaScript} przy użyciu technologi \ow{WebGL} nie
+odbiega znacząco od implementacji w innych językach przy użyciu
+,,tradycyjnego'' API OpenGL. Mark Harris zaprezentował najważniejsze aspekty
+tej techniki w swoich artykułach opublikowanych w serii \emph{GPU Gems}
+(\cite{GPUConcepts} oraz \cite{GPUFluid}).
