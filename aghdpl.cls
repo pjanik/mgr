@@ -17,7 +17,7 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}} 
 \ProcessOptions\LoadClass[a4paper,oneside]{report} 
 
-\RequirePackage{times}
+\RequirePackage{lmodern}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
 \RequirePackage{geometry}
