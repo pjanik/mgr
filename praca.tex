@@ -13,6 +13,8 @@
 \usepackage[chapter]{algorithm}
 \floatname{algorithm}{Algorytm}
 
+\usepackage{amsfonts} % \checkmark
+
 \usepackage{color}
 
 \definecolor{lightgray}{rgb}{.96,.96,.96}
@@ -225,16 +227,12 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 		\subsection{Przegląd}
 		\subsection{Prekursor systemu - aplikacja Energy2D}
 	\section{Zjawiska modelowane przez symulator}
-		\subsection{Transfer ciepła}
-			\subsubsection{Przewodnictwo cieplne}
-			\subsubsection{Konwekcja}
-		\subsection{Przepływ płynów}
-			\subsubsection{Przepływ laminarny}
-			\subsubsection{Przepływ turbulentny}
+		\subsection{Przewodnictwo cieplne}
+		\subsection{Dynamika płynów}
 	\section{Zastosowane silniki fizyczne}
 	\label{sec:silnikiFizyczne}
-		\subsection{Równanie Naviera-Stokesa}
 		\subsection{Równanie przewodnictwa cieplnego}
+		\subsection{Równanie Naviera-Stokesa}
 
 \chapter{Implementacja symulatora w środowisku przeglądarki internetowej}
 	\section{Architektura systemu -- wzorzec Model-View-Controller}
