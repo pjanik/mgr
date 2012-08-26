@@ -170,6 +170,7 @@ jest także kwestia wpływu konfiguracji sprzętowej użytkownika oraz związana
 tym ogólna dostępność symulatora dla szerokiego grona odbiorców.
 
 \subsection{Metodologia testów}
+\label{sec:metodologiaTestow}
 
 Za wyznacznik wydajności została przyjęta liczba klatek na sekundę animacji,
 którą jest w stanie generować działająca aplikacja \en. Jedna klatka domyślnie
@@ -218,7 +219,7 @@ przypadków testowych prezentują rysunki \ref{fig:ht1}, \ref{fig:ht2},
 \centering
 \begin{tabular}{|l|c|c|c|l|}
 \hline
-nazwa testu & siatka & HT & CFD & opis \\ \hline
+Nazwa testu & Siatka & HT & CFD & Opis \\ \hline
 \textbf{ht1-100} & $100x100$ & \checkmark & $\times$ &
 symulacja przewodnictwa cieplnego \\ \hline
 
@@ -287,6 +288,7 @@ symulacja dynamiki płynów \\ \hline
 \end{figure}
 
 \subsection{Konfiguracje sprzętowe przeznaczone do testów}
+\label{sec:konfiguracjaKompow}
 
 Testy zostały przeprowadzone na następujących komputerach:
 
@@ -304,7 +306,7 @@ Testy zostały przeprowadzone na następujących komputerach:
 \centering
 \begin{tabular}{|l|l|l|l|}
 \hline
-nazwa & procesor & karta graficzna & system operacyjny \\ \hline
+Nazwa & Procesor & Karta graficzna & System operacyjny \\ \hline
 Samsung QX510 & Intel Core i5 2.66GHz & NVIDIA GT 420M & Ubuntu 12.04 \\ \hline
 MacBook Pro 2010 & Intel Core i7 2.66GHz & NVIDIA GT 330M & Mac OS X 10.6.8 \\ \hline
 MacBook Pro 2012 & Intel Core i7 2.3GHz & NVIDIA GT 650M & Mac OS X 10.7.4 \\ \hline
@@ -319,6 +321,7 @@ najpopularniejszych systemów operacyjnych -- Linux (Ubuntu), Mac OS X oraz
 Windows 7. Również moc obliczeniowa kart graficznych jest bardzo zróżnicowana.
 
 \subsection{Porównanie wydajności w różnych przeglądarkach internetowych}
+\label{sec:przegladarkiWyd}
 
 Aplikacja od początku rozwoju była głównie testowana w przeglądarce Google
 Chrome, gdyż wyraźnie było widać jej ogromną przewagę w kwestii wydajności
@@ -356,15 +359,16 @@ prędkość wykonywania się symulacji jest Google Chrome.
 \begin{table}[!h]
 \caption{Wydajność symulacji na CPU w zależności od przeglądarki}
 \centering
-\begin{tabular}{|c|p{3cm}|p{3cm}|p{3cm}|}
+\begin{tabular}{|l|r|r|r|}
 \hline
-test & Google Chrome & Mozilla Firefox & Opera \\ \hline
+Test & Google Chrome & Mozilla Firefox & ~~~~~~~Opera \\ \hline
 ht1-100 & 45.20 & 11.12 & 11.83 \\ \hline
-h1-512 & 3.24 & 0.45 & 0.98 \\ \hline
+ht1-512 & 3.24 & 0.45 & 0.98 \\ \hline
 ht1-1024 & 0.92 & 0.11 & 0.25 \\ \hline
 ht2-100 & 48.04 & 10.73 & 12.05 \\ \hline
 ht2-512 & 3.34 & 0.40 & 0.84 \\ \hline
 ht2-1024 & 0.89 & 0.11 & 0.22 \\ \hline
+\hline
 cfd1-100 & 22.25 & 2.51 & 3.84 \\ \hline
 cfd1-256 & 4.24 & 0.38 & 0.93 \\ \hline
 cfd2-100 & 20.60 & 2.35 & 4.58 \\ \hline
@@ -386,24 +390,25 @@ cfd2-256 & 3.71 & 0.30 & 0.73 \\ \hline
 
 W przypadku symulacji, która obliczenia fizyczne przeprowadza na GPU, nie
 została przetestowana Opera. Wynika to z faktu, iż w dniu kiedy testy były
-przeprowadzane, wsparcie dla technologii \ow{WebGL} przez Operę nie było
-wystarczające -- wyłącznie eksperymentalne w wyniku czego nie było
-dostępu do niezbędnego rozszerzenia \ow{OES\_texture\_float}. Wyniki testów dla
-przeglądarek Google Chrome oraz Mozilla Firefox przedstawiają tabela
-\ref{tab:przegladarkiGPU} oraz wykres \ref{fig:browserPerfGPU}.
+przeprowadzane, wsparcie dla technologii \ow{WebGL} przez Operę wyłącznie
+eksperymentalne w wyniku czego nie było dostępu do niezbędnego rozszerzenia
+\ow{OES\_texture\_float}. Wyniki testów dla przeglądarek Google Chrome oraz
+Mozilla Firefox przedstawiają tabela \ref{tab:przegladarkiGPU} oraz wykres
+\ref{fig:browserPerfGPU}.
 
-\begin{table}[!h]
+\begin{table}[H]
 \caption{Wydajność symulacji na GPU w zależności od przeglądarki}
 \centering
-\begin{tabular}{|c|p{3cm}|p{3cm}|}
+\begin{tabular}{|l|r|r|}
 \hline
-test & Google Chrome & Mozilla Firefox \\ \hline
+Test & Google Chrome & Mozilla Firefox \\ \hline
 ht1-100 & 51.57 & 37.33 \\ \hline
-h1-512 & 12.94 & 12.99 \\ \hline
+ht1-512 & 12.94 & 12.99 \\ \hline
 ht1-1024 & 3.73 & 3.64 \\ \hline
 ht2-100 & 48.84 & 37.59 \\ \hline
 ht2-512 & 12.52 & 12.28 \\ \hline
 ht2-1024 & 3.60 & 3.47 \\ \hline
+\hline
 cfd1-100 & 36.67 & 30.59 \\ \hline
 cfd1-256 & 13.47 & 12.35 \\ \hline
 cfd2-100 & 33.28 & 31.01 \\ \hline
@@ -412,14 +417,12 @@ cfd2-256 & 10.85 & 11.18 \\ \hline
 \label{tab:przegladarkiGPU}
 \end{table}
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{img/browserPerfGPU}
 \caption{Wydajność symulacji na GPU w zależności od przeglądarki}
 \label{fig:browserPerfGPU}
 \end{figure}
-
-\clearpage
 
 W przypadku obliczeń na GPU sytuacja diametralnie się zmienia. Różnice między
 przeglądarkami, tak istotne przy obliczeniach na CPU, stają się znikome. Wynika
@@ -429,24 +432,272 @@ graficzną i to jej wydajność jest decydująca, a nie wydajność silnika
 dla testów działających na najmniejszych siatkach. Są to jedyne przypadki, 
 gdzie wydajność samego interpretera \ow{JavaScript} jest jeszcze istotna.
 
-Innym ważnym wnioskiem jest to, iż użycie technologii \ow{WebGL} pozwala 
-zniwelować różnice między wydjnością przeglądarek. O ile w przypadku obliczeń
-na CPU jedynym rozsądnym środowiskiem wykonywania się symulacji była przeglądarka
-Google Chrome, to przy zastosowaniu \ow{WebGL} możliwe staje się również użycie
-Mozilli Firefox oraz każdej innej przeglądarki, która wspiera \ow{WebGL} (np.
-Safari czy też w niedalekiej przyszłości także Opery).
+Innym ważnym wnioskiem jest to, iż użycie technologii \ow{WebGL} pozwala
+zniwelować różnice między wydajnością przeglądarek. O ile w przypadku obliczeń
+na CPU jedynym rozsądnym środowiskiem wykonywania się symulacji była
+przeglądarka Google Chrome, to przy zastosowaniu \ow{WebGL} możliwe staje się
+również użycie Mozilli Firefox oraz każdej innej przeglądarki, która wspiera
+\ow{WebGL} (np. Safari czy też w niedalekiej przyszłości także Opery).
 
 \subsection{Analiza zysku wydajności wynikający z przeniesienia obliczeń na GPU}
+\label{sec:analizaGPUCPU}
 
-\subsection{Wpływ optymalizacji i równoległości na jakość symulacji}
+Kluczową optymalizacją symulatora \en było przeniesienie obliczeń związanych z
+fizyką na procesor karty graficznej przy wykorzystaniu technologii \ow{WebGL}.
+Zagadnienie to porusza rozdział \ref{cha:oblGPU}. Niniejsza sekcja przedstawia i
+analizuje efekty jakie przyniosła ta optymalizacja.
 
-[TODO: rysunki, omówienie problemów z dokładniejszą siatką]
+\begin{description}
+
+\item[Metodologię testów] definiuje podrozdział \ref{sec:metodologiaTestow}.
+
+\item[Konfiguracje sprzętowe] użyte podczas testów przybliża z kolei podrozdział
+\ref{sec:konfiguracjaKompow}.
+
+\item[Wybór przeglądarki internetowej] do testów jest niezwykle istotnym
+czynnikiem, który w największym stopniu determinuje ocenę optymalizacji. Wynika
+to z bardzo dużych różnic między wydajnością interpreterów \ow{JavaScript} w
+różnych przeglądarkach (por. podrozdział \ref{sec:przegladarkiWyd}). Oczywistym
+jest, że przeglądarka o niższej wydajności silnika \ow{JavaScript} zanotuje
+znacznie większe przyspieszenie niż przeglądarka o silniku bardzo wydajnym.
+Dlatego też do testów została użyta \textbf{najwydajniejsza} z dostępnych
+przeglądarek -- Google Chrome. Dzięki temu testy przedstawiają
+\textbf{minimalne, pesymistyczne} oczekiwane przyspieszenie związane z
+przeniesieniem obliczeń  na GPU. Jednocześnie należy podkreślić, iż na mniej
+wydajnych przeglądarkach optymalizacja przynosi jeszcze więcej korzyści i 
+często staje się niezbędna aby w ogóle możliwe było jej używanie.
+
+\end{description}
+
+Wyniki testów na różnych komputerach przestawiają tabele od
+\ref{tab:wynikiWebGL_first} do \ref{tab:wynikiWebGL_last}. Zgodnie z przyjętą
+metodologią, miarą wydajności jest liczba klatek na sekundę jaką jest w stanie
+wygenerować przeglądarka podczas działania symulacji. Kolumna \ow{CPU}
+prezentuje wydajność symulacji na procesorze głównym, a kolumna \ow{GPU} na
+procesorze karty graficznej. Z kolei kolumna \ow{GPU/CPU} prezentuje stosunek
+wartości z kolumny \ow{GPU} do wartości z kolumny \ow{CPU}. Jest to pomocniczy
+współczynnik, który bardzo dobrze charakteryzuje i wizualizuje zysk z
+optymalizacji.
+
+\begin{table}[!htp]
+\caption{Wydajność symulacji na CPU oraz GPU -- laptop Samsung QX510}
+\centering
+\begin{tabular}{|l|r|r|>{\bfseries}c|}
+\hline
+\cellcolor{t} Test & \cellcolor{cpu} CPU & \cellcolor{gpu} GPU & \cellcolor{gc} GPU/CPU \\ \hline
+ht1-100 & 41.98 & 68.73 & 1.64 \\ \hline
+ht1-512 & 3.15 & 12.30 & 3.90 \\ \hline
+ht1-1024 & 0.71 & 3.58 & 5.04 \\ \hline
+ht2-100 & 51.37 & 62.36 & 1.21 \\ \hline
+ht2-512 & 2.86 & 12.61 & 4.41 \\ \hline
+ht2-1024 & 0.80 & 3.75 & 4.69 \\ \hline
+\hline
+cfd1-100 & 18.84 & 43.76 & 2.32 \\ \hline
+cfd1-256 & 3.88 & 13.56 & 3.49 \\ \hline
+cfd2-100 & 20.60 & 43.28 & 1.62 \\ \hline
+cfd2-256 & 3.71 & 10.85 & 2.92 \\ \hline
+\end{tabular}
+\label{tab:wynikiWebGL_first}
+\end{table}
+
+\begin{table}[!htp]
+\caption{Wydajność symulacji na CPU oraz GPU -- laptop Apple MacBook Pro, 
+wersja 2010}
+\centering
+\begin{tabular}{|l|r|r|>{\bfseries}c|}
+\hline
+\cellcolor{t} Test & \cellcolor{cpu} CPU & \cellcolor{gpu} GPU & \cellcolor{gc} GPU/CPU \\ \hline
+ht1-100 & 43.10 & 92.60 & 2.15 \\ \hline
+ht1-512 & 3.20 & 15.50 & 4.84 \\ \hline
+ht1-1024 & 0.91 & 4.90 & 5.38 \\ \hline
+ht2-100 & 43.70 & 92.10 & 2.11 \\ \hline
+ht2-512 & 2.91 & 15.50 & 5.33 \\ \hline
+ht2-1024 & 0.73 & 4.55 & 6.23 \\ \hline
+\hline
+cfd1-100 & 21.00 & 55.10 & 2.62 \\ \hline
+cfd1-256 & 2.30 & 14.60 & 6.35 \\ \hline
+cfd2-100 & 8.00 & 48.00 & 6.00 \\ \hline
+cfd2-256 & 1.70 & 12.20 & 7.18 \\ \hline
+\end{tabular}
+\label{tab:wynikiWebGL_2}
+\end{table}
+
+\begin{table}[!htp]
+\caption{Wydajność symulacji na CPU oraz GPU -- laptop Apple MacBook Pro, 
+wersja 2012}
+\centering
+\begin{tabular}{|l|r|r|>{\bfseries}c|}
+\hline
+\cellcolor{t} Test & \cellcolor{cpu} CPU & \cellcolor{gpu} GPU & \cellcolor{gc} GPU/CPU \\ \hline
+ht1-100 & 57.00 & 116.00 & 2.04 \\ \hline
+ht1-512 & 4.10 & 53.60 & 13.07 \\ \hline
+ht1-1024 & 1.10 & 14.90 & 13.55 \\ \hline
+ht2-100 & 79.80 & 118.80 & 1.49 \\ \hline
+ht2-512 & 4.60 & 50.30 & 10.93 \\ \hline
+ht2-1024 & 0.96 & 14.20 & 14.79 \\ \hline
+\hline
+cfd1-100 & 17.10 & 101.00 & 5.91 \\ \hline
+cfd1-256 & 2.80 & 36.60 & 13.07 \\ \hline
+cfd2-100 & 19.90 & 93.00 & 4.67 \\ \hline
+cfd2-256 & 2.80 & 36.60 & 13.07 \\ \hline
+\end{tabular}
+\label{tab:wynikiWebGL_3}
+\end{table}
+
+\begin{table}[!htp]
+\caption{Wydajność symulacji na CPU oraz GPU -- komputer stacjonarny}
+\centering
+\begin{tabular}{|l|r|r|>{\bfseries}c|}
+\hline
+\cellcolor{t} Test & \cellcolor{cpu} CPU & \cellcolor{gpu} GPU & \cellcolor{gc} GPU/CPU \\ \hline
+ht1-100 & 35.00 & 78.00 & 2.23 \\ \hline
+ht1-512 & 2.50 & 37.00 & 14.80 \\ \hline
+ht1-1024 & 0.69 & 9.00 & 13.04 \\ \hline
+ht2-100 & 39.00 & 83.00 & 2.13 \\ \hline
+ht2-512 & 2.25 & 37.00 & 16.44 \\ \hline
+ht2-1024 & 0.65 & 10.60 & 16.31 \\ \hline
+\hline
+cfd1-100 & 16.55 & 64.10 & 3.87 \\ \hline
+cfd1-256 & 2.50 & 30.00 & 12.00 \\ \hline
+cfd2-100 & 12.80 & 65.20 & 5.09 \\ \hline
+cfd2-256 & 2.15 & 26.30 & 12.23 \\ \hline
+\end{tabular}
+\label{tab:wynikiWebGL_last}
+\end{table}
+
+\clearpage
+
+Bardzo wyraźna jest zależność wyników od konfiguracji sprzętowej. Najlepsze
+rezultaty osiągnął nowoczesny laptop Apple MacBook Pro z roku 2012 dzięki
+wydajnej karcie graficznej. Pozostałe dwa laptopy notują najmniejsze korzyści ze
+zrównoleglenia, gdyż posiadają znacznie słabsze jednostki graficzne. Jedyny
+komputer stacjonarny w zestawieniu, mimo iż jest starszy niż pozostałe
+jednostki, również wykazuje bardzo duże zyski z przeniesienia obliczeń na GPU.
+Karta graficzna NVIDIA 9600GT nie jest najnowszą propozycją, jednak jako jedyna
+nie jest też w wersji mobilnej, które cechują znacznie gorsze parametry.
+
+Warto zauważyć, iż komputery nowsze, o większej mocy obliczeniowej, korzystają
+ze zrównoleglenia obliczeń znacznie bardziej niż komputery słabsze i starsze.
+Jest to obiecująca tendencja, gdyż prognozuje coraz większe korzyści z
+przenoszenia obliczeń ogólnego zastosowania na procesory kart graficznych.
+
+Zdecydowanie największy wpływ na przyrost wydajność podczas obliczeń
+równoległych ma rozmiar siatki symulacyjnej. Relacje przyspieszenia oraz
+rozmiaru siatki prezentuje tabela \ref{tab:gpucpu} oraz odpowiadający jej wykres
+\ref{fig:gpucpu}. Dane uśredniono z testów na wszystkich czterech konfiguracjach
+sprzętowych.
+
+\begin{table}[!htp]
+\caption{Stosunek wydajności obliczeń na GPU do CPU w zależności od rozmiaru
+siatki symulacyjnej}
+\centering
+\begin{tabular}{|l|>{\bfseries}c|}
+\hline
+\cellcolor{t} Siatka & \cellcolor{gc} GPU/CPU \\ \hline
+100x100 & 2.94 \\ \hline
+256x256	& 8.79 \\ \hline
+512x512	& 9.21 \\ \hline
+1024x1024 & 9.88 \\ \hline
+\end{tabular}
+\label{tab:gpucpu}
+\end{table}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.7\textwidth]{img/gpucpu}
+\caption{Stosunek wydajności obliczeń na GPU do CPU w zależności od rozmiaru
+siatki symulacyjnej}
+\label{fig:gpucpu}
+\end{figure}
+
+Wyniki udowadniają wartość zastosowanej optymalizacji. Już dla najmniejszej
+siatki wzrost wydajności jest blisko \textbf{trzykrotny}. Dla większych siatek
+wydajność jest blisko \textbf{dziesięć razy większa} niż podczas obliczeń na
+CPU.
+
+Odpowiednio gęsta siatka pokazuje potencjał jednostek graficznych. Ponadto,
+lepsze wyniki wiążą się też zapewne z niwelowaniem znaczenia instrukcji w języku
+\ow{JavaScript} wspólnych dla wersji zarówno sekwencyjnej jak i równoległej --
+gdy rozmiar siatki jest odpowiednio duży, procent czasu poświęcony na
+wykonywanie tych instrukcje staje się pomijalny.
+
+\subsection{Wpływ przeniesienia obliczeń na GPU na jakość symulacji}
+
+Oczywiście zrównoleglenie symulacji przekłada się na jej szybsze wykonywanie.
+Dokładne wyniki przedstawia poprzednia sekcja \ref{sec:analizaGPUCPU}. W
+kontekście aplikacji edukacyjnej jest to bardzo ważne -- symulator staje się
+bardziej ,,interaktywny'', a oczekiwane rezultaty widać dużo szybciej.
+Doświadczenia i analizy pokazują, że zbyt wolne działanie aplikacji bardzo
+często skutkuje zniechęceniem użytkownika.
+
+Dzięki przeniesieniu obliczeń na GPU, symulacja przyspieszyła około trzykrotnie
+już dla siatek 100x100. Często tylko zastosowanie tej optymalizacji pozwala, aby
+animacja była odtwarzana z prędkością większą niż 25 --30 klatek na sekundę.
+Jest to graniczna wartość, dla której ludzkie interpretują animację jako płynną.
+Dlatego też zysk z optymalizacji jest nie do przecenienia.
+
+Użycie większej siatki symulacyjnej skutkuje jeszcze większym wzrostem
+wydajności podczas obliczeń równoległych. Wydawać by się mogło, iż większa
+siatka powinna przynieść automatycznie lepszą jakość symulacji. Jednak przy
+zastosowanych algorytmach fizycznych, większa siatka wprowadza też pewne
+problemy -- trudniej jest symulować wybrane zjawiska fizyczne. Potrzebne jest
+znacznie dokładniejsze rozwiązywanie układów równań liniowych (więcej kroków
+relaksacji), co powoduje zwielokrotnienie czasu potrzebnego na obliczenia. Efekt
+ten przedstawiają rysunki \ref{fig:relaxGPU1} oraz \ref{fig:relaxGPU2}. Przy
+obecnej wydajności procesorów głównych oraz graficznych, powoduje to iż używanie
+gęstych siatek symulacji staje się niepraktyczne. Ponadto, efekt wizualny nie
+jest wart tak znacznego spadku wydajności. Dlatego też większość przykładów
+korzysta z siatek 100x100. Taki rozmiar zapewnia dobrą jakość wizualną  i
+merytoryczną symulacji, a dzięki przeniesieniu obliczeń na GPU również płynność
+działania.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.6\textwidth]{img/relaxGPU1}
+\caption{Niewłaściwie formowanie się ścieżki wirowej von Karmana (GPU, siatka 
+256x256, 10 kroków relaksacji)}
+\label{fig:relaxGPU1}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.6\textwidth]{img/relaxGPU2}
+\caption{Właściwe formowanie się ścieżki wirowej von Karmana (GPU, siatka 
+256x256, 60 kroków relaksacji)}
+\label{fig:relaxGPU2}
+\end{figure}
+
+\clearpage
 
 \section{Ocena dostępności aplikacji dla potencjalnych użytkowników}
 
-\subsection{Wpływ posiadanej konfiguracji sprzętowej i oprogramowania na
-symulator}
+Aplikacja do działania wymaga wyłącznie przeglądarki internetowej. Te są
+dostępne na każdym wiodącym systemie operacyjnym. Nie jest wymagana też
+żadna instalacja czy też uprawnienia administratora, aby uruchomić symulację.
+Dlatego też potencjalnemu użytkownikowi wystarczy komputer średniej klasy
+z zainstalowaną przeglądarką internetową oraz dostępem do internetu. Biorąc
+pod uwagę możliwości aplikacji, są to niewątpliwie niskie wymagania.
 
-\section{Realizacja kluczowych wymagań}
+Wpływ posiadanej konfiguracji sprzętowej i oprogramowania na działanie
+symulatora jest znaczny. Gdy nie jest możliwe korzystanie z akceleracji na
+karcie graficznej, wydajność silnika \ow{JavaScript} zastosowanego w
+przeglądarce internetowe ma decydujące znacznie. Testy przedstawia sekcja
+\ref{sec:przegladarkiWyd}. Najlepszym wyborem w tym momencie jest przeglądarka
+Google Chrome, jednak w związku z dynamicznym rozwojem wszystkich wiodących
+przeglądarek, sytuacja ta może się zmienić w niedalekiej przyszłości.
 
-\section{Podsumowanie}
+Jednak problem zależności od konkretnej przeglądarki likwiduje przeniesienie
+obliczeń na kartę graficzną. Interpreter \ow{JavaScript} traci na znaczeniu,
+jednak wymagane jest wsparcie przeglądarki dla technologii \ow{WebGL}. W tym
+momencie zapewnia je Google Chrome, Mozilla Firefox, Safari oraz Opera (jeszcze
+w fazie eksperymentalnej). Czyli przeglądarki, które posiadają zdecydowaną
+większość rynku. Ponadto, wsparcie dla \ow{WebGL} w niedalekiej przyszłości
+powinna zapewniać każda, licząca się przeglądarka internetowa.
+
+Przy użyciu tej optymalizacji, ciężar obliczeń spada na kartę graficzną. Jednak
+nawet słabe, energooszczędne karty graficzne przeznaczone do laptopów radzą
+sobie z tym zdaniem doskonale. Dlatego też nie powinno być to problemem dla
+użytkownika. Uśredniając zgromadzone wyniki testów (por
+\ref{sec:analizaGPUCPU}), karty graficzne osiągnęły od trzech do dziesięciu razy
+lepszą wydajność niż procesory główne i zapewniły doskonałą płynność symulacji.
+
