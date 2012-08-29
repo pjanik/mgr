@@ -14,6 +14,7 @@
 \floatname{algorithm}{Algorytm}
 
 \usepackage{amsfonts} % \checkmark
+\usepackage{xspace}
 
 \usepackage{color}
 
@@ -184,6 +185,7 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 
 \newcommand{\ow}[1]{\emph{\mbox{#1}}}
 \newcommand{\en}{\emph{\mbox{Energy2D }}}
+\newcommand{\js}{\emph{\mbox{JavaScript }}}
 %---------------------------------------------------------------------------
 
 \author{Piotr Janik}
@@ -242,11 +244,7 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 		\subsection{Równanie przewodnictwa cieplnego}
 		\subsection{Równanie Naviera-Stokesa}
 
-\chapter{Implementacja symulatora w środowisku przeglądarki internetowej}
-	\section{Architektura systemu -- wzorzec Model-View-Controller}
-	\section{Problematyka zarządzania zależnościami w złożonych systemach JavaScript}
-	\section{Zgodność ze środowiskiem Node.js oraz przeglądarką internetową}
-	\section{Przegląd najistotniejszych jednostek symulatora}
+\include{rozdzial4}
 
 \include{rozdzial2}
 

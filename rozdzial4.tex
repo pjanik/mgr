@@ -1,0 +1,267 @@
+\chapter{Implementacja symulatora w środowisku przeglądarki internetowej}
+
+Niniejszy rozdział omawia najważniejsze zagadnienia związane z implementacją
+symulatora \en w środowisku przeglądarki internetowej, wykorzystując język
+programowania \ow{JavaScript}. Technologie te nie były w zamierzeniu tworzone z
+myślą o dużych, złożonych aplikacjach. Przeciwnie, język \ow{JavaScript} miał
+być językiem wyjątkowo prostym, łatwym do nauczenia, odpornym na błędy i
+przeznaczonym głównie do tworzenia prostych skryptów wzbogacających treść stron
+internetowych. Jednak gwałtowny rozwój technologii internetowych zmienił
+sytuacje. Aplikacje dostępne przez przeglądarkę stały się zaawansowane i
+złożone, często wypierając swoje odpowiedniki instalowane bezpośrednio na
+komputerach użytkowników. Jednak sama technologia niewiele się zmieniła od
+swojego powstania. Pierwsza specyfikacja \ow{ECMAScript} (definiująca język
+\ow{JavaScript}) pojawiła się w roku 1997, została uaktualniona również w latach
+1998 oraz 1999, a przez następnych dziesięć lat, aż do roku 2009, nie
+wprowadzono żadnych zmian. Obrazuje to fakt, iż sam rozwój języka nie nadąża za
+jego zaawansowanymi zastosowaniami.
+
+W związku z tą sytuacją, tworząc złożone aplikacje w języku \js, programiści
+mogą napotkać wiele trudności. Brakuje dostępu do rozwiązań, które często
+uznawane są za podstawowe i niezbędne. Różne są też koncepcje i podejścia do
+zagadnień takich jak programowanie obiektowe czy rozwiązywanie zależności.
+Jednak należy podkreślić, że przy tym przeglądarka internetowa i \js stanowią
+doskonałe środowisko uruchomieniowe dla aplikacji. Przeglądarka stanowi dziś
+podstawowe oprogramowanie praktycznie każdego komputera. Aplikacje napisane w
+języku \js są z natury wieloplatformowe, gdyż wykonywane przez interpreter. Co
+więcej, przez wieloplatformowość można rozumieć nie tylko różne systemy
+operacyjne komputerów osobistych ale także urządzenia mobilne, które również
+posiadają zaawansowane przeglądarki. Aplikacje \js nie wymagają również od
+użytkownika instalacji, uprawnień administratora, a aktualizacje są niezwykle
+łatwe do przeprowadzenia. Jest to potencjał, który zdecydowanie jest wart
+poradzenia sobie z problemami wymienionymi wcześniej. Szczególnie dla aplikacji
+edukacyjnej, która musi być łatwo dostępna dla jak najszerszego grona odbiorców.
+
+Poniżej zaprezentowane są najważniejsze zagadnienia związane z implementacją
+symulatora \en. Jej głównymi założeniami było zniwelowanie wad wymagającego
+środowiska przeglądarki internetowej oraz optymalne wykorzystanie jego zalet.
+
+\section{Język programowania -- JavaScript}
+
+\js nie narzuca żadnego stylu programowania. Jest on językiem skryptowym,
+zorientowanym obiektowo lecz o prototypowym modelu dziedziczenia. Ponadto jest
+dynamiczny, słabo typowany, a funkcje są obiektami pierwszoklasowymi. Doskonale
+wspiera wiele paradygmatów programowania, takich jak programowanie zorientowane
+obiektowo, imperatywne czy też funkcyjne.
+
+W związku z tym twórcy aplikacji mają bardzo dużą dawkę elastyczności w
+podejściu do strukturyzacji swojej pracy. Nic nie jest z góry narzucone i
+możliwe jest skorzystanie ze wszystkich cech języka w zależności od potrzeb.
+Jednak ta elastyczność również może stanowić przyczynę tworzenia aplikacji
+nieczytelnych, nieustrukturyzowanych, w sposób chaotyczny mieszających różne
+paradygmaty i wzorce. Czyli aplikacji trudnych w rozwoju oraz utrzymaniu.
+Dlatego też możliwości \js powinny być stosowane z pełną świadomością korzyści i
+konsekwencji. Natomiast architektura aplikacji powinna się opierać na solidnych,
+sprawdzonych wzorcach, aby minimalizować omówione powyżej ryzyko.
+
+\section{Architektura systemu -- wzorzec Model--View--Controller}
+
+Architektura aplikacji powstała na bazie wzorca projektowego 
+\emph{Model-View-Controller}. 
+Schemat ideowy systemu \en przedstawia rysunek \ref{fig:architektura}. Użyty
+wzorzec projektowy jest powszechnie stosowany w aplikacjach, które posiadają
+graficzny interfejs użytkownika. Pozwala oddzielić logikę biznesową oraz model
+danych od ich reprezentacji. W przypadku symulatora \en oddzielenie tych dwóch
+zakresów funkcjonalności było szczególnie ważne. Zarówno silniki fizyczne wraz z
+potrzebnymi modelami danych jak i metody wizualizacji wymagają dość złożonych
+algorytmów. Ich połączenie niewątpliwie wprowadziłoby zamęt oraz utrudniło
+rozwój i utrzymanie aplikacji. Wyraźny podział funkcjonalności przyniósł wiele
+korzyści, z których najważniejsze to:
+
+\begin{itemize}
+\item Czytelna, jasna organizacja kodu.
+
+\item Łatwe utrzymanie aplikacji.
+
+\item Niepowiązane, samodzielne obiekty, które realizują zadania ogólne i mogą
+być ponownie użyte (np. większość wizualizacji).
+
+\item Brak związania silników fizycznych z przeglądarką internetową. Wynika to
+właśnie z oddzielenia od warstwy prezentacji. Dzięki temu możliwe jest użycie
+efektywnych testów zautomatyzowanych. Ta kwestia jest omówiona szerzej w sekcji
+\ref{sec:zgodNode.js}.
+
+\end{itemize}
+
+Ponadto, należy podkreślić, iż architektura \en skupia się na stworzeniu grupy
+jak najbardziej niezależnych obiektów i modułów, które są ze sobą powiązane
+czytelną siecią zależności oraz realizują jasno określone zadania.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\textwidth]{img/architektura}
+\caption{Schemat ideowy architektury symulatora \en}
+\label{fig:architektura}
+\end{figure}
+
+\section{Przegląd najistotniejszych jednostek symulatora}
+
+W strukturze aplikacji można wyróżnić kilka wyraźnych grup charakteryzujących
+się odmiennymi celami zasadniczymi. Wizualizacje tej struktury przedstawia
+rysunek \ref{fig:architektura}, a kolejne sekcje przybliżają poszczególne grupy
+oraz ich najważniejsze składniki.
+
+\subsection{Modele}
+\label{sec:modele}
+
+Jest to zbiór obiektów odpowiedzialnych za przechowywanie i manipulowanie danymi
+aplikacji. Kluczowe obiekty są przedstawione poniżej. Kolorem różowym na
+schemacie \ref{fig:architektura} zaznaczone są obiekty pomocnicze o mniejszym
+znaczeniu.
+
+\begin{description}
+
+\item[Core Physics Model] tworzy i zarządza wszystkimi niezbędnymi dla obliczeń
+fizycznych danymi. Można do nich zaliczyć siatki symulacyjne (reprezentowane
+przez tablice \js bądź też dwuwymiarowe tekstury \ow{WebGL}) oraz zestaw
+parametrów charakteryzujących warunki początkowe symulacji. Parametry te są
+definiowane przez specjalny plik konfiguracyjny w formacie \ow{JSON}, dlatego
+też można stworzyć bardzo wiele przypadków modelujących różnorakie zjawiska
+fizyczne. Do zarządzania konfiguracją wykorzystywany jest jeden z pomocniczych
+obiektów \textbf{Configration Validator}. Obliczenia fizyczne nie są
+przeprowadzane przez sam obiekt \emph{Core Physics Model}. Deleguje on te
+zadania do innych obiektów, tym samym realizując wzorzec projektowy strategii.
+
+\item[Heat Solver oraz Fluid Solver] to obiekty implementujące algorytmy
+fizyczne przewodnictwa cieplnego oraz dynamiki płynów przedstawione w sekcji
+\ref{sec:silnikiFizyczne}. Implementacja jest wyłącznie w języku \js dlatego też
+obliczenia wykonywane są na procesorze głównym komputera.
+
+\item[Heat Solver GPU oraz Fluid Solver GPU] to odpowiedniki obiektów
+przedstawionych powyżej, jednak implementujące algorytmy fizyczne przy
+wykorzystaniu technologii \ow{WebGL}. Stąd, główne obliczenia wykonywane są na
+procesorze karty graficznej. Zapewnia to wielokrotnie lepszą wydajność. Jednak
+jako, iż \ow{WebGL} jest technologią dość nową, obiekty te implementują
+identyczną logikę jak wersje bazowe i są używane wyłącznie jeżeli konfiguracja
+użytkownika spełnia odpowiednie wymagania.
+
+\item[Part Model] to obiekt reprezentujący element symulacji nie będący płynem
+(cieczą lub gazem). Dzięki obecności takich obiektów, możliwe jest stworzenie
+ciekawych warunków początkowych odzwierciedlających rzeczywistość.  Zadaniem
+elementów stałych symulacji jest tworzenie barier przepływu dla płynów. Ponadto,
+elementy stałe symulacji mogą przewodzić ciepło co dodatkowo wzbogaca symulacje
+i pozwala zaprezentować np. efekt wpływu pojemności cieplnej na zdolność
+przewodzenia ciepła.
+
+\item[Geometric Shape oraz Math Helpers] to obiekty pomocnicze, wykorzystywane
+głównie przez obiekty \emph{Part Model}. Definiują różne reguły matematyczne
+pomocne przy reprezentowaniu i wizualizowaniu kształtów geometrycznych.
+
+\end{description}
+
+\subsection{Widoki}
+
+Jest to zbiór obiektów odpowiedzialnych za aspekt wizualny symulacji. Ich
+głównym zadaniem jest wizualizacja czyli prezentowanie przedstawionych powyżej
+modeli. Przykładowy zrzut ekranu aplikacji \en wraz z zaznaczonymi obszarami
+wygenerowanymi przez poszczególne widoki prezentuje rysunek \ref{fig:widoki}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\textwidth]{img/views}
+\caption{Prezentacja poszczególnych widoków aplikacji \en}
+\label{fig:widoki}
+\end{figure}
+
+\begin{description}
+
+\item[Heatmap] to jeden z najważniejszych widoków, gdyż jest odpowiedzialny
+za wizualizację temperatury. To dzięki temu możliwe jest obserwowanie zjawisk
+zachodzących podczas symulacji. Wzorowany jest na obrazie kamer termowizyjnych.
+Dostępnych jest także kilka palet kolorów.
+
+\item[Vectormap] to widok odpowiedzialny za wyświetlanie strzałek prezentujących
+prędkość i kierunek przepływu płynu. Umożliwia to lepsze zrozumienie zjawisk
+prezentowanych podczas symulacji.
+
+\item[Heatmap WebGL oraz Vectormap WebGL] to odpowiedniki powyższych widoków,
+lecz korzystające z technologii \ow{WebGL}. Dzięki temu nie jest potrzebny
+czasochłonny transfer danych z tekstury w pamięci karty graficznej do pamięci
+głównej komputera.
+
+\item[Parts Renderer] to widok mający za zadanie prezentacje elementów
+stałych symulacji (czyli niebędących płynem).
+
+\item[Visualization Container] to obiekt grupujący powyższe widoki, zapewniający
+odpowiednie ich ułożenie oraz udostępniający pomocniczy interfejs do zarządzania
+poszczególnymi podwidokami.
+
+\item[Simulation Player] umożliwia sterowanie przebiegiem symulacji
+(uruchomienie, zatrzymanie, odtwarzanie po jednym kroku, resetowanie do stanu
+początkowego).
+
+\item[WebGL Status] ma zadanie informacyjne, prezentuje czy konfiguracja
+użytkownika wspiera technologię \ow{WebGL} oraz niezbędne jej rozszerzenia.
+
+\item[Performance Monitor] prezentuje dane dotyczące wydajności, takie jak ilość
+wyświetlanych klatek na sekundę oraz czasy wykonywania poszczególnych etapów
+algorytmu. Dzięki niemu było możliwe przeprowadzenie testów wydajnościowych
+omówionych w rozdziale \ref{sec:testyWydajnosciowe}.
+
+\end{description}
+
+\subsection{Kontroler}
+
+Aplikacja \en definiuje tylko jeden kontroler -- \textbf{Simulation Controller}.
+Jest on odpowiedzialny za wiele zadań, ale przede wszystkim stanowi spoiwo
+łączące moduły odpowiedzialne za przeprowadzanie obliczeń fizycznych oraz moduły
+odpowiedzialne za wizualizację. Zarządza relacjami między tymi obiektami oraz
+steruje również przebiegiem symulacji.
+
+\subsection{Narzędzia pomocnicze związane z GPU}
+
+Podczas pracy nad optymalizacją polegającą na przeniesieniu obliczeń fizycznych
+na GPU (por. rozdział \ref{cha:oblGPU}), pojawiła się potrzeba stworzenia
+narzędzi, które stanowiłyby opakowanie dla niskopoziomowych funkcji API
+\ow{WebGL}. 
+
+\begin{description}
+
+\item[Shader, Texture oraz Mesh] to obiekty przeznaczone do zarządzania
+typowymi dla programowania grafiki trójwymiarowej strukturami -- odpowiednio:
+programami jednostek cieniujących, teksturami oraz geometrią.
+
+\item[GPGPU Tools] to moduł udostępniający zestaw funkcji ułatwiających
+wykonywanie obliczeń ogólnego przeznaczenia na procesorze karty graficznej.
+Jest głównie wykorzystywany przez obiekty takie jak \emph{Fluid Solver GPU}
+oraz \emph{Heat Solver GPU}.
+
+\end{description}
+
+
+\section{Zgodność ze środowiskiem Node.js oraz przeglądarką internetową}
+\label{sec:zgodNode.js}
+
+\ow{Node.js}\footnote{Strona domowa projektu: \url{http://nodejs.org/}} to
+dynamicznie rozwijające się środowisko \ow{JavaScript}, stworzone na bazie
+silnika \ow{V8} opracowanego na potrzeby przeglądarki internetowej Google
+Chrome. Aby skrypt mógł być wykonywany w tym środowisku, musi być niezależny od
+cech charakterystycznych dla środowiska przeglądarki internetowej.
+
+Niezależność od przeglądarki można zdefiniować jako niekorzystanie z metod
+globalnie dostępnych obiektów takich jak \emph{window} czy też \emph{document}.
+Innym działaniem, które wiąże skrypt z przeglądarką i tradycyjnym zastosowaniem
+jest np. trawersowanie (oraz ewentualne modyfikowanie) drzewa HTML DOM. Jednak,
+przy założeniu o niedostępności zewnętrznych bibliotek, można to sprowadzić do
+nieużywania metod wspomnianego powyżej obiektu \emph{document}.
+
+Poprzedni podrozdział zaprezentował modułową budowę symulatora \en na bazie
+wzorca projektowego \emph{Model-View-Controller}. Architektura opierająca  się
+na jak najbardziej niezależnych modułach, pełniących jasno zdefiniowaną funkcję
+jest ważna nie tylko ze względu na łatwiejszy rozwój i utrzymanie aplikacji. To
+podejście pozwoliło wyodrębnić jednostki symulatora, które są zupełnie
+niezależne od przeglądarki wg. kryteriów zdefiniowanych powyżej. Warunek ten
+spełnia grupa obiektów przedstawiona wcześniej jako ,,Modele'' (por.
+\ref{sec:modele}). Dzięki niezależności od przeglądarki, możliwe stało się
+używanie tych obiektów w przedstawionym powyżej środowisku \ow{Node.js}.
+
+Główną korzyścią jaka z tego płynie jest możliwość stosowania wydajnych,
+efektywnych testów zautomatyzowanych. Istnieją narzędzia umożliwiające
+testowanie kodu \js związanego z przeglądarką, ale są to rozwiązania znacznie
+mniej wydajne oraz wygodne. Oparcie testów na skryptach wykonywanych przez
+\ow{Node.js} pozwoliło zintegrować testy z system ciągłej integracji \ow{Travis
+Continuous Integration}\footnote{Strona domowa projektu: \url{http://travis-
+ci.org/}}. Ponadto, ułatwione zostało ewentualne użycie zaawansowanych silników
+fizycznych \en przez inne aplikacje działające w środowisku \ow{Node.js}.
+
+\section{Problematyka zarządzania zależnościami w złożonych systemach JavaScript}
