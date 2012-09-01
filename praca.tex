@@ -18,7 +18,7 @@
 
 \usepackage{color}
 
-\definecolor{lightgray}{rgb}{.96,.96,.96}
+\definecolor{lstbackground}{rgb}{.97,.97,.97}
 \definecolor{darkgray}{rgb}{.4,.4,.4}
 \definecolor{purple}{rgb}{0.65, 0.12, 0.82}
 
@@ -156,7 +156,7 @@
 
 \lstset{
    language=JavaScript,
-   backgroundcolor=\color{lightgray},
+   backgroundcolor=\color{lstbackground},
    extendedchars=true,
    basicstyle=\footnotesize\ttfamily,
    showstringspaces=false,
@@ -184,8 +184,8 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 \hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
 
 \newcommand{\ow}[1]{\emph{\mbox{#1}}}
-\newcommand{\en}{\emph{\mbox{Energy2D }}}
-\newcommand{\js}{\emph{\mbox{JavaScript }}}
+\newcommand{\en}{\emph{\mbox{Energy2D}}\xspace}
+\newcommand{\js}{\emph{\mbox{JavaScript}}\xspace}
 %---------------------------------------------------------------------------
 
 \author{Piotr Janik}
@@ -230,19 +230,7 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 
 \include{rozdzial1}	
 	
-\chapter{Symulacja dynamiki płynów i przewodnictwa cieplnego jako wartościowe narzędzie edukacyjne}
-	\section{Zastosowanie oraz wpływ na edukację}
-	\section{Motywacja i uzasadnienie osadzenia symulacji w środowisku przeglądarki internetowej}
-	\section{Dostępne, istniejące rozwiązania}
-		\subsection{Przegląd}
-		\subsection{Prekursor systemu - aplikacja Energy2D}
-	\section{Zjawiska modelowane przez symulator}
-		\subsection{Przewodnictwo cieplne}
-		\subsection{Dynamika płynów}
-	\section{Zastosowane silniki fizyczne}
-	\label{sec:silnikiFizyczne}
-		\subsection{Równanie przewodnictwa cieplnego}
-		\subsection{Równanie Naviera-Stokesa}
+\include{rozdzial5}
 
 \include{rozdzial4}
 

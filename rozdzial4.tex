@@ -2,19 +2,20 @@
 
 Niniejszy rozdział omawia najważniejsze zagadnienia związane z implementacją
 symulatora \en w środowisku przeglądarki internetowej, wykorzystując język
-programowania \ow{JavaScript}. Technologie te nie były w zamierzeniu tworzone z
-myślą o dużych, złożonych aplikacjach. Przeciwnie, język \ow{JavaScript} miał
-być językiem wyjątkowo prostym, łatwym do nauczenia, odpornym na błędy i
-przeznaczonym głównie do tworzenia prostych skryptów wzbogacających treść stron
-internetowych. Jednak gwałtowny rozwój technologii internetowych zmienił
-sytuacje. Aplikacje dostępne przez przeglądarkę stały się zaawansowane i
-złożone, często wypierając swoje odpowiedniki instalowane bezpośrednio na
-komputerach użytkowników. Jednak sama technologia niewiele się zmieniła od
-swojego powstania. Pierwsza specyfikacja \ow{ECMAScript} (definiująca język
-\ow{JavaScript}) pojawiła się w roku 1997, została uaktualniona również w latach
-1998 oraz 1999, a przez następnych dziesięć lat, aż do roku 2009, nie
-wprowadzono żadnych zmian. Obrazuje to fakt, iż sam rozwój języka nie nadąża za
-jego zaawansowanymi zastosowaniami.
+programowania \ow{JavaScript}. 
+
+Technologie te nie były w zamierzeniu tworzone z myślą o dużych, złożonych
+aplikacjach. Przeciwnie, język \ow{JavaScript} miał być językiem wyjątkowo
+prostym, łatwym do nauczenia, odpornym na błędy i przeznaczonym głównie do
+tworzenia prostych skryptów wzbogacających treść stron internetowych. Jednak
+gwałtowny rozwój technologii internetowych zmienił sytuacje. Aplikacje dostępne
+przez przeglądarkę stały się zaawansowane i złożone, często wypierając swoje
+odpowiedniki instalowane bezpośrednio na komputerach użytkowników. Jednak sama
+technologia niewiele się zmieniła od swojego powstania. Pierwsza specyfikacja
+\ow{ECMAScript} (definiująca język \ow{JavaScript}) pojawiła się w roku 1997,
+została uaktualniona również w latach 1998 oraz 1999, a przez następnych
+dziesięć lat, aż do roku 2009, nie wprowadzono żadnych zmian. Obrazuje to fakt,
+iż sam rozwój języka nie nadąża za jego zaawansowanymi zastosowaniami.
 
 W związku z tą sytuacją, tworząc złożone aplikacje w języku \js, programiści
 mogą napotkać wiele trudności. Brakuje dostępu do rozwiązań, które często
@@ -56,17 +57,35 @@ sprawdzonych wzorcach, aby minimalizować omówione powyżej ryzyko.
 
 \section{Architektura systemu -- wzorzec Model--View--Controller}
 
-Architektura aplikacji powstała na bazie wzorca projektowego 
-\emph{Model-View-Controller}. 
-Schemat ideowy systemu \en przedstawia rysunek \ref{fig:architektura}. Użyty
-wzorzec projektowy jest powszechnie stosowany w aplikacjach, które posiadają
-graficzny interfejs użytkownika. Pozwala oddzielić logikę biznesową oraz model
-danych od ich reprezentacji. W przypadku symulatora \en oddzielenie tych dwóch
-zakresów funkcjonalności było szczególnie ważne. Zarówno silniki fizyczne wraz z
-potrzebnymi modelami danych jak i metody wizualizacji wymagają dość złożonych
-algorytmów. Ich połączenie niewątpliwie wprowadziłoby zamęt oraz utrudniło
-rozwój i utrzymanie aplikacji. Wyraźny podział funkcjonalności przyniósł wiele
-korzyści, z których najważniejsze to:
+Na etapie projektowania aplikacji zostały wyodrębnione dwa główne zadania,
+które muszą być realizowane przez aplikację:
+\begin{itemize}
+\item Obliczenia fizyczne.
+\item Wizualizacja.
+\end{itemize}
+
+Zarówno silniki fizyczne wraz z potrzebnymi modelami danych jak i metody
+wizualizacji wymagają dość złożonych algorytmów. Oczywistym stało się, że należy
+starać się stworzyć jak najbardziej niezależne moduły odpowiedzialne za
+realizację każdego z tych zadań. Jest to możliwe -- wizualizacja korzysta z
+wyników obliczeń fizycznych, jednak same obliczenia o fakcie istnienia
+wizualizacji nie muszą nic wiedzieć. Umożliwiło to wprowadzenie jasnego podziału
+na luźno powiązane grupy komponentów, które realizują dwa wymienione wcześniej
+cele.
+
+Uwzględniając powyższe obserwacje, ostateczna architektura aplikacji powstała na
+bazie wzorca projektowego \emph{Model-View-Controller}. Schemat ideowy systemu
+\en przedstawia rysunek \ref{fig:architektura}. Użyty wzorzec projektowy jest
+powszechnie stosowany w aplikacjach, które posiadają graficzny interfejs
+użytkownika. Skupia się na oddzieleniu logiki biznesowej oraz model danych od
+ich reprezentacji. Ujmując to ogólniej, zapewnia rozdzielenie obowiązków (ang.
+Separation of
+Concerns\footnote{\url{http://en.wikipedia.org/wiki/Separation_of_concerns}}).
+Wpisuje się to doskonale we wspomniane powyżej potrzeby symulatora \en, dlatego
+też właśnie ten wzorzec został użyty jako podstawa architektury.
+
+Wyraźny podział funkcjonalności przyniósł wiele korzyści, z których
+najważniejsze to:
 
 \begin{itemize}
 \item Czytelna, jasna organizacja kodu.
@@ -105,9 +124,9 @@ oraz ich najważniejsze składniki.
 \label{sec:modele}
 
 Jest to zbiór obiektów odpowiedzialnych za przechowywanie i manipulowanie danymi
-aplikacji. Kluczowe obiekty są przedstawione poniżej. Kolorem różowym na
-schemacie \ref{fig:architektura} zaznaczone są obiekty pomocnicze o mniejszym
-znaczeniu.
+aplikacji. To właśnie w tej grupie znajdują się kluczowe dla całej aplikacji
+silniki fizyczne odpowiadające za symulację przewodnictwa cieplnego oraz
+dynamiki płynów.
 
 \begin{description}
 
@@ -264,4 +283,80 @@ Continuous Integration}\footnote{Strona domowa projektu: \url{http://travis-
 ci.org/}}. Ponadto, ułatwione zostało ewentualne użycie zaawansowanych silników
 fizycznych \en przez inne aplikacje działające w środowisku \ow{Node.js}.
 
-\section{Problematyka zarządzania zależnościami w złożonych systemach JavaScript}
+\section{Zarządzanie zależnościami w złożonych aplikacjach JavaScript}
+
+Język \js natywnie nie wspiera żadnego mechanizmu zarządzania zależnościami. Nie
+posiada instrukcji takich jak \emph{import} czy \emph{require}, znanych z innych
+popularnych języków programowania, które pozwalają organizować źródła aplikacji.
+W związku z tym twórcy aplikacji są zmuszeni rozwiązać ten problem
+własnoręcznie. Najpopularniejsze podejścia do tego problemu to:
+
+\begin{itemize}
+
+\item Manualne zarządzanie zależnościami przez tagi \emph{<script>} bezpośrednio
+w kodzie źródłowym strony HTML. Jest to rozwiązanie najprostsze jednak
+programista jest zmuszony do ręcznego śledzenia zależności oraz zdefiniowania
+skryptów w odpowiedniej kolejności. Z tego też powodu sprawdza się w praktyce
+wyłącznie w małych, prostych aplikacjach.
+
+\item Własne skrypty budujące aplikację, najczęściej poprzez zautomatyzowane
+łączenie poszczególnych plików źródłowych w jeden plik wynikowy. Wykorzystywane
+są do tego różne technologie. We wczesnym etapie rozwoju aplikacji \en właśnie
+tak zarządzano zależnościami. Wykorzystywaną technologią był program
+\emph{make}, dlatego pliki źródłowe zdefiniowane były w pliku \emph{Makefile}.
+Podejście to jest znacznie lepsze niż poprzednie. Przede wszystkim pozwala
+zbudować jeden wynikowy plik, który wystarczy dołączyć do strony HTML. Możliwe
+staje się łatwe rozpowszechnianie aplikacji. Jednak wciąż programista musi
+ręcznie śledzić i definiować zależności oraz zapewniać ich rozwiązywanie.
+
+\item Technologie dedykowane. Niwelują one wady poprzednich podejść poprzez
+automatyzacje całego procesu. Przykładem może być definicja modułów wg.
+standardu CommonJS, używana np. w środowisku \ow{Node.js}. Innym standardem jest
+AMD -- Asynchronous Module Definition. Potrzebne pliki źródłowe (moduły) są
+wczytywane asynchronicznie, można też zadbać o to, żeby były dołączane wyłącznie
+wtedy kiedy faktycznie są potrzebne. Implementacje tej technologii istnieją
+zarówno dla przeglądarki jak i środowiska \ow{Node.js}. Dedykowane technologie
+same rozwiązują zależności. Programista tylko je definiuje, dlatego też jest to
+rozwiązanie korzystne (czasami wręcz niezbędne) w przypadku złożonych aplikacji.
+
+\end{itemize}
+
+W symulatorze \en wybrane zostało ostatnie z omówionych podejść. Zastosowano
+implementację standardu AMD w postaci biblioteki RequireJS\footnote {Strona
+domowa biblioteki: \url{http://requirejs.org/}}. Wybór samego podejścia jest
+uzasadniony dużą złożonością aplikacji. Natomiast wybór tego konkretnego
+standardu definicji modułów oraz biblioteki, która go implementuje podyktowany
+był przede wszystkim zgodnością zarówno z przeglądarką internetową jak i
+środowiskiem \ow{Node.js}.
+
+\ow{RequireJS} posiada wiele alternatyw, jednak ta konkretna biblioteka jest
+rozwijana i wspierana od długiego czasu, posiada ugruntowaną pozycję i rokuje
+długie wsparcie w przyszłości. Definiowanie modułów odbywa się przez instrukcję
+\emph{define} o następującej postaci:
+
+\begin{lstlisting}[language=JavaScript, caption=Definicja modułu
+przy użyciu technologii RequireJS]
+define(['helper/utils', 'mymodule'], function (utils, mymodule) {
+	var api = { /*...*/ };
+	return api;
+});
+\end{lstlisting}
+
+Dopuszczalna jest też alternatywna składnia, zbliżona do standardu CommonJS:
+
+\begin{lstlisting}[language=JavaScript, caption=Alternatywna składnia definicji 
+modułu przy użyciu technologii RequireJS]
+define(function (require) {
+	var utils 	 = require('helper/utils'),
+		mymodule = require('mymodule'),
+		api = { /*...*/ };
+	return api;
+});
+\end{lstlisting}
+
+Odpowiada ona dokładnie wersji podstawowej przedstawionej powyżej. W kodzie
+\en jest używana najczęściej ze względu na subiektywne wrażenie większej
+czytelności. Ponadto, umożliwia bardzo łatwe konwertowanie modułów
+napisanych pierwotnie w standardzie CommonJS, co również było użyteczne
+podczas pracy nad aplikacją \en (gdyż pierwotnie silniki fizyczne były właśnie
+modułami zdefiniowanymi w standardzie CommonJS).
