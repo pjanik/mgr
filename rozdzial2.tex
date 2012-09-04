@@ -440,7 +440,11 @@ Dalej nazywany schematem \textbf{RGBA1/4} na potrzeby niniejszego opracowania.
 
 Każdy z powyższych schematów został przetestowany podczas implementacji
 symulatora \ow{Energy2D}. Wyniki testów wydajnościowych przedstawia wykres
-\ref{fig:texPerf}.
+\ref{fig:texPerf}\footnote{Szczegółowa metodologia testów oraz konfiguracja
+sprzętowa nie zostaje tutaj przedstawiona, gdyż test ten ma tylko na celu
+pokazanie względnych różnich między schematami. Szczegółowe testy
+wydajnościowe całej aplikacji, wraz z dokładnym opisem metodologii prezentuje
+rozdział \ref{sec:testyWydajnosciowe}}.
 
 \begin{figure}[!h]
 \centering
@@ -460,7 +464,7 @@ na systemie Linux (Ubuntu 12.04) i przeglądarce Google Chrome w wersji 22, któ
 korzysta z natywnego sterownika \ow{OpenGL}. Natomiast na tej samej konfiguracji
 sprzętowej, ale działającej pod kontrolą systemu Windows nie udałoby się
 uruchomić aplikacji. Podobnie w przypadku równie popularnego systemu
-operacyjnego OS X.}. Wyklucza to możliwość użycia tego rozwiązania mimo
+operacyjnego Mac OS X.}. Wyklucza to możliwość użycia tego rozwiązania mimo
 oczywistych zalet. Być może w przyszłości rozwój specyfikacji \ow{WebGL} na to
 pozwoli.
 
@@ -505,11 +509,18 @@ wg. trzeciego schematu pozwala zredukować narzut związany z odczytem oraz
 zapisem pod warunkiem dobrej organizacji danych w teksturach. Pomysł ten
 obrazuje diagram \ref{fig:rgba4Tex}. 
 
-\begin{figure}[!h]
+\begin{figure}[!p]
 \centering
 \includegraphics[width=.65\textwidth]{img/rgba4Tex}
 \caption{Schemat organizacji danych z czterech macierzy w jednej teksturze}
 \label{fig:rgba4Tex}
+\end{figure}
+
+\begin{figure}[!p]
+\centering
+\includegraphics[width=.65\textwidth]{img/rgba14Tex}
+\caption{Schemat organizacji danych z macierzy $NxN$ w teksturze $(N/2)x(N/2)$}
+\label{fig:rgba14Tex}
 \end{figure}
 
 Przy korzystnym ułożeniu danych jest możliwe praktycznie całkowite zredukowanie
@@ -524,13 +535,6 @@ modyfikowany był tylko jeden lub dwa kanały (kanał zawierający dane o
 temperaturze lub kanały zawierające komponenty wektorów prędkości). Mimo nie do
 końca optymalnego ułożenia kanałów, schemat RGBA4 okazał się wydajniejszy około
 54\% od RGBA1.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=.65\textwidth]{img/rgba14Tex}
-\caption{Schemat organizacji danych z macierzy $NxN$ w teksturze $(N/2)x(N/2)$}
-\label{fig:rgba14Tex}
-\end{figure}
 
 Ciekawą organizacją danych może wydawać się również pomysł przedstawiony w
 schemacie RGBA1/4. Pozwala przechowywać tablicę JavaScript o wymiarach \ow{NxN}
