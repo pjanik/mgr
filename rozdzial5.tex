@@ -1,13 +1,14 @@
 \chapter{Symulacja dynamiki płynów i przewodnictwa cieplnego jako wartościowe narzędzie edukacyjne}
 
 \en jest interaktywną, edukacyjną symulacją, która modeluje mechanizmy
-przekazywania ciepła takie jak przewodnictwo oraz konwekcja. Ponadto, możliwe
-jest również modelowanie zagadnień związanych z szeroko pojętą dynamiką płynów.
+przekazywania ciepła w przyrodzie takie jak przewodnictwo cieplne oraz
+konwekcja. Ponadto, możliwe jest również modelowanie zagadnień związanych z
+szeroko pojętą dynamiką płynów.
 
 Uczniowie i studenci mogą używać symulatora \en jako narzędzia, które pozwala
 eksplorować przepływ ciepła i masy w dwuwymiarowych strukturach. Możliwa jest
-bardzo szeroka konfiguracja warunków symulacji przez co można modelować
-różnorodne rzeczywiste obiekty (stworzone z materiałów o różnorodnej pojemności
+bardzo szeroka konfiguracja warunków symulacji dzięki czemu można modelować
+różnorodne, rzeczywiste obiekty (stworzone z materiałów o określonej pojemności
 cieplnej i dowolnych kształtach) oraz warunki środowiskowe takie jak np. wiatr.
 Nauczyciele fizyki, przyrody czy też przedmiotów ściśle inżynieryjnych, od
 nauczania podstawowego po akademickie, mogą odkryć w \en wartościowe wsparcie
@@ -19,12 +20,12 @@ tym instalowania żadnych rozszerzeń. Jest to złożona aplikacja, jednak w pe�
 napisana w języku \js wspieranym przez praktycznie każdą dostępną obecnie
 przeglądarkę. W pełni korzysta z najnowszych osiągnięć technologii internetowych
 takich jak HTML5 oraz WebGL. Ponadto, dbając o jak najszerszą dostępność dla
-użytkowników, silniki fizyczne zostały zaimplementowane podwójnie:
+użytkowników, silniki fizyczne zostały zaimplementowane w dwóch wersjach:
 
 \begin{itemize} 
 
-\item Wyłącznie w języku \js, co powoduje, że obliczenia wykonywane są na
-procesorze głównym komputera.
+\item Wyłącznie w języku \js, co oczywiście oznacza, że obliczenia wykonywane są
+na procesorze głównym komputera.
 
 \item Przy użyciu języka \js oraz nowoczesnej technologii \ow{WebGL}, dzięki
 czemu możliwe stało się przeniesienie wykonywania najbardziej wymagających
@@ -41,17 +42,17 @@ automatycznie wykryje ten fakt i będzie wykorzystywać ,,zapasowe'' silniki
 fizyczne napisane wyłącznie w \js.
 
 Aplikacja powstała przy współpracy z amerykańską firmą The Concord Consortium,
-która zajmuje się badaniami nad możliwością poprawy jakości edukacji przy użyciu
-najnowocześniejszych technologii. Jest ona oparta na poprzedniej wersji
-symulatora stworzonej przez tę organizację, jednak stworzonego przy użyciu
-technologii \ow{Java}. Obie wersje łączą zastosowania oraz algorytmy fizyczne
-opracowane przez Charlesa Xie (przybliżone w sekcji \ref{sec:silnikiFizyczne}).
-Jednak nowa wersja będąca przedmiotem tej pracy została napisana zupełnie od
-postaw ze względu na odmienne środowisko wykonywania, technologię oraz język
+która zajmuje się badaniami nad możliwościami poprawy jakości edukacji przy
+użyciu najnowocześniejszych technologii. Jest ona oparta na innym symulatorze
+stworzonym przez tę organizację, który był wykonany przy przy użyciu technologii
+\ow{Java}. Obie wersje łączą zastosowania oraz algorytmy fizyczne opracowane
+przez Charlesa Xie (przybliżone w sekcji \ref{sec:silnikiFizyczne}). Jednak nowa
+wersja będąca przedmiotem tej pracy została napisana zupełnie od postaw ze
+względu na odmienne środowisko wykonywania, użyte technologie oraz język
 programowania. Różnice między środowiskiem Java, a środowiskiem JavaScript są
 tak duże, że zupełnie różna jest też architektura aplikacji oraz oferowane
 możliwości. Ponadto, wersja pierwotna w Javie umożliwiała wyłącznie sekwencyjne
-obliczenia w przeciwieństwie do nowej wersji, na potrzeby której zostały
+obliczenia -- w przeciwieństwie do nowej wersji, na potrzeby której zostały
 opracowane odpowiednie algorytmy równoległe.
 
 
@@ -68,7 +69,7 @@ podsumowanie cech i możliwości symulatora \en:
 \begin{description}
 
 \item[Dwuwymiarowość.] Wizualizacje przedstawiają przekrój bądź też rzut sceny,
-algorytmy fizyczne przeprowadzane są na dwuwymiarowej siatce symulacyjnej.
+algorytmy fizyczne wykonują obliczenia na dwuwymiarowej siatce symulacyjnej.
 
 \item[Interaktywność.] Obliczenia wykonywane są w czasie rzeczywistym,
 z prędkością umożliwiającą zaobserwowanie rezultatów symulacji w krótkim
@@ -98,7 +99,7 @@ do przewodzenia energii oraz pojemność cieplna.
 (umożliwia symulację zjawisk związanych z dynamiką płynów oraz naturalnych
 czynników środowiskowych takich jak wiatr).
 
-\item Ustawieniach wizualizacji, takich jak paleta barw wizualizująca
+\item Ustawieniach wizualizacji, takich jak paleta barw reprezentująca
 wybrany zakres temperatur.
 
 \item Ustawieniach symulacji, takich jak np. rozmiar siatki symulacyjnej, krok
@@ -142,9 +143,9 @@ praktyce wymagane jest dołączenie jednego pliku ze zbudowanym kodem \en oraz
 wskazanie jednego kontenera \ow{div} w którym zostanie umieszczona symulacja.
 Skalowanie i stylizowane tego kontenera zachowuje się zgodnie z przewidywaniami,
 może do tego zostać użyta powszechnie znana technologia \ow{CSS} lub język \js.
-Łatwość z jaką niezależni twórcy mogą użyć symulatora \en w podręcznikach nowej
-generacji czy też stronach internetowych stanowiących wirtualne laboratoria,
-powoduje iż aplikacja ta może mieć naprawdę szeroki wpływ na edukację.
+Łatwość z jaką niezależni twórcy stron internetowych mogą użyć symulatora \en w
+podręcznikach nowej generacji czy też wirtualnych laboratoriach, powoduje iż
+aplikacja ta może mieć naprawdę szeroki wpływ na edukację.
 
 \subsection{Obliczenia u klienta kontra obliczenia na serwerze}
 
@@ -163,17 +164,17 @@ też w postaci gotowego obrazu stanowiącego już wizualizację.
 
 Oba podejścia znajdują zastosowania w realnych zastosowaniach. Pierwsza metoda
 jest dobra w przypadku bardzo czasochłonnych obliczeń, wykonywanych przez np.
-superkomputer przez długi okres czasu, kiedy wiele osób jest zainteresowanych
-wynikami jednego eksperymentu czy też symulacji. Jednak biorąc pod uwagę
-wymagania stawiane przed aplikacją \en, gdzie użytkowników mogą być tysiące i
-każdy z nich prawdopodobnie uruchomi inną symulację, w innym momencie i nie jest
-zainteresowany wynikami innych osób, takie podejście nie ma prawa zdać egzaminu.
-Nawet potężne serwery, które uruchamiałyby tysiące niezależnych symulacji,
-prawdopodobnie nie byłyby w stanie przesyłać obszernych wyników (używane siatki
-symulacyjne mają najczęściej rozmiar 100x100 pól) z częstotliwością, która by
-zapewniła płynność symulacji (minimum 30 wyników na sekundę). Również
-organizacja takiego zaplecza sprzętowego prawdopodobnie stanowiłaby barierę
-finansową, która uniemożliwiłaby powszechny dostęp do takiej aplikacji.
+superkomputer, kiedy wiele osób jest zainteresowanych wynikami jednego
+eksperymentu czy też symulacji. Jednak biorąc pod uwagę wymagania stawiane przed
+aplikacją \en, gdzie użytkowników mogą być tysiące i każdy z nich prawdopodobnie
+uruchomi inną symulację, w innym momencie i nie jest zainteresowany wynikami
+innych osób, takie podejście nie ma prawa zdać egzaminu. Nawet potężne serwery,
+które uruchamiałyby tysiące niezależnych symulacji, prawdopodobnie nie byłyby w
+stanie przesyłać obszernych wyników (używane siatki symulacyjne mają najczęściej
+rozmiar 100x100 pól) z częstotliwością, która by zapewniła płynność symulacji
+(minimum 30 wyników na sekundę). Również organizacja takiego zaplecza
+sprzętowego prawdopodobnie stanowiłaby barierę finansową, która uniemożliwiłaby
+powszechny dostęp do takiej aplikacji.
 
 Obliczenia po stronie klienta rozwiązują całkowicie ten problem. Jako, że
 symulacja nastawiona jest na interaktywność oraz aspekt wizualny, przeciętny
@@ -201,7 +202,9 @@ pierwotnie opracowane przez Charlesa Xie.
 Silnik ten jest prawie w 100\% dokładny i zgodny z fizyką. Umożliwia symulację
 transferu energii cieplnej w ciałach stałych oraz płynach za pośrednictwem
 zjawiska przewodzenia ciepła. Opiera się na rozwiązywaniu równania przewodnictwa
-cieplnego (\ref{eq:heat}) za pomocą metody relaksacji.
+cieplnego (\ref{eq:heat}) przy użyciu techniki relaksacyjnej\footnote{ Więcej
+informacji o metodzie relaksacyjnej:
+\url{http://en.wikipedia.org/wiki/Relaxation_(iterative_method)}}:
 
 \begin{equation}
 \label{eq:heat}
@@ -216,23 +219,22 @@ pola przewodnictwa oraz adwekcji, charakteryzowaną przez funkcję pola prędko�
 Wewnętrzną generację ciepła można rozumieć jako siłę zewnętrzną.
 
 Równanie różniczkowe zostało przekształcone do postaci dyskretnej zarówno w
-przestrzeni jak i czasu, aby znaleźć przybliżone rozwiązanie. Dokładna analiza
+przestrzeni jak i czasie, aby znaleźć przybliżone rozwiązanie. Dokładna analiza
 równań oraz przekształcenia umożliwiające stworzenie finalnie zaimplementowanego
-algorytmu komputerowego są przedstawione w autorskim opracowaniu Charlesa Xie
+algorytmu komputerowego przedstawione są w autorskim opracowaniu Charlesa Xie
 \cite{heatEquation}. Rysunki \ref{fig:heatExample1} oraz \ref{fig:heatExample2}
-prezentują rezultaty symulacji z wykorzystaniem wyłącznie silnika
-przewodnictwa cieplnego.
+prezentują rezultaty symulacji z wykorzystaniem silnika przewodnictwa cieplnego.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=.58\textwidth]{img/heatExample1}
+\includegraphics[width=.5\textwidth]{img/heatExample1}
 \caption{Dystrybucja temperatury między dwoma punktami o różnych temperaturach}
 \label{fig:heatExample1}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=.58\textwidth]{img/heatExample2}
+\includegraphics[width=.5\textwidth]{img/heatExample2}
 \caption{Wymiana ciepła z otoczeniem i jej wpływ na dystrybucję temperatury 
 w obiekcie}
 \label{fig:heatExample2}
@@ -242,7 +244,7 @@ w obiekcie}
 
 \subsection{Silnik dynamiki płynów}
 
-Drugim z silników fizycznych zajmuje się rozwiązywaniem równań związanych z
+Drugi z silników fizycznych zajmuje się rozwiązywaniem równań związanych z
 dynamiką płynów. Nie jest tak dokładny jak pierwszy, natomiast natomiast wyniki
 są wystarczająco precyzyjne aby wizualnie zaprezentować wiele wartościowych
 zjawisk fizycznych. Przede wszystkim używany jest do pokazywania konwekcji,
@@ -270,7 +272,7 @@ Prawo zachowania masy jest wymuszane przez warunek:
 
 Żeby dystrybucja temperatury w materiałach miała wpływ również na przepływ
 otaczającego płynu (powietrza), w symulacji została uwzględniona wyporność
-termiczna (w członie siły zewnętrznej $\mathbf{f}$):
+termiczna (jako siła zewnętrzna $\mathbf{f}$):
 
 \begin{equation}
 \mathbf{f}(x,y,z,t) = \gamma \left[ T(x,y,z,t) - T_0(x,y,t) \right] 
@@ -312,7 +314,7 @@ nieszczelności tego pomieszczenia na jej przebieg}
 Oczywiście narzędziem o bardzo podobnej funkcjonalności jest wspomniana
 wcześniej wersja symulatora \en napisana w Javie, autorstwa Charlesa Xie. Jej
 szczegółowy opis znajduje się w artykule \cite{orgEnergy2D}. Jednak kilka
-czynników wyraźnie odróżniających pierwowzór od opisywanej w niniejszej pracy
+czynników wyraźnie odróżnia pierwowzór od opisywanej w niniejszej pracy
 aplikacji \en. Przede wszystkim są to:
 
 \begin{itemize}
@@ -335,7 +337,7 @@ przypadku wersji \en napisanej w języku \js. Wiele programistów stron
 internetowych nie jest też zaznajomiona z tą technologią, więc sama integracja
 strony z apletem może być niedoskonała i spotkać się z niechętnym przyjęciem.
 Aplikacja \en \js korzysta wyłącznie z technologii, które muszą być znane
-każdemu programiście stron internetowych, dlatego integracja jest bezproblemowa.
+każdemu programiście stron internetowych, stąd integracja jest bezproblemowa.
 
 Z kolei dla użytkownika uciążliwe może być instalowanie i utrzymywanie
 aktualnych wersji maszyny wirtualnej oraz rozszerzeń do przeglądarek. Ponadto,
@@ -380,19 +382,18 @@ zjawiska i efekty fizyczne. Ze względu na wizualną atrakcyjność, często są
 również symulacje dynamiki płynów. Bardzo duży wkład w popularyzowanie takiego
 wykorzystywania możliwości przeglądarek internetowych ma Evgeny Demidov. Na
 swojej stronie \url{http://www.ibiblio.org/e-notes/webgl/gpu/contents.htm}
-prezentuje liczne możliwe zastosowania języka \js oraz technologii \ow{WebGL}, w
-tym znaczna część przykładów dotyczy fizyki, a nawet dynamiki płynów. W
-internecie znaleźć można też inne dema prezentujące obliczenia mniej lub
-bardziej bazujące na fizyce\footnote{Ciekawy zbiór aplikacji korzystających z
-technologii \ow{WebGL}, w tym sporo aplikacji prezentujących zjawiska fizyczne,
-można znaleźć na stronie Chrome Experiments:
-\url{http://www.chromeexperiments.com/}}. Jednak te aplikacje, włącznie z
-przykładami Demidova, mają zdecydowanie inny charakter niż aplikacja \en. Są
-znacznie mniejsze, oferują mniej możliwości konfiguracji (często praktycznie w
-ogóle jej nie ma, gotowy jest wyłącznie jeden przypadek) i nastawione są na
-prezentacje technologii, a nie skupiają się na osiągnięciu konkretnego celu. \en
-posiada znacznie większą funkcjonalność i tworzy złożoną, kompletną aplikację o
-jasno zdefiniowanym edukacyjnym charakterze. Dlatego też zdecydowanie wyróżnia
-się na tle innych symulacji fizycznych napisanych w \js, nawet jeśli
-wykorzystują one technologię \ow{WebGL} (co wciąż jest podejściem bardzo rzadko
-spotykanym i nowatorskim).
+prezentuje liczne możliwe zastosowania języka \js oraz technologii \ow{WebGL}.
+Znaczna część przykładów dotyczy fizyki, a nawet dynamiki płynów. W internecie
+znaleźć można też inne dema prezentujące obliczenia mniej lub bardziej bazujące
+na fizyce\footnote{Ciekawy zbiór aplikacji korzystających z technologii
+\ow{WebGL}, w tym sporo aplikacji prezentujących zjawiska fizyczne, można
+znaleźć na stronie Chrome Experiments: \url{http://www.chromeexperiments.com/}}.
+Jednak te aplikacje, włącznie z przykładami Demidova, mają zdecydowanie inny
+charakter niż aplikacja \en. Są znacznie mniejsze, oferują mniej możliwości
+konfiguracji (często praktycznie w ogóle jej nie ma, gotowy jest wyłącznie jeden
+przypadek) i nastawione są na prezentacje technologii, a nie skupiają się na
+osiągnięciu konkretnego celu. \en posiada znacznie większą funkcjonalność i
+tworzy złożoną, kompletną aplikację o jasno zdefiniowanym edukacyjnym
+charakterze. Dlatego też zdecydowanie wyróżnia się na tle innych symulacji
+fizycznych napisanych w \js, nawet jeśli wykorzystują one technologię \ow{WebGL}
+(co wciąż jest podejściem bardzo rzadko spotykanym i nowatorskim).
