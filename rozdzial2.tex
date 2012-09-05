@@ -1,12 +1,12 @@
 \chapter{Przeniesienie obliczeń fizycznych na procesor karty graficznej}
 \label{cha:oblGPU}
 
-Niniejszy rozdział prezentuje techniki zastosowane w celu przeniesienia głównych
-obliczeń fizycznych na kartę graficzną w symulatorze \ow{Energy2D} będącym
-przedmiotem tej pracy. Na początku opisane są tradycyjne podejścia do tego
-problemu dla aplikacji działających w natywnym środowisku systemu operacyjnego
-oraz ich odniesienie do środowiska oferowanego przez przeglądarki internetowe.
-Następnie zaprezentowane zostały najważniejsze zagadnienia dotyczące
+Niniejszy rozdział prezentuje techniki zastosowane w celu przeniesienia
+głównych obliczeń fizycznych na kartę graficzną w symulatorze \ow{Energy2D}
+będącym przedmiotem tej pracy. Na początku opisane są tradycyjne podejścia do
+tego problemu dla aplikacji działających w natywnym środowisku systemu
+operacyjnego oraz ich odniesienie do środowiska oferowanego przez przeglądarki
+internetowe. Następnie zaprezentowane są najważniejsze zagadnienia dotyczące
 implementacji równoległych silników fizycznych \ow{Energy2D} działających na
 procesorze karty graficznej. Informacje te mogą być szczególnie użyteczne przy
 próbach podobnych optymalizacji innych aplikacji.
@@ -17,26 +17,28 @@ w rozdziale \ref{cha:ocena}.
 
 \section{Typowe metody przenoszenia obliczeń na GPU, a przeglądarka internetowa}
 
-Współczesna karty graficzne posiadają ogromną moc obliczeniową -- wielokrotnie
-większą od centralnego procesora przy założeniu, że obliczenia da się wykonywać
-w sposób równoległy. Pomysł aby przenieść część obliczeń ogólnego zastosowania
-na kartę graficzną pojawił się wraz z dynamicznym rozwojem procesorów
-graficznych. Szczególnie istotnym momentem było wprowadzenie programowalnych
-jednostek cieniujących (specyfikacja \ow{DirectX 8}). Dalszy rozwój obliczeń
-ogólnego zastosowania na kartach graficznych (ang. \emph{General-Purpose
-Computing on Graphics Processing Units}, w skrócie GPGPU) miał miejsce wraz z
-wprowadzeniem technologii, które ukryły złożoność dostępu do zasobów karty
-graficznej i udostępniły interfejs wysokiego poziomu. Wiodącymi technologiami
-tego typu są \ow{OpenCL} (rozwiązanie otwarte) oraz \ow{CUDA} (zamknięte
-rozwiązanie firmy NVIDIA, działające wyłącznie na sprzęcie tego producenta).
+Współczesne karty graficzne posiadają ogromną moc obliczeniową -- przy
+założeniu, że obliczenia da się wykonywać w sposób równoległy, jest ona
+wielokrotnie większa od mocy obliczeniowej centralnego procesora. Pomysł aby
+przenieść część obliczeń ogólnego zastosowania na kartę graficzną pojawił się
+wraz z dynamicznym rozwojem procesorów graficznych. Szczególnie istotnym
+momentem było wprowadzenie programowalnych jednostek cieniujących
+(specyfikacja \ow{DirectX 8}). Dalszy rozwój obliczeń ogólnego zastosowania na
+kartach graficznych (ang. \emph{General-Purpose Computing on Graphics
+Processing Units}, w skrócie GPGPU) miał miejsce wraz z wprowadzeniem
+technologii, które ukryły złożoność dostępu do zasobów karty graficznej i
+udostępniły interfejs wysokiego poziomu. Wiodącymi technologiami tego typu są
+\ow{OpenCL} (rozwiązanie otwarte) oraz \ow{CUDA} (zamknięte rozwiązanie firmy
+NVIDIA, działające wyłącznie na sprzęcie tego producenta).
 
-Wspomniane powyżej technologie dotyczą oczywiście aplikacji pisanych w natywnym
-środowisku systemu operacyjnego. Aby programować jednostki cieniujące wystarczy
-podstawowy dostęp do standardowego interfejsu \ow{OpenGL} bądź \ow{Direct3D}.
-Implementacje tych interfejsów można znaleźć dla prawie każdego współczesnego
-języka programowania. Interfejsy wyższego poziomu (\ow{OpenCL}, \ow{CUDA})
-również posiadają implementacje w różnych językach programowania, choć
-najczęstszym środowiskiem ich działania są aplikacje napisane w C bądź C++.
+Wspomniane powyżej technologie dotyczą oczywiście aplikacji pisanych w
+natywnym środowisku systemu operacyjnego. Aby programować jednostki cieniujące
+wystarczy podstawowy dostęp do standardowego interfejsu \ow{OpenGL} bądź
+\ow{Direct3D}. Implementacje tych interfejsów można znaleźć w prawie każdym
+współczesnym języku programowania. Interfejsy wyższego poziomu (\ow{OpenCL},
+\ow{CUDA}) również posiadają implementacje w różnych językach programowania,
+choć najczęstszym środowiskiem ich działania są aplikacje napisane w C bądź
+C++.
 
 Poniżej krótko przedstawione są sposoby przeprowadzania obliczeń ogólnego
 zastosowania na kartach graficznych oraz ich związek ze specyficznym
@@ -65,7 +67,7 @@ najczęściej w postaci dwuwymiarowych tekstur.
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\textwidth]{img/WebGLPipeline}
-\caption{Diagram potoku renderowania \ow{WebGL} / \ow{OpenGL 3.x}}
+\caption{Diagram potoku renderowania \ow{WebGL} / \ow{OpenGL ES 2.0}}
 \label{fig:WebGLPipeline}
 \end{figure}
 
@@ -87,6 +89,9 @@ efektywniejsze). Udostępniony jest specjalny interfejs oraz składnia, co
 znacznie ułatwia pracę, szczególnie programistom bez doświadczenia w pracy z
 programowaniem grafiki trójwymiarowej.
 
+Algorytmy przeznaczone do wykonywania na procesorze karty graficznej stanowią
+integralną
+
 \subsection{Możliwości w środowisku przeglądarki internetowej}
 \label{subsec:srodPrzegInt}
 
@@ -98,32 +103,32 @@ ogranicza to ich dostępność. Jest to szczególnie istotne dla aplikacji
 edukacyjnych, które wymagają łatwego i powszechnego dostępu.
 
 Przeglądarka internetowa z założenia oferuje środowisko bardzo ograniczone,
-przede wszystkim ze względów bezpieczeństwa. Jednak niedawno, wraz z nadejściem
-standardu HTML5, został dodany podstawowy dostęp do zasobów karty graficznej.
-Realizuje go technologia WebGL, która jest implementacją standardu \ow{OpenGL ES
-2.0}. Tym samym pojawiła się możliwość programowania jednostek cieniujących kart
-graficznych, a więc i przeprowadzania na nich obliczeń ogólnego zastosowania
-(\ref{subsec:niskProgJedn}).
+przede wszystkim ze względów bezpieczeństwa. Jednak niedawno, wraz z
+nadejściem standardu HTML5, został dodany podstawowy dostęp do zasobów karty
+graficznej. Realizuje go technologia WebGL, która jest implementacją standardu
+\ow{OpenGL ES 2.0}. Tym samym pojawiła się możliwość programowania jednostek
+cieniujących kart graficznych, a więc i przeprowadzania na nich obliczeń
+ogólnego zastosowania (por. \ref{subsec:niskProgJedn}).
 
-Technologie programowania kart graficznych wyższego poziomu
-(\ref{subsec:techWyzPoz}) nie są (jeszcze) dostępne w przeglądarce internetowej.
-Aktualnie trwają intensywne prace nad implementacją standardu OpenCL o roboczej
-nazwie WebCL. Jednak technologia ta w aktualnym momencie jest na bardzo wczesnym
-etapie rozwoju. Więcej informacji można znaleźć na stronie internetowej:
-\url{http://www.khronos.org/webcl/}.
+Technologie programowania kart graficznych wyższego poziomu (por.
+\ref{subsec:techWyzPoz}) nie są (jeszcze) dostępne w przeglądarce
+internetowej. Aktualnie trwają intensywne prace nad implementacją standardu
+OpenCL o roboczej nazwie WebCL. Jednak technologia ta w aktualnym momencie
+jest na bardzo wczesnym etapie rozwoju. Więcej informacji można znaleźć na
+stronie internetowej: \url{http://www.khronos.org/webcl/}.
 
 Dlatego też jedyną metodą na przeprowadzenie obliczeń ogólnego zastosowania na
 procesorze karty graficznej w środowisku przeglądarki internetowej jest sposób
-zaprezentowany w sekcji \ref{subsec:niskProgJedn}. Właśnie taka, niskopoziomowa
-metoda została zastosowana dla silników fizycznych symulatora \ow{Energy2D}.
-Opis najważniejszych zagadnień związanych z implementacją prezentuje następna
-sekcja (\ref{sec:implSilFizWebGL}).
+zaprezentowany w sekcji \ref{subsec:niskProgJedn}. Właśnie taka,
+niskopoziomowa metoda została zastosowana dla silników fizycznych symulatora
+\ow{Energy2D}. Opis najważniejszych zagadnień związanych z implementacją
+prezentuje następny podrozdział.
 
 \section{Implementacji silników fizycznych Energy2D przy użyciu WebGL}
 \label{sec:implSilFizWebGL}
 
 Symulator \ow{Energy2D} składa się z dwóch kluczowych silników fizycznych -
-przewodnictwa cieplnego oraz dynamiki płynów. Są one dokładnie przybliżone w
+przewodnictwa cieplnego oraz dynamiki płynów. Są one dokładniej przybliżone w
 sekcji \ref{sec:silnikiFizyczne}. Oba te silniki są niezwykle wymagające
 obliczeniowo. Dlatego też ich optymalizacja była zadaniem kluczowym, aby
 stworzyć aplikację wartościową edukacyjnie. Zbyt wolny przebieg symulacji może
@@ -174,7 +179,7 @@ obliczonych zarówno w poprzednim kroku relaksacji jak i kroku aktualnym. W
 sposób uproszczony schemat takiej relaksacji prezentuje algorytm
 \ref{alg:GaussCPU}.
 
-\begin{algorithm}[H]
+\begin{algorithm}[!h]
   \caption{Relaksacja metodą Gaussa-Seidela na CPU}
   \label{alg:GaussCPU}
 \begin{algorithmic}
@@ -201,7 +206,7 @@ Seidela} nie następuje to natychmiast po obliczeniu nowej wartości dla danej
 komórki, ale dopiero obliczeniu nowych wartości dla wszystkich komórek.
 Uproszczony schemat tej relaksacji prezentuje algorytm \ref{alg:JacobiCPU}.
 
-\begin{algorithm}[H]
+\begin{algorithm}[!h]
   \caption{Relaksacja metodą Jacobiego na CPU}
   \label{alg:JacobiCPU}
 \begin{algorithmic}
@@ -222,7 +227,7 @@ wydajnościowych zawartość tekstur nie jest przepisywana tylko zamieniane są
 ich referencje. Uproszczony schemat relaksacji metodą \ow{Jacobiego} na GPU
 prezentuje algorytm \ref{alg:JacobiGPU}.
 
-\begin{algorithm}[H]
+\begin{algorithm}[!h]
   \caption{Relaksacja metodą Jacobiego na GPU}
   \label{alg:JacobiGPU}
 \begin{algorithmic}
@@ -263,13 +268,13 @@ liniowych prezentują rysunki \ref{fig:linSolvCPU5}, \ref{fig:linSolvGPU5} oraz
 \ref{fig:linSolvGPU10}.
 
 Na ww. rysunkach można zaobserwować wyraźne różnice w rezultatach symulacji. W
-przypadku przedstawionej symulacji oczekiwanym wynikiem było powstane wiru
+przypadku przedstawionej symulacji oczekiwanym wynikiem było powstanie wiru
 Kármána dla większej przeszkody. Przy implementacji równoległej metody
-\ow{Jacobiego} widać, iż porządany efekt symulacji zostaje utracony. Dlatego
+\ow{Jacobiego} widać, iż pożądany efekt symulacji zostaje utracony. Dlatego
 też należy wykonać więcej kroków relaksacji. Okazało się, że wartością
 wystarczającą jest dziesięć. Wartość ta została ustalona empirycznie, tak aby
 wyniki symulacji odpowiadały oczekiwaniom oraz były jak najbardziej zbliżone
-do rezelutatów sekwencyjnych silików fizycznych. Jest to niezbędne, ponieważ
+do rezultatów sekwencyjnych silników fizycznych. Jest to niezbędne, ponieważ
 wersja równoległa aplikacji \en powinna być w pełni zgodnym i kompatybilnym
 rozszerzeniem wersji podstawowej (sekwencyjnej, napisanej bez użycia
 technologii \ow{WebGL}). Oczywiście wiąże się to ze spowolnieniem symulacji,
@@ -286,7 +291,7 @@ niezwykle przydatne podczas implementacji równoległych algorytmów dla \en,
 zostało przygotowane przez G. Amadora oraz A. Gomesa \cite{LinSolvers}.
 Niestety niskopoziomowa implementacja algorytmu \ow{Gaussa-Seidela} na GPU
 wymaga wykonania dwóch procesów renderowania do tekstury dla jednego kroku
-relaksacji -- powoduje to narzut czasowy, który w efekcie niweczy zysk z
+relaksacji -- powoduje to narzut czasowy, który w efekcie niweluje zysk z
 szybszej konwergencji algorytmu.
 
 \subsection{Podstawowy zarys implementacji}
@@ -307,7 +312,7 @@ następująco:
 \begin{itemize}
 
 \item Przygotowanie oraz kompilacja programów wierzchołków oraz fragmentów,
-które zawierają implementację algorytmów silników fizycznych.
+które zawierają implementacje algorytmów silników fizycznych.
 
 \item Przygotowanie tekstur, które przechowują dane symulacyjne. 
 
@@ -320,9 +325,9 @@ współrzędnych, które mieszczą się w obszarze renderowania.
 	\item Renderowania wcześniej przygotowanej geometrii płaszczyzny przy użyciu
 	wcześniej przygotowanych programów wierzchołków i fragmentów.
 
-    \item Kopiowania danych z bufora ramki do wybranej tekstury przechowującej
-	dane symulacji \footnote{Odbywa się to z użyciem obiektu bufora ramki (ang.
-	FrameBuffer Object) z dołączoną do niego teksturą}.
+  \item Kopiowania danych z bufora ramki do wybranej tekstury przechowującej
+	dane symulacji \footnote{Odbywa się to automatycznie z użyciem obiektu bufora 
+  ramki (ang. FrameBuffer Object) z dołączoną do niego teksturą}.
 	\end{itemize}
 
 \end{itemize}
@@ -356,21 +361,21 @@ void main() {
 \end{lstlisting}
 
 Programy fragmentów, jako że wykonują właściwe obliczenia, nie są już tak
-trywialne. Bardzo ważne jest właściwe określenie współrzędnych tekseli tekstury.
-Posiadając siatkę symulacji o wymiarach NxN, należy ją zrzutować na zakres
-domyślnych współrzędnych tekstury, które zawierają się w przedziale [0, 1].
-Jeżeli zrobi się to nieprawidłowo, trudno będzie wykryć taki błąd, gdyż
+trywialne. Bardzo ważne jest właściwe określenie współrzędnych tekseli
+tekstury. Posiadając siatkę symulacji o wymiarach NxN, należy ją zrzutować na
+zakres domyślnych współrzędnych tekstury, które zawierają się w przedziale [0,
+1]. Jeżeli zrobi się to nieprawidłowo, trudno będzie wykryć taki błąd, gdyż
 domyślnie tekstury interpolują wartości leżące pomiędzy rzeczywistymi danymi.
 Może to prowadzić do nieoczekiwanych rezultatów, stąd niezwykle istotne jest
 precyzyjne określanie współrzędnych. W tym celu, praktycznie każdy program
 fragmentów zawierał wektor o nazwie \ow{grid} równy (1.0 / N, 1.0 / N), gdzie
 NxN to wymiary siatki symulacyjnej. Dodając lub odejmując odpowiedni jego
-komponent można uzyskać dokładną wartość komórki sąsiedniej. Warto też pamiętać
-o fakcie, iż pierwsza kolumna tekseli nie ma współrzędnej X równej 0.0, lecz 0.5
-/ N. To samo dotyczy pierwszego rzędu współrzędnej Y równej 0.5 / N. Błędne
-założenie, iż te kolumny mają współrzędne 0.0 prowadzi do problemów przy
-wymuszaniu warunków brzegowych podczas symulacji. Ostatecznie, typowy szkielet
-programów fragmentów wygląda następująco:
+komponent można uzyskać dokładną wartość komórki sąsiedniej. Warto też
+pamiętać o fakcie, iż pierwsza kolumna tekseli nie ma współrzędnej X równej
+0.0, lecz 0.5 / N. To samo dotyczy pierwszego rzędu oraz współrzędnej Y równej
+0.5 / N. Błędne założenie, iż ta kolumna lub rząd tekseli mają współrzędne 0.0
+prowadzi do problemów przy wymuszaniu warunków brzegowych podczas symulacji.
+Ostatecznie, typowy szkielet programów fragmentów wygląda następująco:
 
 \begin{lstlisting}[language=GLSL, caption=Szkielet implementacji programu
 fragmentów w symulatorze \ow{Energy2D} (język GLSL)]
@@ -394,8 +399,8 @@ void main() {
 }
 \end{lstlisting}
 
-Oczywiście program, który wymuszał warunki brzegowe posiadał odwrotny warunek
-w liniach 13 oraz 14. Implementacja funkcji $F$ nie jest przytoczona, gdyż nie
+Oczywiście program, który wymusza warunki brzegowe posiada odwrotny warunek w
+liniach 13 oraz 14. Implementacja funkcji $F$ nie jest przytoczona, gdyż nie
 da się wyróżnić jakiegoś ogólnego jej schematu czy wzoru. Można powiedzieć, że
 przenosząc dany krok algorytmu do języka GLSL, funkcja $F$ stanowi
 implementację ,,wewnętrznych'' instrukcji zagnieżdżonych pętli iterujących po
@@ -408,33 +413,38 @@ Dane symulacji (takie jak np. macierz temperatury czy macierz prędkości płynu
 przechowywane są w dwuwymiarowych teksturach zmiennoprzecinkowych. Tego typu
 tekstury nie wchodzą w skład podstawowej specyfikacji \ow{WebGL 1.0}
 (\cite{WebGLSpec}). W związku z tym wymagane jest użycie rozszerzenia
-\ow{OES\_texture\_float}, które jest dostępne na większości
-współczesnych urządzeń ([TODO: wspomnieć o rozdziale z testami]).
+\ow{OES\_texture\_float}, które jest dostępne na zdecydowanej większości
+współczesnych urządzeń.
 
 Niezwykle ważną kwestią jest organizacja danych w teksturze. Jest sporo
-możliwości ponieważ tekstura z zasady nie jest wierną kopią tablicy JavaScript,
-a obiektem przystosowanym do przechowywania obrazów (posiada na przykład kanały
-kolorów). Dlatego też można rozważyć kilka potencjalnych sposobów na
-rozmieszczenie danych.
+możliwości ponieważ tekstura z zasady nie jest wierną kopią tablicy
+\js, a obiektem przystosowanym do przechowywania obrazów -- przede
+wszystkim posiada kanały kolorów. Dlatego też można rozważyć kilka
+potencjalnych sposobów na rozmieszczenie danych z tablicy \js w teksturze
+\ow{WebGL}:
 
 \begin{itemize}
 
-\item Schemat 1 -- tekstury jednokanałowe (format ALPHA lub LUMINANCE), jedna
-tekstura odpowiada jednej tablicy JavaScript. Dalej nazywany schematem
-\textbf{A1} na potrzeby niniejszego opracowania.
+\item Schemat 1 -- wymaga użycia tekstur jednokanałowych (format ALPHA lub
+LUMINANCE). Dane znajdują się w jedynym dostępnym kanale koloru (Alpha lub
+Luminance), stąd jedna tekstura odpowiada jednej tablicy \js. Dalej nazywany
+schematem \textbf{A1} na potrzeby niniejszego opracowania.
 
-\item Schemat 2 -- tekstury czterokanałowe (format RGBA), dane tylko w jednym
-kanale, jedna tekstura odpowiada jednej tablicy JavaScript. Dalej nazywany
-schematem \textbf{RGBA1} na potrzeby niniejszego opracowania.
+\item Schemat 2 -- wymaga użycia tekstur czterokanałowych (format RGBA). Dane
+znajdują się tylko w jednym kanale (dowolnym -- R, G, B, lub Alpha), stąd
+jedna tekstura odpowiada jednej tablicy \js. Dalej nazywany schematem
+\textbf{RGBA1} na potrzeby niniejszego opracowania.
 
-\item Schemat 3 -- tekstury czterokanałowe (format RGBA), dane w każdym z
-kanałów, jedna tekstura odpowiada czterem tablicom JavaScript. Dalej nazywany
-schematem \textbf{RGBA4} na potrzeby niniejszego opracowania.
+\item Schemat 3 -- wymaga użycia tekstur czterokanałowych (format RGBA). Dane
+znajdują się w każdym z kanałów, stąd jedna tekstura odpowiada czterem
+tablicom \js. Dalej nazywany schematem \textbf{RGBA4} na potrzeby niniejszego
+opracowania.
 
-\item Schemat 4 -- tekstury czterokanałowe (format RGBA), dane w każdym z
-kanałów, jedna tekstura odpowiada jednej tablicy JavaScript, rozmiar tekstury
-zredukowany czterokrotnie, gdyż każdy kanał odpowiada jednej ćwiartce tablicy.
-Dalej nazywany schematem \textbf{RGBA1/4} na potrzeby niniejszego opracowania.
+\item Schemat 4 -- wymaga użycia tekstur czterokanałowych (format RGBA). Dane
+znajdują się w każdym z kanałów, natomiast rozmiar tekstury jest zredukowany
+czterokrotnie, gdyż każdy kanał odpowiada jednej ćwiartce tablicy. Dlatego też
+jedna tekstura odpowiada jednej tablicy \js. Dalej nazywany schematem
+\textbf{RGBA1/4} na potrzeby niniejszego opracowania.
 
 \end{itemize}
 
@@ -442,7 +452,7 @@ Każdy z powyższych schematów został przetestowany podczas implementacji
 symulatora \ow{Energy2D}. Wyniki testów wydajnościowych przedstawia wykres
 \ref{fig:texPerf}\footnote{Szczegółowa metodologia testów oraz konfiguracja
 sprzętowa nie zostaje tutaj przedstawiona, gdyż test ten ma tylko na celu
-pokazanie względnych różnich między schematami. Szczegółowe testy
+pokazanie względnych różnic między schematami. Szczegółowe testy
 wydajnościowe całej aplikacji, wraz z dokładnym opisem metodologii prezentuje
 rozdział \ref{sec:testyWydajnosciowe}}.
 
@@ -459,7 +469,7 @@ schemat A1. Umożliwia on przeniesienie danych z tablic w relacji 1:1 do tekstur
 Do tego, każdy odczyt czy zapis do tekstury dotyczy tylko jednego kanału.
 Niestety, na większości urządzeń nie ma możliwości dołączenia tekstury typu
 ALPHA lub LUMINANCE do własnego obiektu bufora ramki (ang. FrameBuffer Object)
--- czyli renderowania do takiej tekstury \footnote{Testy zostały przeprowadzone
+-- czyli renderowania do takiej tekstury\footnote{Testy zostały przeprowadzone
 na systemie Linux (Ubuntu 12.04) i przeglądarce Google Chrome w wersji 22, która
 korzysta z natywnego sterownika \ow{OpenGL}. Natomiast na tej samej konfiguracji
 sprzętowej, ale działającej pod kontrolą systemu Windows nie udałoby się
@@ -523,32 +533,31 @@ obrazuje diagram \ref{fig:rgba4Tex}.
 \label{fig:rgba14Tex}
 \end{figure}
 
-Przy korzystnym ułożeniu danych jest możliwe praktycznie całkowite zredukowanie
-narzutu związanego z odczytem wszystkich czterech kanałów tekstury, jednak w
-praktyce jest to często niewykonalne. Przez korzystne rozmieszczenie danych
-przyjmuje się takie ich ułożenie, żeby program jednostek cieniujących odczytując
-teksturę faktycznie korzystał z danych zawartych w każdym z kanałów. Podobnie
-przy zapisie, program renderujący powinien modyfikować wszystkie cztery kanały.
-W przypadku symulatora \ow{Energy2D} udało się uzyskać taką organizację danych,
-żeby odczyt był w znacznym stopniu zoptymalizowany, jednak podczas zapisu
-modyfikowany był tylko jeden lub dwa kanały (kanał zawierający dane o
-temperaturze lub kanały zawierające komponenty wektorów prędkości). Mimo nie do
-końca optymalnego ułożenia kanałów, schemat RGBA4 okazał się wydajniejszy około
-54\% od RGBA1.
+Przy korzystnym ułożeniu danych jest możliwe praktycznie całkowite
+zredukowanie narzutu związanego z odczytem wszystkich czterech kanałów
+tekstury, jednak w praktyce jest to często niewykonalne. Przez korzystne
+rozmieszczenie danych przyjmuje się takie ich ułożenie, żeby program jednostek
+cieniujących odczytując teksturę faktycznie korzystał z danych zawartych w
+każdym z kanałów. Podobnie przy zapisie, program renderujący powinien
+modyfikować wszystkie cztery kanały. W przypadku symulatora \ow{Energy2D}
+udało się uzyskać taką organizację danych, żeby odczyt był w znacznym stopniu
+zoptymalizowany, jednak podczas zapisu modyfikowany był tylko jeden lub dwa
+kanały (kanał zawierający dane o temperaturze lub kanały zawierające
+komponenty wektorów prędkości). Mimo nie do końca optymalnego ułożenia
+kanałów, schemat RGBA4 okazał się około 54\% wydajniejszy od RGBA1.
 
 Ciekawą organizacją danych może wydawać się również pomysł przedstawiony w
-schemacie RGBA1/4. Pozwala przechowywać tablicę JavaScript o wymiarach \ow{NxN}
-w teksturze o wymiarach \ow{(N/2)x(N/2)}. Pomysł ten obrazuje diagram
-\ref{fig:rgba14Tex}.
-
-Taki układ danych teoretycznie posiada sporo zalet jak w przypadku użycia
-tekstur jednokanałowych. Jednak znacznie zmniejsza on czytelność kodu i
-komplikuje implementacje. Utrudnione zostaje przede wszystkim kontrolowanie
-warunków brzegowych, programy jednostek cieniujących przetwarzają cztery pola
-jednocześnie i stają się bardzo skomplikowane. W przypadku \ow{Energy2D}
-komplikacje programów fragmentów były tak znaczne, że w efekcie odnotowano
-bardzo słabe rezultaty pod względem wydajności. Symulacja okazała się być
-wolniejsza około 34\% od symulacji korzystającej ze schematu RGBA4.
+schemacie RGBA1/4. Pozwala przechowywać tablicę JavaScript o wymiarach
+\ow{NxN} w teksturze o wymiarach \ow{(N/2)x(N/2)}. Pomysł ten obrazuje diagram
+\ref{fig:rgba14Tex}. Taki układ danych teoretycznie posiada sporo zalet jak w
+przypadku użycia tekstur jednokanałowych. Jednak znacznie zmniejsza on
+czytelność kodu i komplikuje implementacje. Utrudnione zostaje przede
+wszystkim kontrolowanie warunków brzegowych, programy jednostek cieniujących
+przetwarzają cztery pola jednocześnie i stają się bardzo skomplikowane. W
+przypadku \ow{Energy2D} komplikacje programów fragmentów były tak znaczne, że
+w efekcie odnotowano bardzo słabe rezultaty pod względem wydajności. Symulacja
+okazała się być wolniejsza około 34\% od symulacji korzystającej ze schematu
+RGBA4.
 
 Dlatego też, ostatecznie w \ow{Energy2D} zastosowano schemat RGBA4. Zapewnia on
 najlepszy kompromis pomiędzy dobrą wydajnością oraz wsparciem przez większość
@@ -564,12 +573,12 @@ program fragmentów wykonał się dla każdej komórki siatki symulacyjnej, któ
 stanowi piksel tekstury. Można to osiągnąć renderując płaszczyznę, która
 pokrywa całą dostępną przestrzeń renderowania.
 
-Również w przypadku \en również wykorzystywany jest rendering takiej
-płaszczyzny. Do przechowywania jej własności wykorzystane zostały bufory
-wierzchołków (ang. vertex buffers) oraz indeksów (ang. index buffers)
-znajdujące się w pamięci karty graficznej. Dzięki temu, podczas wielokrotnego
-renderowania tej samej płaszczyzny, nie jest konieczne nieustanne przesyłanie
-atrybutów wierzchołków do pamięci GPU.
+Również w przypadku \en wykorzystywany jest rendering takiej płaszczyzny. Do
+przechowywania jej własności wykorzystane zostały bufory wierzchołków (ang.
+vertex buffers) oraz indeksów (ang. index buffers) znajdujące się w pamięci
+karty graficznej. Dzięki temu, podczas wielokrotnego renderowania tej samej
+płaszczyzny, nie jest konieczne nieustanne przesyłanie atrybutów wierzchołków
+do pamięci GPU.
 
 W finalnej implementacji \en zostały przygotowane klasy pomocnicze
 zarządzające geometrią oraz buforami. Jednak najprostszy sposób na stworzenie

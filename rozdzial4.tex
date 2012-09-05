@@ -1,21 +1,32 @@
 \chapter{Implementacja symulatora w środowisku przeglądarki internetowej}
 
 Niniejszy rozdział omawia najważniejsze zagadnienia związane z implementacją
-symulatora \en w środowisku przeglądarki internetowej wykorzystującą język
-programowania \ow{JavaScript}.
+symulatora \en w środowisku przeglądarki internetowej. Podstawową technologią
+użytą do stworzenia aplikacji był natywny dla przeglądarek język \js.
+Symulator nie jest zależny od żadnego rozszerzenia czy też dodatku do
+przeglądarki, aby nie ograniczyć dostępu do aplikacji użytkownikom, którzy
+mogą nie mieć możliwości instalacji takich komponentów (choćby ze względu na
+brak uprawnień lub wiedzy). Głównymi założeniami projektowymi implementacji
+było zniwelowanie wad wymagającego środowiska przeglądarki internetowej oraz
+optymalne wykorzystanie jego zalet.
 
-Technologie te nie były w zamierzeniu tworzone z myślą o dużych, złożonych
-aplikacjach. Przeciwnie, język \ow{JavaScript} miał być językiem wyjątkowo
-prostym, łatwym do nauczenia, odpornym na błędy i przeznaczonym głównie do
-tworzenia prostych skryptów wzbogacających treść stron internetowych. Jednak
-gwałtowny rozwój technologii internetowych zmienił sytuacje. Aplikacje dostępne
-przez przeglądarkę stały się zaawansowane i złożone, często wypierając swoje
-odpowiedniki instalowane bezpośrednio na komputerach użytkowników. Jednak sama
-technologia niewiele się zmieniła od swojego powstania. Pierwsza specyfikacja
-\ow{ECMAScript} (definiująca język \ow{JavaScript}) pojawiła się w roku 1997,
+\section{Język programowania -- JavaScript}
+
+Środowisko przeglądarki internetowej oraz \js nie były w zamierzeniu tworzone
+z myślą o dużych, złożonych aplikacjach. Przeciwnie, język \js miał być
+językiem wyjątkowo prostym, łatwym do nauczenia, odpornym na błędy i
+przeznaczonym głównie do tworzenia prostych skryptów wzbogacających treść
+stron internetowych. Jednak gwałtowny rozwój technologii internetowych
+diametralnie zmienił tę sytuację. Aplikacje dostępne przez przeglądarkę stały
+się zaawansowane i złożone, często wypierając swoje odpowiedniki instalowane
+bezpośrednio na komputerach użytkowników. Jednak sama technologia niewiele się
+zmieniła od swojego powstania. Pierwsza specyfikacja \ow{ECMAScript}
+(definiująca i standaryzująca język \ow{JavaScript}) pojawiła się w roku 1997,
 została uaktualniona również w latach 1998 oraz 1999, a przez następnych
-dziesięć lat, aż do roku 2009, nie wprowadzono żadnych zmian. Obrazuje to fakt,
-iż sam rozwój języka nie nadąża za jego zaawansowanymi zastosowaniami.
+dziesięć lat, aż do roku 2009, nie uległa żadnym zmianom. Dziesięć lat dla
+takiej technologii stanowi ogromny zastój, szczególnie iż przypadł na okres
+wyjątkowo dynamicznego rozwoju aplikacji internetowych. Obrazuje to fakt, iż
+sam rozwój języka często nie nadążał za jego zaawansowanymi zastosowaniami.
 
 W związku z tą sytuacją, tworząc złożone aplikacje w języku \js, programiści
 mogą napotkać wiele trudności. Brakuje dostępu do rozwiązań, które często
@@ -32,12 +43,6 @@ użytkownika instalacji, uprawnień administratora, a aktualizacje są niezwykle
 łatwe do przeprowadzenia. Jest to potencjał, który zdecydowanie jest wart
 poradzenia sobie z problemami wymienionymi wcześniej. Szczególnie dla aplikacji
 edukacyjnej, która musi być łatwo dostępna dla jak najszerszego grona odbiorców.
-
-Poniżej zaprezentowane są najważniejsze zagadnienia związane z implementacją
-symulatora \en. Jej głównymi założeniami było zniwelowanie wad wymagającego
-środowiska przeglądarki internetowej oraz optymalne wykorzystanie jego zalet.
-
-\section{Język programowania -- JavaScript}
 
 \js nie narzuca żadnego stylu programowania. Jest on językiem skryptowym,
 zorientowanym obiektowo lecz o prototypowym modelu dziedziczenia. Ponadto jest
@@ -57,21 +62,21 @@ sprawdzonych wzorcach, aby minimalizować omówione powyżej ryzyko.
 
 \section{Architektura systemu -- wzorzec Model--View--Controller}
 
-Na etapie projektowania aplikacji zostały wyodrębnione dwa główne zadania,
-które muszą być realizowane przez aplikację:
+Na etapie projektowania symulatora \en zostały wyodrębnione dwa główne zadania,
+które miały być realizowane przez aplikację:
 \begin{itemize}
 \item Obliczenia fizyczne.
 \item Wizualizacja.
 \end{itemize}
 
 Zarówno silniki fizyczne wraz z potrzebnymi modelami danych jak i metody
-wizualizacji wymagają dość złożonych algorytmów. Oczywistym stało się, że należy
-starać się stworzyć jak najbardziej niezależne moduły odpowiedzialne za
-realizację każdego z tych zadań. Jest to możliwe -- wizualizacja korzysta z
-wyników obliczeń fizycznych, jednak same obliczenia o fakcie istnienia
-wizualizacji nie muszą nic wiedzieć. Umożliwiło to wprowadzenie jasnego podziału
-na luźno powiązane grupy komponentów, które realizują dwa wymienione wcześniej
-cele.
+wizualizacji wymagają dość złożonych algorytmów. Oczywistym stało się, że
+należy starać się stworzyć jak najbardziej niezależne moduły odpowiedzialne za
+realizację każdego z tych zadań. Jest to możliwe -- wizualizacja oczywiście
+musi korzystać z wyników obliczeń fizycznych, jednak same silniki fizyczne nie
+muszą nic wiedzieć o fakcie istnienia wizualizacji, ani być bezpośrednio z
+nimi związane. Umożliwiło to wprowadzenie jasnego podziału na luźno powiązane
+grupy komponentów, które realizują dwa wymienione wcześniej cele.
 
 Uwzględniając powyższe obserwacje, ostateczna architektura aplikacji powstała na
 bazie wzorca projektowego \emph{Model-View-Controller}. Schemat ideowy systemu
@@ -143,14 +148,15 @@ zadania do innych obiektów, tym samym realizując wzorzec projektowy strategii.
 
 \item[Heat Solver oraz Fluid Solver] to obiekty implementujące algorytmy
 fizyczne przewodnictwa cieplnego oraz dynamiki płynów przedstawione w sekcji
-\ref{sec:silnikiFizyczne}. Implementacja jest wyłącznie w języku \js dlatego też
-obliczenia wykonywane są na procesorze głównym komputera.
+\ref{sec:silnikiFizyczne}. Implementacja została przeprowadzona wyłącznie w
+języku \js dlatego też obliczenia wykonywane są na procesorze głównym
+komputera.
 
 \item[Heat Solver GPU oraz Fluid Solver GPU] to odpowiedniki obiektów
 przedstawionych powyżej, jednak implementujące algorytmy fizyczne przy
 wykorzystaniu technologii \ow{WebGL}. Stąd, główne obliczenia wykonywane są na
-procesorze karty graficznej. Zapewnia to wielokrotnie lepszą wydajność. Jednak
-jako, iż \ow{WebGL} jest technologią dość nową, obiekty te implementują
+procesorze karty graficznej. Zapewnia to wielokrotnie lepszą wydajność.
+Jednak, jako iż \ow{WebGL} jest technologią dość nową, obiekty te implementują
 identyczną logikę jak wersje bazowe i są używane wyłącznie jeżeli konfiguracja
 użytkownika spełnia odpowiednie wymagania.
 
@@ -356,7 +362,7 @@ define(function (require) {
 
 Odpowiada ona dokładnie wersji podstawowej przedstawionej powyżej. W kodzie
 \en jest używana najczęściej ze względu na subiektywne wrażenie większej
-czytelności. Ponadto, umożliwia bardzo łatwe konwertowanie modułów
-napisanych pierwotnie w standardzie CommonJS, co również było użyteczne
-podczas pracy nad aplikacją \en (gdyż pierwotnie silniki fizyczne były właśnie
-modułami zdefiniowanymi w standardzie CommonJS).
+czytelności. Ponadto, umożliwia bardzo łatwe konwertowanie modułów napisanych
+pierwotnie w standardzie CommonJS, co również było użyteczne podczas pracy nad
+aplikacją \en (gdyż pierwotnie silniki fizyczne były modułami zdefiniowanymi
+właśnie w tym standardzie).
