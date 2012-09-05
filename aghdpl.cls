@@ -141,8 +141,8 @@ University of Science and Technology in Krakow}}}
 
 \vspace*{15cm} \vfill
 \begin{flushright} 
-\begin{minipage}[!h]{8cm}
-{\Large \@acknowledgements}
+\begin{minipage}[!h]{13cm}
+{\large \@acknowledgements}
 \end{minipage}
 \end{flushright}
 
@@ -171,8 +171,8 @@ University of Science and Technology in Krakow}}}
 \renewcommand{\footrulewidth}{0.5pt}
 \fancyhf{}
 \fancyhead{}
-\fancyhead[L]{\slshape{\small \rightmark}}
-\fancyhead[R]{\bfseries \thepage}
+\fancyhead[L]{\slshape{\rightmark}}
+\fancyhead[R]{\thepage}
 
 \thesisheaders
 

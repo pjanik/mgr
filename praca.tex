@@ -183,6 +183,8 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 \usepackage{hyperref}
 \hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
 
+\usepackage[nottoc]{tocbibind}
+
 \newcommand{\ow}[1]{\emph{\mbox{#1}}}
 \newcommand{\en}{\emph{\mbox{Energy2D}}\xspace}
 \newcommand{\js}{\emph{\mbox{JavaScript}}\xspace}
@@ -211,8 +213,13 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 \facultyPL{Wydział Elektrotechniki, Automatyki, Informatyki i Elektroniki}
 \facultyEN{Faculty of Electrical Engineering, Automatics, Computer Science and Electronics}
 
-\acknowledgements{Serdecznie dziękuję \dots}
+\acknowledgements{Serdecznie dziękuję prof. dr hab. inż. Witoldowi Dzwinelowi
+za wskazówki oraz inspiracje.
+Dziękuję także Stephenowi Banaschowi za pomoc merytoryczną.}
 
+\acknowledgements{Serdecznie dziękuję prof. dr hab. inż. Witoldowi Dzwinelowi
+za poświęcony czas oraz pomoc w opracowaniu niniejszej pracy.
+Dziękuję także Stephenowi Bannaschowi za pomoc merytoryczną oraz motywację.}
 
 
 \setlength{\cftsecnumwidth}{10mm}
@@ -225,9 +232,13 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 
 \include{abstrakt}
 
+\pagestyle{plain}
+
 \tableofcontents
+
 \clearpage
 
+\pagestyle{fancy}
 \include{rozdzial1}	
 	
 \include{rozdzial5}
@@ -238,9 +249,7 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 
 \include{rozdzial3}
 	
-\chapter{Wnioski}
-	\section{Podsumowanie}
-	\section{Dalszy rozwój}
+\include{rozdzial6}
 
 %\include{rozdzial1}
 %\include{rozdzial2}
@@ -252,7 +261,13 @@ stringstyle=\color[rgb]{0.639,0.082,0.082},
 % \include{dodatekB}
 % itd.
 
+\pagestyle{plain}
+
 \bibliographystyle{alpha}
 \bibliography{bibliografia}
+
+\listoffigures
+
+\listoftables
 
 \end{document}
