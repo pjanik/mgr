@@ -3,7 +3,7 @@
 
 \en jest interaktywną, edukacyjną symulacją, która modeluje mechanizmy
 przekazywania ciepła w przyrodzie takie jak przewodnictwo cieplne oraz
-konwekcja. Ponadto, możliwe jest również modelowanie zagadnień związanych z
+konwekcja. Ponadto możliwe jest również modelowanie zagadnień związanych z
 szeroko pojętą dynamiką płynów.
 
 Uczniowie i studenci mogą używać symulatora \en jako narzędzia, które pozwala
@@ -20,7 +20,7 @@ bądź też inżynieryjnych koncepcji bez sięgania po trudne wyrażenia matemat
 tym instalowania żadnych rozszerzeń. Jest to złożona aplikacja, jednak w pełni
 napisana w języku \js wspieranym przez praktycznie każdą dostępną obecnie
 przeglądarkę. W pełni korzysta z najnowszych osiągnięć technologii internetowych
-takich jak HTML5 oraz WebGL. Ponadto, dbając o jak najszerszą dostępność dla
+takich jak HTML5 oraz WebGL. Ponadto dbając o jak najszerszą dostępność dla
 użytkowników, silniki fizyczne zostały zaimplementowane w dwóch wersjach:
 
 \begin{itemize} 
@@ -52,7 +52,7 @@ wersja będąca przedmiotem tej pracy została napisana zupełnie od postaw ze
 względu na odmienne środowisko wykonywania, użyte technologie oraz język
 programowania. Różnice między środowiskiem Java, a środowiskiem JavaScript są
 tak duże, że zupełnie różna jest też architektura aplikacji oraz oferowane
-możliwości. Ponadto, wersja pierwotna w Javie umożliwiała wyłącznie sekwencyjne
+możliwości. Ponadto wersja pierwotna w Javie umożliwiała wyłącznie sekwencyjne
 obliczenia -- w przeciwieństwie do nowej wersji, na potrzeby której zostały
 opracowane odpowiednie algorytmy równoległe.
 
@@ -62,7 +62,7 @@ opracowane odpowiednie algorytmy równoległe.
 Transfer ciepła jest zagadnieniem szeroko poruszanym podczas nauczania na
 różnych etapach edukacji, szczególnie na lekcjach przyrody, ekologii czy też
 fizyki. \en udostępnia szeroki wachlarz możliwości, który może uatrakcyjnić
-tradycyjne lekcje oraz wykłady. Ponadto, stanowi doskonałą aplikację do
+tradycyjne lekcje oraz wykłady. Ponadto stanowi doskonałą aplikację do
 samodzielnych ćwiczeń. Uczeń sam może eksplorować wybrane zagadnienia w celu np.
 uzyskania odpowiedzi na postawione pytania. Poniżej zaprezentowane jest
 podsumowanie cech i możliwości symulatora \en:
@@ -78,10 +78,10 @@ czasie po jej uruchomieniu.
 
 \item[Różnorodność wizualizacji.] Podstawowa wizualizacja symuluje obraz
 kamery termowizyjnej, jednak jest możliwość prezentowania rozkładu temperatury
-przy użyciu innych palet kolorów oraz skali szarości. Zakres prezentowych
+przy użyciu innych palet kolorów oraz skali szarości. Zakres prezentowanych
 temperatur również jest konfigurowalny.
 
-\item[Elastyczność, szerokie możliwości konfiguracji.] Symulator opera się na
+\item[Elastyczność, szerokie możliwości konfiguracji.] Symulator opiera się na
 koncepcji przechowywania zserializowanych opisów scen w plikach w formacie
 \ow{JSON} (powszechny format danych dla aplikacji \js). Plik konfiguracyjny
 przechowuje informacje o:
@@ -145,7 +145,7 @@ wskazanie jednego kontenera \ow{div} w którym zostanie umieszczona symulacja.
 Skalowanie i stylizowane tego kontenera zachowuje się zgodnie z przewidywaniami,
 może do tego zostać użyta powszechnie znana technologia \ow{CSS} lub język \js.
 Łatwość z jaką niezależni twórcy stron internetowych mogą użyć symulatora \en w
-podręcznikach nowej generacji czy też wirtualnych laboratoriach, powoduje iż
+podręcznikach nowej generacji czy też wirtualnych laboratoriach powoduje, iż
 aplikacja ta może mieć naprawdę szeroki wpływ na edukację.
 
 \subsection{Obliczenia u klienta kontra obliczenia na serwerze}
@@ -156,7 +156,7 @@ obliczenia związane z symulacją mogą być przeprowadzone w dwóch miejscach:
 \begin{itemize} 
 
 \item Na serwerze. Następnie wyniki muszą zostać przekazane za pośrednictwem
-sieci do klienta w postaci np. danych, które byłby u niego wizualizowane bądź
+sieci do klienta w postaci np. danych, które byłyby u niego wizualizowane bądź
 też w postaci gotowego obrazu stanowiącego już wizualizację.
 
 \item U klienta. Następnie wyniki również u klienta muszą zostać zwizualizowane.
@@ -179,7 +179,7 @@ powszechny dostęp do takiej aplikacji.
 
 Obliczenia po stronie klienta rozwiązują całkowicie ten problem. Jako, że
 symulacja nastawiona jest na interaktywność oraz aspekt wizualny, przeciętny
-komputer domowy posiada wystarczającą moc obliczeniową. Ponadto, jeżeli jest
+komputer domowy posiada wystarczającą moc obliczeniową. Ponadto jeżeli jest
 taka możliwość, wykorzystywana jest jego karta graficzna co jeszcze zwiększa
 wydajność. Architektura aplikacji staje się znacznie bardziej przejrzysta, nie
 jest wymagane intensywne obciążanie łącza internetowego, a wyłącznie jednokrotne
@@ -215,8 +215,8 @@ informacji o metodzie relaksacyjnej:
 
 gdzie $k$ to przewodnictwo cieplne, $c$ to pojemność cieplna, $\rho$ to gęstość,
 $\mathbf{v}$ to pole prędkości, a $q$ to wewnętrzna generacja ciepła. Równanie
-ciepła można podzielić na dwie części: dyfuzji, charakteryzowaną przez funkcję
-pola przewodnictwa oraz adwekcji, charakteryzowaną przez funkcję pola prędkości.
+ciepła można podzielić na dwie części: dyfuzji -- charakteryzowaną przez funkcję
+pola przewodnictwa oraz adwekcji -- charakteryzowaną przez funkcję pola prędkości.
 Wewnętrzną generację ciepła można rozumieć jako siłę zewnętrzną.
 
 Równanie różniczkowe zostało przekształcone do postaci dyskretnej zarówno w
@@ -326,7 +326,7 @@ na komputerze użytkownika była zainstalowana wirtualna maszyna Java, a w
 przypadku próby osadzenia symulacji w środowisku przeglądarki internetowej,
 odpowiednie jej rozszerzenie. Wbrew pozorom, jest to dość problematyczne na
 wielu szkolnych komputerach, które często są konfigurowane w najprostszy sposób,
-a uczniowie ani nauczyciele nie mają praw administratora. Ponadto, nawet gdy te
+a uczniowie ani nauczyciele nie mają praw administratora. Ponadto nawet gdy te
 wymagania są spełnione, sama integracja apletów Java ze stroną HTML jest
 obarczona wieloma problemami.
 
@@ -341,7 +341,7 @@ Aplikacja \en \js korzysta wyłącznie z technologii, które muszą być znane
 każdemu programiście stron internetowych, stąd integracja jest bezproblemowa.
 
 Z kolei dla użytkownika uciążliwe może być instalowanie i utrzymywanie
-aktualnych wersji maszyny wirtualnej oraz rozszerzeń do przeglądarek. Ponadto,
+aktualnych wersji maszyny wirtualnej oraz rozszerzeń do przeglądarek. Ponadto
 aplet stanowi wyraźnie odrębną część strony internetowej, często też użytkownik
 musi każdorazowo zezwolić na jego uruchomienie. Przez to wizualizacja może stać
 się elementem pomijanym przez uczniów z powodu zwykłego zniechęcenia i znużenia.
