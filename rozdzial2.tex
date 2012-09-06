@@ -89,21 +89,19 @@ efektywniejsze). Udostępniony jest specjalny interfejs oraz składnia, co
 znacznie ułatwia pracę, szczególnie programistom bez doświadczenia w pracy z
 programowaniem grafiki trójwymiarowej.
 
-Algorytmy przeznaczone do wykonywania na procesorze karty graficznej stanowią
-integralną
-
 \subsection{Możliwości w środowisku przeglądarki internetowej}
 \label{subsec:srodPrzegInt}
 
-Należy uściślić, że ,,środowisko przeglądarki internetowej'' to zbiór możliwości
-nowoczesnych, wiodących przeglądarek internetowych, rozpowszechniony na tyle,
-aby był dostępny dla większości użytkowników internetu. Równocześnie możliwości
-te nie mogą wymagać instalowania żadnych dodatków i rozszerzeń, gdyż znacznie
-ogranicza to ich dostępność. Jest to szczególnie istotne dla aplikacji
-edukacyjnych, które wymagają łatwego i powszechnego dostępu.
+Należy uściślić, że ,,środowisko przeglądarki internetowej'' to zbiór
+możliwości nowoczesnych, wiodących przeglądarek internetowych,
+rozpowszechniony na tyle, aby był dostępny dla większości użytkowników
+internetu. Równocześnie możliwości te nie mogą wymagać instalowania żadnych
+dodatków i rozszerzeń, gdyż znacznie ogranicza to ich osiągalność. Jest to
+szczególnie istotne dla aplikacji edukacyjnych, które wymagają łatwego i
+powszechnego dostępu.
 
 Przeglądarka internetowa z założenia oferuje środowisko bardzo ograniczone,
-przede wszystkim ze względów bezpieczeństwa. Jednak niedawno, wraz z
+przede wszystkim ze względów bezpieczeństwa. Jednak niedawno wraz z
 nadejściem standardu HTML5, został dodany podstawowy dostęp do zasobów karty
 graficznej. Realizuje go technologia WebGL, która jest implementacją standardu
 \ow{OpenGL ES 2.0}. Tym samym pojawiła się możliwość programowania jednostek
@@ -113,16 +111,15 @@ ogólnego zastosowania (por. \ref{subsec:niskProgJedn}).
 Technologie programowania kart graficznych wyższego poziomu (por.
 \ref{subsec:techWyzPoz}) nie są (jeszcze) dostępne w przeglądarce
 internetowej. Aktualnie trwają intensywne prace nad implementacją standardu
-OpenCL o roboczej nazwie WebCL. Jednak technologia ta w aktualnym momencie
-jest na bardzo wczesnym etapie rozwoju. Więcej informacji można znaleźć na
-stronie internetowej: \url{http://www.khronos.org/webcl/}.
+OpenCL o roboczej nazwie WebCL. Jednak ta technologia jest jeszcze na bardzo
+wczesnym etapie rozwoju. Więcej informacji można znaleźć na stronie
+internetowej: \url{http://www.khronos.org/webcl/}.
 
 Dlatego też jedyną metodą na przeprowadzenie obliczeń ogólnego zastosowania na
 procesorze karty graficznej w środowisku przeglądarki internetowej jest sposób
 zaprezentowany w sekcji \ref{subsec:niskProgJedn}. Właśnie taka,
 niskopoziomowa metoda została zastosowana dla silników fizycznych symulatora
-\ow{Energy2D}. Opis najważniejszych zagadnień związanych z implementacją
-prezentuje następny podrozdział.
+\ow{Energy2D}.
 
 \section{Implementacja silników fizycznych Energy2D przy użyciu WebGL}
 \label{sec:implSilFizWebGL}
@@ -144,8 +141,7 @@ równoległego}
 
 Wszystkie algorytmy rozwiązujące równania fizyczne w symulatorze \ow{Energy2D}
 zostały poddane analizie pod kątem możliwości równoległego przetwarzania.
-Zostały wyróżnione następujące kryteria, które algorytm musi spełniać, aby było
-to możliwe:
+Zostały wyróżnione następujące kryteria, które algorytm musi spełniać:
 
 \begin{itemize}
 
@@ -222,7 +218,7 @@ Uproszczony schemat tej relaksacji prezentuje algorytm \ref{alg:JacobiCPU}.
 \end{algorithm}
 
 Taki algorytm można już przetworzyć na wersję równoległą. Macierze $x$ oraz
-$temp$  zostają zamienione na odpowiednie tekstury. Również, w celach
+$temp$  zostają zamienione na odpowiednie tekstury. Również w celach
 wydajnościowych zawartość tekstur nie jest przepisywana tylko zamieniane są
 ich referencje. Uproszczony schemat relaksacji metodą \ow{Jacobiego} na GPU
 prezentuje algorytm \ref{alg:JacobiGPU}.
@@ -268,8 +264,8 @@ liniowych prezentują rysunki \ref{fig:linSolvCPU5}, \ref{fig:linSolvGPU5} oraz
 \ref{fig:linSolvGPU10}.
 
 Na ww. rysunkach można zaobserwować wyraźne różnice w rezultatach symulacji. W
-przypadku przedstawionej symulacji oczekiwanym wynikiem było powstanie wiru
-Kármána dla większej przeszkody. Przy implementacji równoległej metody
+przypadku przedstawionej symulacji oczekiwanym wynikiem było powstanie ścieżki
+wirowej von Kármána dla większej przeszkody. Przy implementacji równoległej metody
 \ow{Jacobiego} widać, iż pożądany efekt symulacji zostaje utracony. Dlatego
 też należy wykonać więcej kroków relaksacji. Okazało się, że wartością
 wystarczającą jest dziesięć. Wartość ta została ustalona empirycznie, tak aby
@@ -285,7 +281,7 @@ konieczności wykonania dwukrotnie większej liczby kroków.
 Istnieją również implementacje algorytmu \ow{Gaussa-Seidela} na maszyny
 równoległe. Nie są to dokładne kopie wersji sekwencyjnej, lecz imitują
 obliczanie nowych wartości komórek na podstawie wartości z kroku relaksacji
-poprzedniego i aktualnego. Doskonałe opracowanie zagadnień algorytmów
+poprzedniego i aktualnego. Doskonałe opracowanie i porównanie algorytmów
 rozwiązujących układy równań liniowych na CPU oraz GPU, które okazało się
 niezwykle przydatne podczas implementacji równoległych algorytmów dla \en,
 zostało przygotowane przez G. Amadora oraz A. Gomesa \cite{LinSolvers}.
@@ -297,7 +293,7 @@ szybszej konwergencji algorytmu.
 \subsection{Podstawowy zarys implementacji}
 
 Zgodnie z wnioskami sekcji \ref{subsec:srodPrzegInt}, ze względu na ograniczenia
-środowiska przeglądarki internetowej, wymuszona została implementacja
+środowiska przeglądarki internetowej wymuszona została implementacja
 niskopoziomowa przy użyciu technologii \ow{WebGL}. Opiera się ona na
 programowaniu jednostek cieniujących karty graficznej, głównie wykorzystując
 programy fragmentów (ang. fragment programs). Taka metoda przeprowadzania
@@ -360,11 +356,11 @@ void main() {
 }
 \end{lstlisting}
 
-Programy fragmentów, jako że wykonują właściwe obliczenia, nie są już tak
-trywialne. Bardzo ważne jest właściwe określenie współrzędnych tekseli
+Programy fragmentów nie są już tak trywialne, ponieważ wykonują właściwe
+obliczenia. Bardzo ważne jest poprawne określenie współrzędnych tekseli
 tekstury. Posiadając siatkę symulacji o wymiarach NxN, należy ją zrzutować na
 zakres domyślnych współrzędnych tekstury, które zawierają się w przedziale [0,
-1]. Jeżeli zrobi się to nieprawidłowo, trudno będzie wykryć taki błąd, gdyż
+1]. Jeżeli zrobi się to nieprawidłowo trudno będzie wykryć taki błąd, gdyż
 domyślnie tekstury interpolują wartości leżące pomiędzy rzeczywistymi danymi.
 Może to prowadzić do nieoczekiwanych rezultatów, stąd niezwykle istotne jest
 precyzyjne określanie współrzędnych. W tym celu, praktycznie każdy program
@@ -372,10 +368,11 @@ fragmentów zawierał wektor o nazwie \ow{grid} równy (1.0 / N, 1.0 / N), gdzie
 NxN to wymiary siatki symulacyjnej. Dodając lub odejmując odpowiedni jego
 komponent można uzyskać dokładną wartość komórki sąsiedniej. Warto też
 pamiętać o fakcie, iż pierwsza kolumna tekseli nie ma współrzędnej X równej
-0.0, lecz 0.5 / N. To samo dotyczy pierwszego rzędu oraz współrzędnej Y równej
-0.5 / N. Błędne założenie, iż ta kolumna lub rząd tekseli mają współrzędne 0.0
-prowadzi do problemów przy wymuszaniu warunków brzegowych podczas symulacji.
-Ostatecznie, typowy szkielet programów fragmentów wygląda następująco:
+0.0, lecz 0.5 / N. To samo dotyczy pierwszego rzędu tekseli oraz współrzędnej
+Y równej 0.5 / N. Błędne założenie, iż ta kolumna lub rząd tekseli mają
+współrzędne 0.0 prowadzi do problemów przy wymuszaniu warunków brzegowych
+podczas symulacji. Ostatecznie, typowy szkielet programów fragmentów wygląda
+następująco:
 
 \begin{lstlisting}[language=GLSL, caption=Szkielet implementacji programu
 fragmentów w symulatorze \ow{Energy2D} (język GLSL)]
@@ -404,7 +401,7 @@ liniach 13 oraz 14. Implementacja funkcji $F$ nie jest przytoczona, gdyż nie
 da się wyróżnić jakiegoś ogólnego jej schematu czy wzoru. Można powiedzieć, że
 przenosząc dany krok algorytmu do języka GLSL, funkcja $F$ stanowi
 implementację ,,wewnętrznych'' instrukcji zagnieżdżonych pętli iterujących po
-wszystkich komórkach symulacji.
+wszystkich komórkach siatki symulacyjnej.
 
 
 \subsection{Organizacja danych w pamięci karty graficznej}
@@ -418,9 +415,9 @@ współczesnych urządzeń.
 
 Niezwykle ważną kwestią jest organizacja danych w teksturze. Jest sporo
 możliwości ponieważ tekstura z zasady nie jest wierną kopią tablicy
-\js, a obiektem przystosowanym do przechowywania obrazów -- przede
+\js, a obiektem przystosowanym do przechowywania obrazów. Przede
 wszystkim posiada kanały kolorów. Dlatego też można rozważyć kilka
-potencjalnych sposobów na rozmieszczenie danych z tablicy \js w teksturze
+potencjalnych sposobów na rozmieszczenie danych z tablic \js w teksturach
 \ow{WebGL}:
 
 \begin{itemize}
@@ -467,7 +464,7 @@ rozdział \ref{sec:testyWydajnosciowe}}.
 Rozwiązaniem optymalnym ze względu na wydajność oraz czytelność kodu wydaje się
 schemat A1. Umożliwia on przeniesienie danych z tablic w relacji 1:1 do tekstur.
 Do tego, każdy odczyt czy zapis do tekstury dotyczy tylko jednego kanału.
-Niestety, na większości urządzeń nie ma możliwości dołączenia tekstury typu
+Niestety na większości urządzeń nie ma możliwości dołączenia tekstury typu
 ALPHA lub LUMINANCE do własnego obiektu bufora ramki (ang. FrameBuffer Object)
 -- czyli renderowania do takiej tekstury\footnote{Testy zostały przeprowadzone
 na systemie Linux (Ubuntu 12.04) i przeglądarce Google Chrome w wersji 22, która
@@ -541,16 +538,16 @@ cieniujących odczytując teksturę faktycznie korzystał z danych zawartych w
 każdym z kanałów. Podobnie przy zapisie, program renderujący powinien
 modyfikować wszystkie cztery kanały. W przypadku symulatora \ow{Energy2D}
 udało się uzyskać taką organizację danych, żeby odczyt był w znacznym stopniu
-zoptymalizowany, jednak podczas zapisu modyfikowany był tylko jeden lub dwa
+zoptymalizowany. Jednak podczas zapisu modyfikowany jest tylko jeden lub dwa
 kanały (kanał zawierający dane o temperaturze lub kanały zawierające
-komponenty wektorów prędkości). Mimo nie do końca optymalnego ułożenia
-kanałów, schemat RGBA4 okazał się około 54\% wydajniejszy od RGBA1.
+komponenty wektorów prędkości). Mimo tego schemat RGBA4 okazał się około 54\%
+wydajniejszy od schematu RGBA1.
 
 Ciekawą organizacją danych może wydawać się również pomysł przedstawiony w
 schemacie RGBA1/4. Pozwala przechowywać tablicę JavaScript o wymiarach
 \ow{NxN} w teksturze o wymiarach \ow{(N/2)x(N/2)}. Pomysł ten obrazuje diagram
-\ref{fig:rgba14Tex}. Taki układ danych teoretycznie posiada sporo zalet jak w
-przypadku użycia tekstur jednokanałowych. Jednak znacznie zmniejsza on
+\ref{fig:rgba14Tex}. Taki układ danych teoretycznie posiada sporo zalet
+cechujących użycie tekstur jednokanałowych. Jednak znacznie zmniejsza on
 czytelność kodu i komplikuje implementacje. Utrudnione zostaje przede
 wszystkim kontrolowanie warunków brzegowych, programy jednostek cieniujących
 przetwarzają cztery pola jednocześnie i stają się bardzo skomplikowane. W
@@ -559,26 +556,26 @@ w efekcie odnotowano bardzo słabe rezultaty pod względem wydajności. Symulacj
 okazała się być wolniejsza około 34\% od symulacji korzystającej ze schematu
 RGBA4.
 
-Dlatego też, ostatecznie w \ow{Energy2D} zastosowano schemat RGBA4. Zapewnia on
-najlepszy kompromis pomiędzy dobrą wydajnością oraz wsparciem przez większość
-dostępnych obecnie urządzeń.
+Ostatecznie w \ow{Energy2D} zdecydowano się zastosować schemat RGBA4. Zapewnia
+on najlepszy kompromis pomiędzy dobrą wydajnością oraz wsparciem przez
+większość dostępnych obecnie urządzeń.
 
 \subsection{Geometria}
 
 Podczas wykonywania obliczeń ogólnego przeznaczenia przy pomocy bezpośredniego
-programowania jednostek cieniujących karty graficznej, niezbędne jest
+programowania jednostek cieniujących karty graficznej niezbędne jest
 stworzenie obiektu (a właściwie jego geometrii), który będzie renderowany. W
 teorii może być to dowolna bryła. Jednak najczęściej pożądane jest, aby
 program fragmentów wykonał się dla każdej komórki siatki symulacyjnej, którą
-stanowi piksel tekstury. Można to osiągnąć renderując płaszczyznę, która
+stanowią piksele tekstury. Można to osiągnąć renderując płaszczyznę, która
 pokrywa całą dostępną przestrzeń renderowania.
 
-Również w przypadku \en wykorzystywany jest rendering takiej płaszczyzny. Do
-przechowywania jej własności wykorzystane zostały bufory wierzchołków (ang.
-vertex buffers) oraz indeksów (ang. index buffers) znajdujące się w pamięci
-karty graficznej. Dzięki temu, podczas wielokrotnego renderowania tej samej
-płaszczyzny, nie jest konieczne nieustanne przesyłanie atrybutów wierzchołków
-do pamięci GPU.
+Również w przypadku \en wykorzystywane zostało takie podejście. Do
+przechowywania własności płaszczyzny użyte zostały bufory wierzchołków
+(ang. vertex buffers) oraz indeksów (ang. index buffers) znajdujące się w
+pamięci karty graficznej. Dzięki temu podczas wielokrotnego renderowania tej
+samej płaszczyzny, nie jest konieczne nieustanne przesyłanie atrybutów
+wierzchołków do pamięci GPU.
 
 W finalnej implementacji \en zostały przygotowane klasy pomocnicze
 zarządzające geometrią oraz buforami. Jednak najprostszy sposób na stworzenie
@@ -636,8 +633,8 @@ docelowej lub podmienić referencje. Oczywiście modyfikacja wyłącznie
 referencji  jest znacznie efektywniejsza przez co i częściej stosowana.
 Całościowo taki schemat nazywany jest ,,ping-pong rendering''.
 
-Implementacja w języku \ow{JavaScript} przy użyciu technologi \ow{WebGL} nie
-odbiega znacząco od implementacji w innych językach przy użyciu
+Implementacja tego schematu w języku \ow{JavaScript} przy użyciu technologi
+\ow{WebGL} nie odbiega znacząco od implementacji w innych językach przy użyciu
 ,,tradycyjnego'' API OpenGL. Mark Harris zaprezentował najważniejsze aspekty
 tej techniki w swoich artykułach opublikowanych w serii \emph{GPU Gems}
 (\cite{GPUConcepts} oraz \cite{GPUFluid}).

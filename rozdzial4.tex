@@ -25,11 +25,11 @@ zmieniła od swojego powstania. Pierwsza specyfikacja \ow{ECMAScript}
 (definiująca i standaryzująca język \ow{JavaScript}) pojawiła się w roku 1997,
 została uaktualniona również w latach 1998 oraz 1999, a przez następnych
 dziesięć lat, aż do roku 2009, nie uległa żadnym zmianom. Dziesięć lat dla
-takiej technologii stanowi ogromny zastój, szczególnie iż przypadł na okres
+takiej technologii stanowi ogromny zastój, szczególnie iż był to okres
 wyjątkowo dynamicznego rozwoju aplikacji internetowych. Obrazuje to fakt, iż
 sam rozwój języka często nie nadążał za jego zaawansowanymi zastosowaniami.
 
-W związku z tą sytuacją, tworząc złożone aplikacje w języku \js, programiści
+W związku z tą sytuacją, tworząc złożone aplikacje w języku \js programiści
 mogą napotkać wiele trudności. Brakuje dostępu do rozwiązań, które często
 uznawane są za podstawowe i niezbędne. Różne są też koncepcje i podejścia do
 zagadnień takich jak programowanie obiektowe czy rozwiązywanie zależności.
@@ -45,11 +45,11 @@ użytkownika instalacji, uprawnień administratora, a aktualizacje są niezwykle
 poradzenia sobie z problemami wymienionymi wcześniej. Szczególnie dla aplikacji
 edukacyjnej, która musi być łatwo dostępna dla jak najszerszego grona odbiorców.
 
-\js nie narzuca żadnego stylu programowania. Jest on językiem skryptowym,
-zorientowanym obiektowo lecz o prototypowym modelu dziedziczenia. Ponadto jest
-dynamiczny, słabo typowany, a funkcje są obiektami pierwszoklasowymi. Doskonale
-wspiera wiele paradygmatów programowania, takich jak programowanie zorientowane
-obiektowo, imperatywne czy też funkcyjne.
+\js nie narzuca żadnego stylu programowania. Jest to język skryptowy,
+zorientowany obiektowo lecz o prototypowym modelu dziedziczenia. Ponadto jest
+dynamiczny, słabo typowany, a funkcje są obiektami pierwszoklasowymi.
+Doskonale wspiera wiele paradygmatów programowania, takich jak programowanie
+zorientowane obiektowo, imperatywne czy też funkcyjne.
 
 W związku z tym twórcy aplikacji mają bardzo dużą dawkę elastyczności w
 podejściu do strukturyzacji swojej pracy. Nic nie jest z góry narzucone i
@@ -83,7 +83,7 @@ Uwzględniając powyższe obserwacje, ostateczna architektura aplikacji powstał
 bazie wzorca projektowego \emph{Model-View-Controller}. Schemat ideowy systemu
 \en przedstawia rysunek \ref{fig:architektura}. Użyty wzorzec projektowy jest
 powszechnie stosowany w aplikacjach, które posiadają graficzny interfejs
-użytkownika. Skupia się na oddzieleniu logiki biznesowej oraz model danych od
+użytkownika. Skupia się na oddzieleniu logiki biznesowej oraz modelu danych od
 ich reprezentacji. Ujmując to ogólniej, zapewnia rozdzielenie obowiązków (ang.
 Separation of
 Concerns\footnote{\url{http://en.wikipedia.org/wiki/Separation_of_concerns}}).
@@ -102,7 +102,7 @@ najważniejsze to:
 być ponownie użyte (np. większość wizualizacji).
 
 \item Brak związania silników fizycznych z przeglądarką internetową. Wynika to
-właśnie z oddzielenia od warstwy prezentacji. Dzięki temu możliwe jest użycie
+właśnie z ich niezależności od warstwy prezentacji. Dzięki temu możliwe jest użycie
 efektywnych testów zautomatyzowanych. Ta kwestia jest omówiona szerzej w sekcji
 \ref{sec:zgodNode.js}.
 
@@ -136,16 +136,17 @@ dynamiki płynów.
 
 \begin{description}
 
-\item[Core Physics Model] tworzy i zarządza wszystkimi niezbędnymi dla obliczeń
-fizycznych danymi. Można do nich zaliczyć siatki symulacyjne (reprezentowane
-przez tablice \js bądź też dwuwymiarowe tekstury \ow{WebGL}) oraz zestaw
-parametrów charakteryzujących warunki początkowe symulacji. Parametry te są
-definiowane przez specjalny plik konfiguracyjny w formacie \ow{JSON}, dlatego
-też można stworzyć bardzo wiele przypadków modelujących różnorakie zjawiska
-fizyczne. Do zarządzania konfiguracją wykorzystywany jest jeden z pomocniczych
-obiektów \textbf{Configration Validator}. Obliczenia fizyczne nie są
-przeprowadzane przez sam obiekt \emph{Core Physics Model}. Deleguje on te
-zadania do innych obiektów, tym samym realizując wzorzec projektowy strategii.
+\item[Core Physics Model] tworzy i zarządza wszystkimi niezbędnymi dla
+obliczeń fizycznych strukturami danych. Można do nich zaliczyć siatki
+symulacyjne (reprezentowane przez tablice \js bądź też dwuwymiarowe tekstury
+\ow{WebGL}) oraz zestaw parametrów charakteryzujących warunki początkowe
+symulacji. Parametry te są definiowane przez specjalny plik konfiguracyjny w
+formacie \ow{JSON}, dlatego też można stworzyć bardzo wiele przypadków
+modelujących różnorakie zjawiska fizyczne. Do zarządzania konfiguracją
+wykorzystywany jest jeden z pomocniczych obiektów \textbf{Configration
+Validator}. Obliczenia fizyczne nie są przeprowadzane przez sam obiekt
+\emph{Core Physics Model}. Deleguje on te zadania do innych obiektów, tym
+samym realizując wzorzec projektowy strategii.
 
 \item[Heat Solver oraz Fluid Solver] to obiekty implementujące algorytmy
 fizyczne przewodnictwa cieplnego oraz dynamiki płynów przedstawione w sekcji
@@ -155,9 +156,9 @@ komputera.
 
 \item[Heat Solver GPU oraz Fluid Solver GPU] to odpowiedniki obiektów
 przedstawionych powyżej, jednak implementujące algorytmy fizyczne przy
-wykorzystaniu technologii \ow{WebGL}. Stąd, główne obliczenia wykonywane są na
-procesorze karty graficznej. Zapewnia to wielokrotnie lepszą wydajność.
-Jednak, jako iż \ow{WebGL} jest technologią dość nową, obiekty te implementują
+wykorzystaniu technologii \ow{WebGL}. Stąd główne obliczenia wykonywane są na
+procesorze karty graficznej. Zapewnia to wielokrotnie lepszą wydajność. Jednak
+ponieważ \ow{WebGL} jest technologią dość nową, obiekty te implementują
 identyczną logikę jak wersje bazowe i są używane wyłącznie jeżeli konfiguracja
 użytkownika spełnia odpowiednie wymagania.
 
@@ -218,11 +219,13 @@ początkowego).
 
 \item[WebGL Status] ma zadanie informacyjne, prezentuje czy konfiguracja
 użytkownika wspiera technologię \ow{WebGL} oraz niezbędne jej rozszerzenia.
+Oczywiście jest to widok nieobowiązkowy, przydatny szczególnie podczas testów.
 
 \item[Performance Monitor] prezentuje dane dotyczące wydajności, takie jak ilość
 wyświetlanych klatek na sekundę oraz czasy wykonywania poszczególnych etapów
 algorytmu. Dzięki niemu było możliwe przeprowadzenie testów wydajnościowych
-omówionych w rozdziale \ref{sec:testyWydajnosciowe}.
+omówionych w rozdziale \ref{sec:testyWydajnosciowe}. Podobnie jak poprzedni widok,
+również statysyki dotyczące wydajności są widokiem opcjonalnym.
 
 \end{description}
 
@@ -265,30 +268,31 @@ Chrome. Aby skrypt mógł być wykonywany w tym środowisku, musi być niezależ
 cech charakterystycznych dla środowiska przeglądarki internetowej.
 
 Niezależność od przeglądarki można zdefiniować jako niekorzystanie z metod
-globalnie dostępnych obiektów takich jak \emph{window} czy też \emph{document}.
-Innym działaniem, które wiąże skrypt z przeglądarką i tradycyjnym zastosowaniem
-jest np. trawersowanie (oraz ewentualne modyfikowanie) drzewa HTML DOM. Jednak,
-przy założeniu o niedostępności zewnętrznych bibliotek, można to sprowadzić do
+globalnie dostępnych obiektów takich jak \emph{window} czy też
+\emph{document}. Innym działaniem, które wiąże skrypt z przeglądarką jest np.
+trawersowanie oraz ewentualne modyfikowanie drzewa HTML DOM. Jednak przy
+założeniu o niedostępności zewnętrznych bibliotek można to sprowadzić do
 nieużywania metod wspomnianego powyżej obiektu \emph{document}.
 
 Poprzedni podrozdział zaprezentował modułową budowę symulatora \en na bazie
 wzorca projektowego \emph{Model-View-Controller}. Architektura opierająca  się
-na jak najbardziej niezależnych modułach, pełniących jasno zdefiniowaną funkcję
-jest ważna nie tylko ze względu na łatwiejszy rozwój i utrzymanie aplikacji. To
-podejście pozwoliło wyodrębnić jednostki symulatora, które są zupełnie
-niezależne od przeglądarki wg. kryteriów zdefiniowanych powyżej. Warunek ten
-spełnia grupa obiektów przedstawiona wcześniej jako ,,Modele'' (por.
-\ref{sec:modele}). Dzięki niezależności od przeglądarki, możliwe stało się
-używanie tych obiektów w przedstawionym powyżej środowisku \ow{Node.js}.
+na jak najbardziej niezależnych modułach, pełniących jasno zdefiniowaną
+funkcję, jest ważna nie tylko ze względu na łatwiejszy rozwój i utrzymanie
+aplikacji. To podejście pozwoliło wyodrębnić jednostki symulatora, które są
+zupełnie niezależne od przeglądarki wg. kryteriów zdefiniowanych powyżej.
+Warunek ten spełnia grupa obiektów przedstawiona wcześniej jako ,,Modele''
+(por. \ref{sec:modele}). Dzięki niezależności od przeglądarki, możliwe stało
+się używanie tych obiektów w środowisku \ow{Node.js}.
 
 Główną korzyścią jaka z tego płynie jest możliwość stosowania wydajnych,
 efektywnych testów zautomatyzowanych. Istnieją narzędzia umożliwiające
 testowanie kodu \js związanego z przeglądarką, ale są to rozwiązania znacznie
-mniej wydajne oraz wygodne. Oparcie testów na skryptach wykonywanych przez
-\ow{Node.js} pozwoliło zintegrować testy z system ciągłej integracji \ow{Travis
-Continuous Integration}\footnote{Strona domowa projektu: \url{http://travis-
-ci.org/}}. Ponadto ułatwione zostało ewentualne użycie zaawansowanych silników
-fizycznych \en przez inne aplikacje działające w środowisku \ow{Node.js}.
+mniej wydajne oraz nie tak wygodne dla programistów. Oparcie testów na
+skryptach wykonywanych przez \ow{Node.js} pozwoliło zintegrować je z system
+ciągłej integracji \ow{Travis Continuous Integration}\footnote{Strona domowa
+projektu: \url{http://travis- ci.org/}}. Ponadto ułatwione zostało ewentualne
+użycie zaawansowanych silników fizycznych \en przez inne aplikacje działające
+w środowisku \ow{Node.js}.
 
 \section{Zarządzanie zależnościami w złożonych aplikacjach JavaScript}
 
@@ -308,7 +312,7 @@ wyłącznie w małych, prostych aplikacjach.
 
 \item Własne skrypty budujące aplikację, najczęściej poprzez zautomatyzowane
 łączenie poszczególnych plików źródłowych w jeden plik wynikowy. Wykorzystywane
-są do tego różne technologie. We wczesnym etapie rozwoju aplikacji \en właśnie
+są do tego różne technologie. Na wczesnym etapie rozwoju aplikacji \en właśnie
 tak zarządzano zależnościami. Wykorzystywaną technologią był program
 \emph{make}, dlatego pliki źródłowe zdefiniowane były w pliku \emph{Makefile}.
 Podejście to jest znacznie lepsze niż poprzednie. Przede wszystkim pozwala

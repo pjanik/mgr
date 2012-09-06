@@ -14,7 +14,7 @@ konfiguracjach.
 
 W przypadku aplikacji edukacyjnej jaką jest symulator \en niezwykle istotne
 jest aby symulowane zjawiska odzwierciedlały w sposób  wiarygodny
-rzeczywistość. Z drugiej jednak strony, aplikacja musi być interaktywna i
+rzeczywistość. Z drugiej strony, aplikacja musi być interaktywna i
 działać w czasie rzeczywistym. Dlatego też nie można sobie pozwolić na zbyt
 długi czas wykonywania, co zwykle idzie w parze z dokładnymi algorytmami i
 obliczeniami. Z tego też powodu zastosowane silniki fizyczne (por. rozdział
@@ -22,7 +22,7 @@ obliczeniami. Z tego też powodu zastosowane silniki fizyczne (por. rozdział
 wydajnością. Jest to dopuszczalne, ponieważ symulacja jest zorientowana
 wyłącznie na aspekt wizualny.
 
-Z powodu tego kompromisowego podejścia do pełnej dokładności obliczeń, niezwykle
+Z powodu tego kompromisowego podejścia do pełnej dokładności obliczeń niezwykle
 istotne były testy aplikacji pod kątem podstawowej poprawności fizycznej. W tym
 celu zostały przygotowane przypadki testowe, które miały za zadanie modelować
 powszechnie znane zjawiska fizyczne związane z przewodnictwem cieplnym oraz
@@ -84,8 +84,8 @@ pewnego zakresu wartości liczby Reyonldsa (por. \ref{sec:przeplywyLamTur}).
 
 W związku z tym został przygotowany przypadek testowy, w którym płyn ma stałą
 lepkość oraz prędkość przepływu, natomiast zmienna jest tylko średnica
-przeszkody. Zgodnie z powyższymi założeniami, powinno być możliwe dobranie
-takich średnic przeszkód, aby wiry Kármána powstały tylko za jedną z nich.
+przeszkody. Zgodnie z powyższymi założeniami powinno być możliwe dobranie
+takich średnic przeszkód, aby wiry von Kármána powstały tylko za jedną z nich.
 Rysunek \ref{fig:physKarman} prezentuje wyniki takiej symulacji przeprowadzonej
 przez \en.
 
@@ -96,21 +96,23 @@ przez \en.
 \label{fig:physKarman}
 \end{figure}
 
-Rezultaty są zgodne z oczekiwaniami. Wir powstał tylko w warunkach, w których
+Rezultaty są zgodne z oczekiwaniami. Ścieżka wirowa powstała tylko w warunkach, w których
 liczba Reynoldsa była większa.
 
 \subsection{Pojemność cieplna}
 
 Tym razem przypadek testowy dotyczy silnika przewodnictwa cieplnego. Pojemność
-cieplna to wielkość fizyczna, która charakteryzuje ilość ciepła, jaka jest
+cieplna to wielkość fizyczna, która charakteryzuje ilość ciepła jaka jest
 niezbędna do zmiany temperatury ciała o jednostkę temperatury. Poprawna
 symulacja powinna uwzględniać ten parametr materiałów.
 
 Aby to sprawdzić przygotowany został przypadek testowy, w którym znajdują się
-dwa materiały o różnej pojemności cieplnej. Materiał o większej pojemności
-powinien przewodzić ciepło znacznie lepiej niż ten o pojemności mniejszej.
-Wyniki takiego eksperymentu przeprowadzonego przez symulator \en prezentuje
-rysunek \ref{fig:heatCapacity}.
+dwa materiały o różnej pojemności cieplnej ogrzewane przez otoczenie. Materiał
+o większej pojemności powinien przewodzić ciepło znacznie gorzej niż materiał
+o pojemności mniejszej. Wyniki takiego eksperymentu przeprowadzonego przez
+symulator \en prezentuje rysunek \ref{fig:heatCapacity}.
+
+\clearpage 
 
 \begin{figure}[!h]
 \centering
@@ -119,22 +121,24 @@ rysunek \ref{fig:heatCapacity}.
 \label{fig:heatCapacity}
 \end{figure}
 
+
 Rezultaty po raz kolejny są zgodne z oczekiwaniami. Widać wyraźnie, iż po tym
-samym czasie, materiał o mniejszej pojemności cieplnej nagrzał się znacznie
+samym czasie materiał o mniejszej pojemności cieplnej nagrzał się znacznie
 bardziej niż materiał o większej pojemności cieplnej.
 
 \subsection{Aspekt edukacyjny}
 
 Ostatni z zaprezentowanych testów jest bardziej złożony. Nie prezentuje on
 jednego, konkretnego zjawiska fizycznego jak poprzednie przypadki testowe.
-Skupia się on na zaprezentowaniu przykładowych możliwości symulacji oraz na
-potencjalnym aspekcie edukacyjnym.
+Skupia się on na zaprezentowaniu kompleksowych możliwości symulacji oraz na
+aspekcie edukacyjnym.
 
 Przygotowana została scena zawierająca nieszczelnie izolowane pomieszczenie,
 będące metaforą mieszkania. Jest ono ogrzewane przez element grzewczy o stałej
 mocy. W jego otoczeniu został wymuszony dość mocny przepływ symulujący wiatr.
 Miało to na celu pokazanie użytkownikom różnych, potencjalnych dróg ucieczki
-ciepła z pomieszczeń mieszkalnych.
+ciepła z pomieszczeń mieszkalnych. Rysunek \ref{fig:wind} prezentuje rezultaty
+takiej symulacji.
 
 \begin{figure}[!h]
 \centering
@@ -143,14 +147,13 @@ ciepła z pomieszczeń mieszkalnych.
 \label{fig:wind}
 \end{figure}
 
-Rysunek \ref{fig:wind} prezentuje efekty takiej symulacji. Widoczne są dwa
-wyraźne zjawiska -- utrata ciepła w okolicy nieszczelnych okien oraz utrata
-ciepła związana z przewodnictwem cieplnym dachu. Pozwala to lepiej zrozumieć
-użytkownikowi wpływ różnych aspektów pomieszczeń mieszkalnych (takich jak
-szczelność czy izolacja) na straty ciepła. Może przyczynić się to do
-rozsądniejszego i ekonomiczniejszego gospodarowania energią w jego własnym
-mieszkaniu lub domu. W dobie szczególnej dbałości o środowisko naturalne
-jest to niezwykle cenny i pożądany efekt edukacyjny.
+Widoczne są dwa wyraźne zjawiska -- utrata ciepła w okolicy nieszczelnych
+okien oraz utrata ciepła związana z przewodnictwem cieplnym dachu. Pozwala to
+lepiej zrozumieć użytkownikowi wpływ różnych aspektów pomieszczeń mieszkalnych
+(takich jak szczelność czy izolacja) na straty ciepła. Może przyczynić się to
+do rozsądniejszego i ekonomiczniejszego gospodarowania energią w jego własnym
+mieszkaniu lub domu. W dobie szczególnej dbałości o środowisko naturalne jest
+to niezwykle cenny i pożądany efekt edukacyjny.
 
 \section{Testy wydajnościowe}
 \label{sec:testyWydajnosciowe}
@@ -166,7 +169,7 @@ przeglądarki internetowej. Jednak krokiem, który najbardziej przyczynił się 
 powstania naprawdę wydajnej aplikacji było przeniesienie obliczeń związanych
 z fizyką na procesor karty graficznej.
 
-Niniejsza sekcja przedstawia zyski z zastosowania tej optymalizacji. Omówiona
+Niniejszy rozdział przedstawia zyski z zastosowania tej optymalizacji. Omówiona
 jest także kwestia wpływu konfiguracji sprzętowej użytkownika oraz związana z
 tym ogólna dostępność symulatora dla szerokiego grona odbiorców.
 
@@ -332,7 +335,7 @@ komputerach, które faktycznie mogą posiadać potencjalni użytkownicy.
 
 Aplikacja od samego początku rozwoju była głównie testowana w przeglądarce
 Google Chrome, gdyż wyraźnie było widać jej ogromną przewagę w kwestii
-wydajności silnika \js. Ponadto wg. ostatnich raportów, jest to
+wydajności silnika \js. Ponadto wg. najnowszych raportów jest to
 najpopularniejsza przeglądarka na świecie, tak więc potencjalnie najwięcej
 użytkowników \en będzie z niej korzystać. Raport \cite{BrowserStats} pokazuję,
 iż w lipcu 2012 roku z przeglądarki Google Chrome korzystało 42.9\%
@@ -342,8 +345,8 @@ Firefox z udziałem 33.7\%. Łącznie te dwie przeglądarki posiadają 77.6\%
 Internet Explorer została wyłączona z testów z powodu niedostępności poza
 środowiskiem Windows oraz braku wsparcia dla technologii \ow{WebGL}. Podobnie
 Safari, które wspiera \ow{WebGL} jednak działa tylko na systemie operacyjnym
-Mac OS. Dlatego też, ostatecznie testy wpływu przeglądarki na wydajność
-symulacji zostały przeprowadzone z użyciem następujących aplikacji:
+Mac OS. Ostatecznie testy wpływu przeglądarki na wydajność symulacji zostały
+przeprowadzone z użyciem następujących aplikacji:
 
 \begin{itemize}
 \item Google Chrome v. 22
@@ -353,9 +356,9 @@ symulacji zostały przeprowadzone z użyciem następujących aplikacji:
 
 Użycie różnych konfiguracji sprzętowych powoduje oczywiście zmianę wyników,
 jednak względne różnice w wydajności pomiędzy przeglądarkami pozostają bez
-zmian. Dlatego też, w testach wydajności przeglądarek prezentowane są
-wyłącznie wyniki dla laptopa Samsung QX510 (por. tablica \ref{tab:komputery}).
-Wyniki dla pozostałych konfiguracji nie wniosłyby nowych oraz wartościowych
+zmian. Dlatego też w testach wydajności przeglądarek prezentowane są wyłącznie
+wyniki dla laptopa Samsung QX510 (por. tablica \ref{tab:komputery}). Wyniki
+dla pozostałych konfiguracji nie wniosłyby nowych oraz wartościowych
 informacji.
 
 \subsubsection{Obliczenia fizyczne wykonywane na CPU}
@@ -366,7 +369,7 @@ wykres \ref{fig:browserPerf}. Nietrudno dostrzec ogromną przewagę przeglądark
 Google Chrome. Jest to efekt zastosowanego w niej niezwykle wydajnego silnika
 \ow{JavaScript} o nazwie V8. Opera oraz Mozilla Firefox posiadają zbliżoną
 wydajność, jednak Opera jest nieznacznie szybsza. Warto też zauważyć, iż kiedy
-obliczenia fizyczne przeprowadzane są na CPU, jedyną przeglądarką, która
+obliczenia fizyczne przeprowadzane są na CPU jedyną przeglądarką, która
 zapewnia odpowiednią prędkość wykonywania się symulacji jest Google Chrome.
 
 \begin{table}[!h]
@@ -404,7 +407,7 @@ cfd2-256 & 3.71 & 0.30 & 0.73 \\ \hline
 W przypadku symulacji, która obliczenia fizyczne przeprowadza na GPU, nie
 została przetestowana Opera.  W dniu kiedy testy były przeprowadzane, Opera
 oferowała wyłącznie eksperymentalne wsparcie dla technologii \ow{WebGL} i nie
-oferowała dostępu do niezbędnego rozszerzenia \ow{OES\_texture\_float}. Wyniki
+zapewniała dostępu do niezbędnego rozszerzenia \ow{OES\_texture\_float}. Wyniki
 pomiarów wpływu pozostałych przeglądarek na wydajność symulacji w przypadku
 obliczeń przeprowadzanych na GPU prezentuje tabela \ref{tab:przegladarkiGPU}
 oraz wykres \ref{fig:browserPerfGPU}.
@@ -442,9 +445,9 @@ przeglądarkami, tak istotne przy obliczeniach na CPU, stają się znikome.
 Wynika to z tego, iż najbardziej obciążające obliczenia przeniesione są na
 kartę graficzną i to jej wydajność jest decydująca, a nie wydajność samego
 silnika \ow{JavaScript}.  Potwierdza to fakt, iż wraz ze wzrostem wielkości
-siatki symulacyjnej, różnice między przeglądarkami zanikają. Przewagę Google
+siatki symulacyjnej różnice między przeglądarkami zanikają. Przewagę Google
 Chrome widać wyłącznie dla testów działających na najmniejszych siatkach. Są
-to jedyne przypadki, gdzie czas potrzeby na realizacje instrukcji \js
+to jedyne przypadki, gdzie czas potrzebny na realizacje instrukcji \js
 stanowi zauważalny procent czasu wykonywania się całej symulacji.
 
 Innym ważnym wnioskiem jest to, iż użycie technologii \ow{WebGL} pozwala
@@ -488,7 +491,7 @@ interaktywnej.
 
 Wyniki testów na różnych komputerach przestawiają tabele od
 \ref{tab:wynikiWebGL_first} do \ref{tab:wynikiWebGL_last}. Zgodnie z przyjętą
-metodologią, miarą wydajności jest liczba klatek na sekundę jaką jest w stanie
+metodologią miarą wydajności jest liczba klatek na sekundę jaką jest w stanie
 wygenerować przeglądarka podczas działania symulacji. Kolumna \ow{CPU}
 prezentuje wydajność symulacji na procesorze głównym, a kolumna \ow{GPU} na
 procesorze karty graficznej. Z kolei kolumna \ow{GPU/CPU} prezentuje stosunek
@@ -604,33 +607,34 @@ cfd2-256 & 4.65 & 48.00 & 10.32 \\ \hline
 \end{table}
 
 Bardzo wyraźna jest zależność wyników od konfiguracji sprzętowej. Wyniki można
-rozpatrywać pod kątem wartości bezwzględnych oraz pod kątem zysku z zastosowania
-optymalizacji polegającej na przeniesieniu obliczeń na GPU (reprezentowanego
-przez współczynnik GPU/CPU). W przypadku wartości bezwzględnych, oczywistym
-jest, iż najszybsza powinna okazać się najmocniejsza jednostka w zestawieniu. W
-przypadku powyższych testów nie było niespodzianki, zdecydowanie najszybszy
-okazał się komputer stacjonarny z roku 2012, co znajduje uzasadnienie w jego
-parametrach.
+rozpatrywać pod kątem bezwzględnych wartości liczby klatek na sekundę oraz pod
+kątem zysku z optymalizacji polegającej na przeniesieniu obliczeń na GPU
+(reprezentowanego przez współczynnik GPU/CPU). W przypadku wartości
+bezwzględnych oczywistym jest, iż najszybsza powinna okazać się najmocniejsza
+jednostka w zestawieniu. Powyższe wyniki to potwierdzają -- zdecydowanie
+najszybszy okazał się komputer stacjonarny z roku 2012, co znajduje
+uzasadnienie w jego parametrach.
 
-W przypadku znacznie bardziej interesującego parametru, jakim jest stosunek
+W przypadku znacznie bardziej interesującego parametru jakim jest stosunek
 wydajności GPU do CPU, można zauważyć dwie grupy charakteryzujące się dużymi
-różnicami w wynikach. Zdecydowanie większy zysk z przeniesienia obliczeń na GPU
-odnotowują oba komputery stacjonarne oraz laptop Apple MacBook z roku 2012.
-Pozostałe dwa laptopy prezentują trochę mniej imponujące rezultaty tej
-optymalizacji. Tłumaczy to przede wszystkim zestawienie kart graficznych oraz
+różnicami w wynikach. Zdecydowanie większy zysk z przeniesienia obliczeń na
+GPU odnotowują oba komputery stacjonarne oraz laptop Apple MacBook z roku
+2012. Pozostałe dwa laptopy prezentują trochę mniej imponujące rezultaty tej
+optymalizacji. Tłumaczy to przede wszystkim specyfikacja kart graficznych oraz
 ich odniesienie do mocy procesora danej konfiguracji. Dwie jednostki, które
 osiągają najmniejszy zysk, posiadają stosunkowo wydajne procesory, natomiast
 karty graficzne są zdecydowanie nastawione na energooszczędność, a nie
 maksymalną wydajność. Ponadto w obecnych czasach kolejne modele kart
-graficznych wypuszczanych na rynek przynoszą znacznie większe zmiany w mocy
-obliczeniowej niż kolejne modele procesorów głównych. Dlatego też, nowsze karty
-graficzne w zestawieniu prezentują znacznie bardziej imponujące rezultaty.
+graficznych pojawiające się rynku przynoszą znacznie większe zmiany w mocy
+obliczeniowej niż kolejne modele procesorów głównych. Dlatego też nowsze
+karty graficzne w zestawieniu prezentują znacznie bardziej imponujące
+rezultaty.
 
-Powyższą obserwację można uogólnić, stwierdzając iż komputery nowsze, o większej
-mocy obliczeniowej, korzystają ze zrównoleglenia obliczeń znacznie bardziej niż
-komputery generalnie mniej wydajne i starsze. Jest to obiecująca tendencja, gdyż
-prognozuje coraz większe korzyści płynące z przenoszenia obliczeń ogólnego
-zastosowania na procesory kart graficznych.
+Powyższą obserwację można uogólnić, stwierdzając iż komputery nowocześniejsze,
+o większej mocy obliczeniowej, korzystają ze zrównoleglenia obliczeń znacznie
+bardziej niż komputery mniej wydajne i starsze. Jest to obiecująca tendencja,
+gdyż prognozuje coraz większe korzyści płynące z przenoszenia obliczeń
+ogólnego zastosowania na procesory kart graficznych.
 
 Zdecydowanie największy wpływ na przyrost wydajność podczas obliczeń
 równoległych ma rozmiar siatki symulacyjnej. Relacje współczynnika GPU/CPU oraz
@@ -661,8 +665,8 @@ siatki symulacyjnej}
 \label{fig:gpucpu}
 \end{figure}
 
-Wyniki udowadniają wartość zastosowanej optymalizacji. Już dla najmniejszej
-siatki, średni wzrost wydajności jest ponad \textbf{trzykrotny}. Dla większych
+Wyniki potwierdzają wartość zastosowanej optymalizacji. Już dla najmniejszej
+siatki średni wzrost wydajności jest ponad \textbf{trzykrotny}. Dla większych
 siatek wydajność jest średnio \textbf{dziesięć razy większa} niż podczas
 obliczeń na CPU.
 
@@ -673,13 +677,15 @@ dla wersji zarówno sekwencyjnej jak i równoległej. Gdy rozmiar siatki jest
 odpowiednio duży, procent czasu poświęcony na wykonywanie tych instrukcje staje
 się pomijalnie mały.
 
-Warto też przypomnieć, że zgodnie z przyjętymi założeniami, są to wyniki dla
+Warto też przypomnieć, że zgodnie z przyjętymi założeniami są to wyniki dla
 przeglądarki Google Chrome, która posiada najszybszy silnik \js, a więc
 \textbf{najmniej korzystny} do testowania zysków z przeniesienia obliczeń na
-GPU. W przypadku Mozilli Firefox, już dla najmniejszych siatek symulacja na GPU
-działa około \textbf{dwanaście} razy szybciej niż symulacja na CPU, a dla
-większych siatek około \textbf{trzydzieści} razy (por. tabele
-\ref{tab:przegladarki} oraz \ref{tab:przegladarkiGPU}).
+GPU. Używając przeglądarki Mozilla Firefox można zaobserwować
+\textbf{dwunastokrotny} wzrost wydajności już dla najmniejszych siatek
+symulacyjnych. Natomiast użycie większych siatek owocuje ponad
+\textbf{trzydziestokrotnym} wzrostem wydajności. Te wartości można obliczyć
+korzystając z tabel \ref{tab:przegladarki} oraz \ref{tab:przegladarkiGPU}
+znajdujących się w sekcji analizującej wydajność poszczególnych przeglądarek.
 
 \subsection{Wpływ przeniesienia obliczeń na GPU na jakość symulacji}
 
@@ -699,32 +705,32 @@ Dlatego też zysk z optymalizacji jest nie do przecenienia.
 Użycie większej siatki symulacyjnej skutkuje jeszcze większym wzrostem
 wydajności podczas obliczeń równoległych. Wydawać by się mogło, iż większa
 siatka powinna przynieść automatycznie lepszą jakość symulacji. Jednak przy
-zastosowanych algorytmach fizycznych, większa siatka wprowadza też pewne
-problemy -- trudniej jest symulować wybrane zjawiska fizyczne. Potrzebne jest
-znacznie dokładniejsze rozwiązywanie układów równań liniowych (czyli w praktyce
-wykonanie większej liczby kroków w metodzie relaksacyjnej), co powoduje
-zwielokrotnienie czasu potrzebnego na obliczenia. Efekt ten przedstawiają
-rysunki \ref{fig:relaxGPU1} oraz \ref{fig:relaxGPU2}. Przy obecnej wydajności
-procesorów głównych oraz graficznych, powoduje to iż używanie gęstych siatek
-symulacji staje się niepraktyczne. Ponadto nowy efekt wizualny nie jest wart
-tak znacznego spadku wydajności. Dlatego też większość przykładów w finalnej
-wersji aplikacji korzysta z siatek 100x100. Taki rozmiar zapewnia dobrą jakość
-wizualną i merytoryczną symulacji, a dzięki przeniesieniu obliczeń na GPU
-również doskonałą płynność działania.
+zastosowanych algorytmach fizycznych większa siatka wprowadza też pewne problemy
+-- trudniej jest symulować wybrane zjawiska fizyczne. Potrzebne jest znacznie
+dokładniejsze rozwiązywanie układów równań liniowych (czyli w praktyce wykonanie
+większej liczby kroków w metodzie relaksacyjnej), co powoduje zwielokrotnienie
+czasu potrzebnego na obliczenia. Efekt ten przedstawiają rysunki
+\ref{fig:relaxGPU1} oraz \ref{fig:relaxGPU2}. Przy obecnej wydajności procesorów
+głównych oraz graficznych, używanie gęstych siatek symulacji staje się niestety
+niepraktyczne. Ponadto minimalnie poprawiony efekt wizualny nie jest warty tak
+znacznego spadku wydajności. Dlatego też większość przykładów w finalnej wersji
+aplikacji korzysta z siatek 100x100. Taki rozmiar zapewnia dobrą jakość wizualną
+i merytoryczną symulacji, a dzięki przeniesieniu obliczeń na GPU również
+doskonałą płynność działania.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[width=0.6\textwidth]{img/relaxGPU1}
-\caption{Niewłaściwie formowanie się ścieżki wirowej von Karmana (obliczenia na
-GPU, siatka 256x256, 10 kroków relaksacji)}
+\caption{Niewłaściwie formowanie się ścieżki wirowej von Kármána -- obliczenia na
+GPU, siatka 256x256, 10 kroków relaksacji}
 \label{fig:relaxGPU1}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
 \includegraphics[width=0.6\textwidth]{img/relaxGPU2}
-\caption{Właściwe formowanie się ścieżki wirowej von Karmana (obliczenia na GPU,
-siatka 256x256, 60 kroków relaksacji)}
+\caption{Właściwe formowanie się ścieżki wirowej von Kármána -- obliczenia na GPU,
+siatka 256x256, 60 kroków relaksacji}
 \label{fig:relaxGPU2}
 \end{figure}
 
@@ -735,21 +741,21 @@ siatka 256x256, 60 kroków relaksacji)}
 Symulator \en do działania wymaga wyłącznie przeglądarki internetowej. W
 dzisiejszych czasach jest to standardowa aplikacja znajdująca się na prawie
 każdym komputerze. Do uruchomienia symulatora \en nie jest wymagana żadna
-instalacja zewnętrznych bibliotek, rozszerzeń, czy też uprawnienia
-administratora. Dlatego też potencjalnemu użytkownikowi wystarczy komputer
-średniej klasy z zainstalowaną przeglądarką internetową oraz dostępem do
-internetu. Biorąc pod uwagę możliwości aplikacji, są to niewątpliwie niskie
+instalacja zewnętrznych bibliotek, rozszerzeń, a więc nie są też wymagane
+uprawnienia administratora. Potencjalnemu użytkownikowi wystarczy
+komputer średniej klasy z zainstalowaną przeglądarką internetową oraz dostępem
+do internetu. Biorąc pod uwagę możliwości aplikacji, są to niewątpliwie niskie
 wymagania.
 
 Wpływ posiadanej konfiguracji sprzętowej i oprogramowania na działanie
-symulatora jest znaczny. Gdy nie jest możliwe korzystanie z akceleracji na
-karcie graficznej, wydajność silnika \ow{JavaScript} zastosowanego w
+symulatora jest istotny. Gdy nie jest możliwe korzystanie z akceleracji na
+karcie graficznej to wydajność silnika \ow{JavaScript} zastosowanego w
 przeglądarce internetowe ma decydujące znacznie. Testy przedstawia sekcja
 \ref{sec:przegladarkiWyd}. Najlepszym wyborem w tym momencie jest przeglądarka
 Google Chrome, jednak w związku z dynamicznym rozwojem wszystkich wiodących
-przeglądarek, sytuacja ta może się zmienić w niedalekiej przyszłości.
+przeglądarek sytuacja ta może się zmienić w niedalekiej przyszłości.
 
-Jednak problem zależności od konkretnej przeglądarki likwiduje przeniesienie
+Problem zależności od konkretnej przeglądarki likwiduje przeniesienie
 obliczeń na kartę graficzną. Interpreter \ow{JavaScript} traci na znaczeniu,
 jednak wymagane jest wsparcie przeglądarki dla technologii \ow{WebGL}. W tym
 momencie zapewnia je Google Chrome, Mozilla Firefox, Safari oraz Opera (jeszcze
@@ -757,10 +763,11 @@ w fazie eksperymentalnej). Czyli przeglądarki, które posiadają zdecydowaną
 większość rynku. Ponadto wsparcie dla \ow{WebGL} w niedalekiej przyszłości
 powinna zapewniać każda, licząca się przeglądarka internetowa.
 
-Przy użyciu tej optymalizacji, ciężar obliczeń spada na kartę graficzną. Jednak
-nawet niewydajne, energooszczędne karty graficzne przeznaczone do laptopów radzą
-sobie z tym zdaniem doskonale. Dlatego też nie powinno być to problemem dla
-użytkownika. Uśredniając zgromadzone wyniki testów (por
-\ref{sec:analizaGPUCPU}), karty graficzne osiągnęły od trzech do dziesięciu razy
-lepszą wydajność niż procesory główne i zapewniły doskonałą płynność symulacji.
+Dzięki użyciu tej optymalizacji ciężar obliczeń spada na kartę graficzną. Nawet
+niewydajne, energooszczędne karty graficzne przeznaczone dla laptopów radzą
+sobie z tym zdaniem doskonale. Dlatego też ograniczenia sprzętowe nie powinny
+stanowić problemu dla użytkownika. Uśredniając zgromadzone wyniki testów (por.
+sekcja \ref{sec:analizaGPUCPU}), karty graficzne osiągnęły od trzech do
+dziesięciu razy lepszą wydajność niż procesory główne i zapewniły doskonałą
+płynność symulacji.
 

@@ -284,16 +284,17 @@ gdzie $T_0(x,y,t)$ jest średnią temperaturą kolumny płynu w punkcie $(x,y)$
 i czasie $t$, a $\gamma$ jest współczynnikiem ekspansji temperatury.
 
 Równania, podobnie jak w przypadku poprzedniego silnika, zostały przekształcone
-do postaci dyskretnej. Krok dyfuzji równania \ref{eq:fluid} jest rozwiązywany za
-pomocą relaksacji tak jak w przypadku równania przewodnictwa cieplnego. Krok
-adwekcji równania \ref{eq:fluid} jest rozwiązywany przy użyciu ze schematu
-MacCormacka\footnote{Więcej informacji o metodzie MacCormacka:
+do postaci dyskretnej. Część równania \ref{eq:fluid} odpowiedzialna za dyfuzję
+jest rozwiązywana za pomocą relaksacji tak jak w przypadku równania
+przewodnictwa cieplnego. Część równania \ref{eq:fluid} odpowiedzialna za
+adwekcję jest rozwiązywana przy użyciu schematu MacCormacka\footnote{Więcej
+informacji o metodzie MacCormacka:
 \url{http://en.wikipedia.org/wiki/MacCormack_method}}. Dokładna analiza
 wszystkich powyższych równań oraz ich przekształcenia umożliwiające stworzenie
 finalnie zaimplementowanego algorytmu są przedstawione w autorskim opracowaniu
 Charlesa Xie \cite{fluidEquation}. Rysunki \ref{fig:fluidExample1} oraz
-\ref{fig:fluidExample2} prezentują rezultaty symulacji z wykorzystaniem
-silnika dynamiki płynów.
+\ref{fig:fluidExample2} prezentują rezultaty symulacji z wykorzystaniem silnika
+dynamiki płynów.
 
 \begin{figure}[!h]
 \centering
@@ -313,22 +314,22 @@ nieszczelności tego pomieszczenia na jej przebieg}
 \section{Podobne, istniejące rozwiązania}
 
 Oczywiście narzędziem o bardzo podobnej funkcjonalności jest wspomniana
-wcześniej wersja symulatora \en napisana w Javie, autorstwa Charlesa Xie. Jej
-szczegółowy opis znajduje się w artykule \cite{orgEnergy2D}. Jednak kilka
-czynników wyraźnie odróżnia pierwowzór od opisywanej w niniejszej pracy
-aplikacji \en. Przede wszystkim są to:
+wcześniej wersja symulatora \en napisana w Javie. Jej szczegółowy opis znajduje
+się w artykule \cite{orgEnergy2D}. Jednak wiele czynników wyraźnie odróżnia
+pierwowzór od opisywanej w niniejszej pracy aplikacji \en. Przede wszystkim są
+to:
 
 \begin{itemize}
 
 \item \textbf{Technologia implementacji oraz integracja ze środowiskiem
 przeglądarki internetowej} -- pierwowzór używa technologii Java. Stąd wymaga aby
-na komputerze użytkownika była zainstalowana wirtualna maszyna Java, a w
-przypadku próby osadzenia symulacji w środowisku przeglądarki internetowej,
-odpowiednie jej rozszerzenie. Wbrew pozorom, jest to dość problematyczne na
-wielu szkolnych komputerach, które często są konfigurowane w najprostszy sposób,
-a uczniowie ani nauczyciele nie mają praw administratora. Ponadto nawet gdy te
-wymagania są spełnione, sama integracja apletów Java ze stroną HTML jest
-obarczona wieloma problemami.
+na komputerze użytkownika była zainstalowana wirtualna maszyna Java. W przypadku
+próby osadzenia symulacji w środowisku przeglądarki internetowej niezbędne jest
+odpowiednie rozszerzenie (ang. plug-in). Wbrew pozorom jest to dość
+problematyczne na wielu szkolnych komputerach, które często są konfigurowane w
+najprostszy sposób, a uczniowie ani nauczyciele nie mają praw administratora.
+Ponadto nawet gdy te wymagania są spełnione, sama integracja apletów Java ze
+stroną HTML jest obarczona wieloma problemami.
 
 Po pierwsze, jest to znacznie trudniejsze dla samych twórców zewnętrznych stron
 internetowych w których ma zostać osadzona aplikacja. Aplety Javy nie są
@@ -341,16 +342,16 @@ Aplikacja \en \js korzysta wyłącznie z technologii, które muszą być znane
 każdemu programiście stron internetowych, stąd integracja jest bezproblemowa.
 
 Z kolei dla użytkownika uciążliwe może być instalowanie i utrzymywanie
-aktualnych wersji maszyny wirtualnej oraz rozszerzeń do przeglądarek. Ponadto
-aplet stanowi wyraźnie odrębną część strony internetowej, często też użytkownik
-musi każdorazowo zezwolić na jego uruchomienie. Przez to wizualizacja może stać
-się elementem pomijanym przez uczniów z powodu zwykłego zniechęcenia i znużenia.
-Wykorzystanie w nowej wersji natywnych dla przeglądarki technologii, takich jak
-\js oraz \ow{WebGL}, umożliwiło doskonałą, niezależną od żadnych zewnętrznych
-technologii oraz działań użytkownika, integrację z dowolną stroną internetową.
-Osadzona na stronie HTML aplikacja nie wymaga żadnych uciążliwych kroków aby
-była widoczna, wygląda jak zwykły obrazek, jednak w rzeczywistości okazuje się
-być zaawansowaną, interaktywną symulacją.
+aktualnych wersji maszyny wirtualnej \ow{Java} oraz rozszerzeń do przeglądarek.
+Ponadto aplet stanowi wyraźnie odrębną część strony internetowej, często też
+użytkownik musi każdorazowo zezwolić na jego uruchomienie. Przez to wizualizacja
+może stać się elementem pomijanym przez uczniów z powodu zwykłego zniechęcenia i
+znużenia. Wykorzystanie w nowej wersji natywnych dla przeglądarki technologii,
+takich jak \js oraz \ow{WebGL}, umożliwiło doskonałą, niezależną od żadnych
+zewnętrznych technologii oraz działań użytkownika integrację z dowolną stroną
+internetową. Osadzona na stronie HTML aplikacja nie wymaga żadnych uciążliwych
+kroków aby była widoczna, wygląda jak zwykły obrazek, jednak w rzeczywistości
+okazuje się być zaawansowaną, interaktywną symulacją.
 
 \item \textbf{Równoległe obliczenia wykonywane na karcie graficznej} --
 pierwowzór zaimplementowany w języku Java umożliwia wyłącznie obliczenia
@@ -373,16 +374,16 @@ Powyższe różnice tworzą nową jakość w przypadku aplikacji \en \js. Przede
 wszystkim nowatorska, równoległa implementacja części algorytmów w nowoczesnej
 technologii \ow{WebGL} może stanowić ciekawy wzór dla innych aplikacji, które
 chciałby skorzystać z zysku jaki niesie równoległe wykonywanie obliczeń. Ze
-względu na znacznie lepszą integrację ze środowiskiem przeglądarki internetowej,
-nowa wersja ma szansę na znacznie lepsze rozpowszechnienie, docieranie do
-użytkowników, a tym samym może mieć wyraźnie większy wpływ na zmianę oblicza
-procesu edukacji.
+względu na znacznie lepszą integrację ze środowiskiem przeglądarki internetowej
+nowa wersja ma szansę na znacznie szersze rozpowszechnienie oraz łatwiejsze
+docieranie do użytkowników, a tym samym może mieć wyraźnie większy wpływ na
+zmianę oblicza procesu edukacji.
 
 W internecie można znaleźć również inne aplikacje \js, które prezentują różne
-zjawiska i efekty fizyczne. Ze względu na wizualną atrakcyjność, często są to
-również symulacje dynamiki płynów. Bardzo duży wkład w popularyzowanie takiego
-wykorzystywania możliwości przeglądarek internetowych ma Evgeny Demidov. Na
-swojej stronie \url{http://www.ibiblio.org/e-notes/webgl/gpu/contents.htm}
+zjawiska i efekty fizyczne. Ze względu na wizualną atrakcyjność, można też
+spotkać się z symulacją dynamiki płynów. Bardzo duży wkład w popularyzowanie
+takiego wykorzystywania możliwości przeglądarek internetowych ma Evgeny Demidov.
+Na swojej stronie \url{http://www.ibiblio.org/e-notes/webgl/gpu/contents.htm}
 prezentuje liczne możliwe zastosowania języka \js oraz technologii \ow{WebGL}.
 Znaczna część przykładów dotyczy fizyki, a nawet dynamiki płynów. W internecie
 znaleźć można też inne dema prezentujące obliczenia mniej lub bardziej bazujące
@@ -390,11 +391,10 @@ na fizyce\footnote{Ciekawy zbiór aplikacji korzystających z technologii
 \ow{WebGL}, w tym sporo aplikacji prezentujących zjawiska fizyczne, można
 znaleźć na stronie Chrome Experiments: \url{http://www.chromeexperiments.com/}}.
 Jednak te aplikacje, włącznie z przykładami Demidova, mają zdecydowanie inny
-charakter niż aplikacja \en. Są znacznie mniejsze, oferują mniej możliwości
-konfiguracji (często praktycznie w ogóle jej nie ma, gotowy jest wyłącznie jeden
-przypadek) i nastawione są na prezentacje technologii, a nie skupiają się na
-osiągnięciu konkretnego celu. \en posiada znacznie większą funkcjonalność i
-tworzy złożoną, kompletną aplikację o jasno zdefiniowanym edukacyjnym
-charakterze. Dlatego też zdecydowanie wyróżnia się na tle innych symulacji
-fizycznych napisanych w \js, nawet jeśli wykorzystują one technologię \ow{WebGL}
-(co wciąż jest podejściem bardzo rzadko spotykanym i nowatorskim).
+charakter niż aplikacja \en. Są proste, nie oferują możliwości konfiguracji oraz
+najczęściej nastawione są wyłącznie na prezentację nowoczesnej technologii. \en
+posiada znacznie większą funkcjonalność i tworzy złożoną, kompletną aplikację o
+jasno zdefiniowanym edukacyjnym charakterze. Dlatego też zdecydowanie wyróżnia
+się na tle innych symulacji fizycznych napisanych w \js, nawet jeśli
+wykorzystują one technologię \ow{WebGL} (co wciąż jest podejściem bardzo rzadko
+spotykanym i nowatorskim).
