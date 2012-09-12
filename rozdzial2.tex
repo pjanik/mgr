@@ -87,7 +87,9 @@ zwolniony z obowiązku przyswojenia sobie niskopoziomowych mechanizmów rządzą
 działaniem kart graficznych (choć ta wiedza pozwala tworzyć aplikacje
 efektywniejsze). Udostępniony jest specjalny interfejs oraz składnia, co
 znacznie ułatwia pracę, szczególnie programistom bez doświadczenia w pracy z
-programowaniem grafiki trójwymiarowej.
+programowaniem grafiki trójwymiarowej. Najważniejsze dokumenty opisujące te
+technologie to OpenCL Specification (\cite{OpenCLSpec}) oraz 
+CUDA Reference Manual (\cite{CUDARef}).
 
 \subsection{Możliwości w środowisku przeglądarki internetowej}
 \label{subsec:srodPrzegInt}
@@ -263,7 +265,7 @@ symulacji dla różnej konfiguracji algorytmów rozwiązywania układów równa�
 liniowych prezentują rysunki \ref{fig:linSolvCPU5}, \ref{fig:linSolvGPU5} oraz
 \ref{fig:linSolvGPU10}.
 
-Na ww. rysunkach można zaobserwować wyraźne różnice w rezultatach symulacji. W
+Na tych rysunkach można zaobserwować wyraźne różnice w rezultatach symulacji. W
 przypadku przedstawionej symulacji oczekiwanym wynikiem było powstanie ścieżki
 wirowej von Kármána dla większej przeszkody. Przy implementacji równoległej metody
 \ow{Jacobiego} widać, iż pożądany efekt symulacji zostaje utracony. Dlatego
@@ -285,10 +287,11 @@ poprzedniego i aktualnego. Doskonałe opracowanie i porównanie algorytmów
 rozwiązujących układy równań liniowych na CPU oraz GPU, które okazało się
 niezwykle przydatne podczas implementacji równoległych algorytmów dla \en,
 zostało przygotowane przez G. Amadora oraz A. Gomesa \cite{LinSolvers}.
-Niestety niskopoziomowa implementacja algorytmu \ow{Gaussa-Seidela} na GPU
-wymaga wykonania dwóch procesów renderowania do tekstury dla jednego kroku
-relaksacji -- powoduje to narzut czasowy, który w efekcie niweluje zysk z
-szybszej konwergencji algorytmu.
+Podobną tematykę podejmuje praca magisterska Filipa Vesely
+\cite{masterSolvers}. Niestety niskopoziomowa implementacja algorytmu \ow
+{Gaussa-Seidela} na GPU wymaga wykonania dwóch procesów renderowania do
+tekstury dla jednego kroku relaksacji -- powoduje to narzut czasowy, który w
+efekcie niweluje zysk z szybszej konwergencji algorytmu.
 
 \subsection{Podstawowy zarys implementacji}
 
